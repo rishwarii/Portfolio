@@ -1,0 +1,82 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 120 120"
+  role="img"
+  aria-label="Simple cat illustration"
+>
+  <defs>
+    <style>
+      .outline {
+        stroke: #5b546f;
+        stroke-width: 2.2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .fur {
+        fill: #f7f4ff;
+      }
+      .ear {
+        fill: #e6ddf9;
+      }
+      .ink {
+        fill: #5b546f;
+      }
+      .nose {
+        fill: #8179a0;
+      }
+      .tail {
+        fill: none;
+        stroke: #5b546f;
+        stroke-width: 1.8;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        transform-origin: 86px 74px;
+        transform-box: fill-box;
+        animation: wag 1.6s ease-in-out infinite;
+      }
+      @keyframes wag {
+        0%,
+        100% {
+          transform: rotate(0deg);
+        }
+        50% {
+          transform: rotate(5deg);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .tail {
+          animation: none;
+        }
+      }
+    </style>
+  </defs>
+
+  <path
+    class="tail"
+    d="M85 73 C98 73 106 65 104 56 C102 47 94 46 91 52 C89 57 92 61 97 62"
+  />
+
+  <ellipse class="fur outline" cx="60" cy="72" rx="24" ry="22" />
+  <circle class="fur outline" cx="60" cy="42" r="17" />
+
+  <path
+    class="fur outline"
+    d="M47 34 C45 26 39 20 33 22 C28 24 27 31 30 36 C33 40 39 42 44 40 Z"
+  />
+  <path
+    class="fur outline"
+    d="M73 34 C75 26 81 20 87 22 C92 24 93 31 90 36 C87 40 81 42 76 40 Z"
+  />
+
+  <path class="ear" d="M41 33 C39 27 36 24 33 25 C31 26 30 30 32 34 C34 37 38 38 41 36 Z" />
+  <path class="ear" d="M79 33 C81 27 84 24 87 25 C89 26 90 30 88 34 C86 37 82 38 79 36 Z" />
+
+  <circle class="ink" cx="54" cy="41" r="1.6" />
+  <circle class="ink" cx="66" cy="41" r="1.6" />
+
+  <path class="nose" d="M60 45 L63 48 L60 50 L57 48 Z" />
+  <path class="outline" fill="none" d="M54 53 C56 56 58 57 60 57 C62 57 64 56 66 53" />
+
+  <ellipse class="fur outline" cx="52" cy="88" rx="7" ry="5.6" />
+  <ellipse class="fur outline" cx="68" cy="88" rx="7" ry="5.6" />
+</svg>
