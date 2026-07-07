@@ -36,7 +36,9 @@ export function Section({
   const prefersReducedMotion = useReducedMotion();
   const [isMounted, setIsMounted] = useState(false);
   const sectionClassName = cn(
-    "scroll-mt-24",
+    // Offset anchor scroll target below the sticky navbar (nav height + breathing
+    // room) so section headings aren't hidden under it on jump/scroll-into-view.
+    "scroll-mt-32",
     spacingClassMap[spacing],
     aura !== "none" && "section-aura",
     aura === "left" && "section-aura-left",

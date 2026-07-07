@@ -469,17 +469,26 @@ html[data-theme="dark"] .section-aura::after {
   top: 0;
   left: 0;
   z-index: 60;
-  height: 2px;
+  height: 3px;
   width: 100%;
   transform-origin: 0 50%;
-  background: color-mix(in srgb, hsl(var(--accent)) 70%, transparent);
-  box-shadow: 0 0 10px color-mix(in srgb, hsl(var(--accent)) 25%, transparent);
+  background: linear-gradient(
+    90deg,
+    hsl(var(--accent)),
+    color-mix(in srgb, hsl(var(--accent)) 62%, hsl(var(--primary)))
+  );
+  box-shadow: 0 0 12px color-mix(in srgb, hsl(var(--accent)) 45%, transparent);
   pointer-events: none;
   transition: transform 90ms linear;
 }
 
 html[data-theme="dark"] .scroll-progress-bar {
-  background: color-mix(in srgb, hsl(var(--accent)) 82%, transparent);
+  background: linear-gradient(
+    90deg,
+    hsl(var(--accent)),
+    color-mix(in srgb, hsl(var(--accent)) 55%, hsl(var(--primary)))
+  );
+  box-shadow: 0 0 14px color-mix(in srgb, hsl(var(--accent)) 55%, transparent);
 }
 
 .brand-wordmark {

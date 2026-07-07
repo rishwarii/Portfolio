@@ -27,7 +27,7 @@ const projects: Project[] = [
       "FastAPI",
       "LLM Safety"
     ],
-    thumbnail: "/images/projects/placeholder-1.svg",
+    thumbnail: "/images/projects/chatbot2.png",
     featured: true,
     sections: {
       overview: [""],
@@ -50,7 +50,7 @@ const projects: Project[] = [
       "Supabase",
       "Moderation"
     ],
-    thumbnail: "/images/projects/placeholder-2.svg",
+    thumbnail: "/images/projects/campuscrew.png",
     featured: true,
     sections: {
       overview: [""],
@@ -92,7 +92,7 @@ const projects: Project[] = [
       "Remote Sensing",
       "Research"
     ],
-    thumbnail: "/images/projects/placeholder-4.svg",
+    thumbnail: "/images/projects/ndvi.jpg",
     featured: true,
     sections: {
       overview: [""],

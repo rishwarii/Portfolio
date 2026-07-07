@@ -71,7 +71,7 @@ export function ProjectCard({
 
       <div className="mt-4">
         <h3 className="text-xl text-fg sm:text-2xl">{project.title}</h3>
-        <p className="mt-2 max-w-prose truncate text-sm text-mutedFg">
+        <p className="mt-2 max-w-prose truncate font-body text-sm text-mutedFg">
           {displaySummary}
         </p>
       </div>

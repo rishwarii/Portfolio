@@ -4,16 +4,27 @@ import { ContactCard } from "@/components/ContactCard";
 import { ExternalLink } from "@/components/ExternalLink";
 import { FeaturedCaseStudy } from "@/components/FeaturedCaseStudy";
 import { Hero } from "@/components/Hero";
-import { ProjectsGrid } from "@/components/ProjectsGrid";
 import { Section } from "@/components/Section";
 import { SectionHeading } from "@/components/SectionHeading";
 import { SectionReadingCompanion } from "@/components/SectionReadingCompanion";
+import { SelectedWork } from "@/components/SelectedWork";
 import { Timeline } from "@/components/Timeline";
-import { getProjects } from "@/lib/projects";
+import { getProjects, type Project } from "@/lib/projects";
 import { siteContent } from "@/lib/siteContent";
 
 export default function HomePage() {
   const projects = getProjects();
+  const projectBySlug = (slug: string) =>
+    projects.find((project) => project.slug === slug);
+  const featuredProject = projectBySlug("healthcare-ai-chatbot") ?? projects[0];
+  // Grid order: CampusCrew · NDVI Automation · AI Job Tracker.
+  const gridProjects = [
+    "campuscrew",
+    "ndvi-vegetation-health-automation",
+    "ai-job-tracker"
+  ]
+    .map(projectBySlug)
+    .filter((project): project is Project => Boolean(project));
   const [educationItem, researchItem] = siteContent.educationResearch.items;
   const buildIcons = [
     Target,
@@ -45,7 +56,7 @@ export default function HomePage() {
       <Section id="projects" className="section-divider" aura="right">
         <SectionHeading eyebrow="Selected Work" title="Selected Projects" />
         <div className="mt-16">
-          <ProjectsGrid projects={projects} />
+          <SelectedWork featured={featuredProject} projects={gridProjects} />
         </div>
       </Section>
 
