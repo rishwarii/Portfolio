@@ -5,7 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ButtonLink } from "@/components/Button";
 import { Container } from "@/components/Container";
-import { PresetToggle } from "@/components/PresetToggle";
+// Preset switcher temporarily hidden — keep the import so it's easy to restore.
+// import { PresetToggle } from "@/components/PresetToggle";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { cn } from "@/lib/cn";
 
@@ -164,7 +165,10 @@ export function NavBar() {
             <ButtonLink href="/resume" variant="secondary" size="sm" className="font-semibold">
               Resume
             </ButtonLink>
-            <PresetToggle />
+            {/* Preset switcher hidden for now (site stays on the default light
+                lavender "Ink & Paper" theme). Restore by uncommenting the import
+                above and this element. */}
+            {/* <PresetToggle /> */}
             <ThemeToggle />
           </div>
         </Container>

@@ -1,11 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Fraunces, Inter, Libre_Baskerville } from "next/font/google";
 import Script from "next/script";
 import { NavBar } from "@/components/NavBar";
 import { ScrollProgressBar } from "@/components/ScrollProgressBar";
 import "./globals.css";
 
+// Body: Inter (stands in for Geist, unavailable via next/font/google here).
 const body = Inter({
   subsets: [
     "latin"
@@ -20,16 +21,29 @@ const body = Inter({
   ]
 });
 
-const display = Space_Grotesk({
+// Display: Fraunces.
+const display = Fraunces({
   subsets: [
     "latin"
   ],
   weight: [
+    "400",
     "500",
-    "600",
-    "700"
+    "600"
   ],
   variable: "--font-display",
+  display: "swap"
+});
+
+// Editorial: Libre Baskerville.
+const editorial = Libre_Baskerville({
+  subsets: [
+    "latin"
+  ],
+  weight: [
+    "400"
+  ],
+  variable: "--font-editorial",
   display: "swap"
 });
 
@@ -65,7 +79,7 @@ export default function RootLayout({
       lang="en"
       data-theme="light"
       data-preset="lavender"
-      className={`${body.variable} ${display.variable}`}
+      className={`${body.variable} ${display.variable} ${editorial.variable}`}
     >
       <body className="bg-bg text-fg antialiased">
         <Script id="theme-init" strategy="beforeInteractive">{`(() => {

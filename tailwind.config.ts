@@ -26,7 +26,15 @@ const config: Config = {
         lavender: "hsl(var(--accent) / <alpha-value>)",
         plum: "hsl(var(--fg) / <alpha-value>)",
         plumSoft: "hsl(var(--muted-fg) / <alpha-value>)",
-        line: "hsl(var(--border) / <alpha-value>)"
+        line: "hsl(var(--border) / <alpha-value>)",
+        // Hero-only palette (Option C: namespaced, static hex, does not touch
+        // the themed site-wide tokens above or dark mode).
+        "hero-paper": "#FAFAF8",
+        "hero-card": "#FFFFFF",
+        "hero-ink": "#1B1620",
+        "hero-muted": "#6B6172",
+        "hero-accent": "#6E56CF",
+        "hero-border": "#ECEAEF"
       },
       fontFamily: {
         sans: [
@@ -34,6 +42,12 @@ const config: Config = {
         ],
         display: [
           "var(--font-display)"
+        ],
+        editorial: [
+          "var(--font-editorial)"
+        ],
+        body: [
+          "var(--font-body)"
         ],
         mono: [
           "ui-monospace",
