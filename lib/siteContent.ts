@@ -114,39 +114,36 @@ export const siteContent = {
       id: "animo-sano",
       company: "Animo Sano Psychiatry",
       title: "Software Developer",
-      date: "Jul 2025 - Present",
+      date: "Jul 2025–Present",
       location: "North Carolina, USA",
       isCurrent: true,
       highlights: [
-        "Led end-to-end delivery of a patient-facing AI assistant by translating staff feedback into release priorities.",
-        "Implemented deterministic routing, confidence checks, and escalation paths to improve production response reliability.",
-        "Partnered across clinical and engineering stakeholders to operationalize PHI-aware logging and incident review workflows."
+        "Led end-to-end delivery of a patient-facing AI assistant now used by 500+ people a month, turning staff feedback into shipped features.",
+        "Built the reliability layer — deterministic routing, confidence checks, human-handoff escalation — that keeps responses safe in a clinical setting.",
+        "Set up PHI-aware logging and incident review so the system stays observable and auditable in production."
       ]
     },
     {
       id: "nagarro",
       company: "Nagarro",
       title: "Associate Software Engineer",
-      date: "Jan 2022 - Aug 2023",
+      date: "Jan 2022–Aug 2023",
       location: "Gurgaon, India",
       isCurrent: false,
       highlights: [
-        "Built React + Redux modules for enterprise asset workflows, coordinating with product and QA to ship roadmap increments.",
-        "Implemented JWT authentication and role-based authorization to reduce access-related defects across releases.",
-        "Converted client requirements into actionable engineering tasks and delivered real-time dashboard capabilities."
+        "Built React + Redux modules for enterprise asset-tracking dashboards, shipping features on a bi-weekly Agile cadence.",
+        "Implemented JWT auth and role-based access that cut access-related defects across releases."
       ]
     },
     {
       id: "purdue-gta",
       company: "Purdue University",
-      title: "Graduate Teaching Assistant (Part-time)",
-      date: "Aug 2024 - May 2025",
+      title: "Graduate Teaching Assistant",
+      date: "Aug 2024–May 2025",
       location: "",
       isCurrent: false,
       highlights: [
-        "Led weekly lab and discussion sessions for CS161 and supported ~X students through debugging and core SWE concepts.",
-        "Improved assignment clarity and feedback turnaround by building lightweight grading and review workflows.",
-        "Mentored students 1:1 and translated complex topics into clear, actionable steps."
+        "Taught CS161 labs (Java, OOP, data structures) to 40+ students, and built lightweight grading workflows that sped up feedback."
       ]
     }
   ],

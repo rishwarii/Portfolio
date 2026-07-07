@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Building2, GraduationCap } from "lucide-react";
 import { Badge } from "@/components/Badge";
 import { Card } from "@/components/Card";
+import { cn } from "@/lib/cn";
 import { siteContent } from "@/lib/siteContent";
 
 type LogoConfig =
@@ -29,12 +30,42 @@ const companyLogoById: Record<string, LogoConfig> = {
 
 export function Timeline() {
   return (
-    <div className="space-y-5 sm:space-y-6">
-      {siteContent.experience.map((item) => {
+    <ol className="relative">
+      {siteContent.experience.map((item, index) => {
         const logo = companyLogoById[item.id];
+        const isFirst = index === 0;
+        const isLast = index === siteContent.experience.length - 1;
 
         return (
-          <Card key={item.id} variant="default" className="p-5 sm:p-6">
+          <li
+            key={item.id}
+            className={cn("relative flex gap-4 sm:gap-5", !isLast && "pb-5 sm:pb-6")}
+          >
+            {/* Editorial timeline rail: hairline + node aligned to the header. */}
+            <div aria-hidden="true" className="relative w-4 flex-none sm:w-5">
+              <span
+                className={cn(
+                  "absolute left-1/2 w-px -translate-x-1/2 bg-border",
+                  isFirst
+                    ? "bottom-0 top-8 sm:top-9"
+                    : isLast
+                      ? "top-0 h-8 sm:h-9"
+                      : "inset-y-0"
+                )}
+              />
+              {item.isCurrent ? (
+                <span className="absolute left-1/2 top-8 z-[1] -translate-x-1/2 -translate-y-1/2 sm:top-9">
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="timeline-live-ping absolute inset-0 rounded-full bg-accent/60 motion-reduce:hidden" />
+                    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-accent ring-2 ring-card" />
+                  </span>
+                </span>
+              ) : (
+                <span className="absolute left-1/2 top-8 z-[1] h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-mutedFg/45 ring-2 ring-card sm:top-9" />
+              )}
+            </div>
+
+            <Card variant="default" className="min-w-0 flex-1 p-5 sm:p-6">
             <header className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
               <div className="min-w-0">
                 <div className="flex items-start gap-2.5">
@@ -72,7 +103,7 @@ export function Timeline() {
                   </span>
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                      <h3 className="text-[1.06rem] font-semibold tracking-[-0.012em] text-fg sm:text-[1.18rem]">
+                      <h3 className="font-display text-[1.06rem] font-semibold tracking-[-0.012em] text-fg sm:text-[1.18rem]">
                         {item.company}
                       </h3>
                       {item.isCurrent ? (
@@ -81,7 +112,7 @@ export function Timeline() {
                         </Badge>
                       ) : null}
                     </div>
-                    <p className="mt-1 text-sm font-medium text-fg/90 sm:text-[0.97rem]">
+                    <p className="mt-1 font-body text-sm font-medium text-fg/90 sm:text-[0.97rem]">
                       {item.title}
                     </p>
                     {item.location.trim().length > 0 ? (
@@ -96,14 +127,15 @@ export function Timeline() {
               </p>
             </header>
 
-            <ul className="mt-5 max-w-[72ch] space-y-2 text-sm text-mutedFg sm:text-base">
+            <ul className="mt-5 max-w-[72ch] space-y-2 font-body text-sm text-mutedFg sm:text-base">
               {item.highlights.slice(0, 3).map((point) => (
                 <li key={point}>{point}</li>
               ))}
             </ul>
-          </Card>
+            </Card>
+          </li>
         );
       })}
-    </div>
+    </ol>
   );
 }
