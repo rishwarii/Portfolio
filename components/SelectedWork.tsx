@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { FeaturedProjectCard } from "@/components/FeaturedProjectCard";
 import { ProjectCard } from "@/components/ProjectCard";
+import { ProjectModal } from "@/components/ProjectModal";
 import type { Project } from "@/lib/projects";
 
 type SelectedWorkProps = {
@@ -16,6 +17,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 export function SelectedWork({ featured, projects }: SelectedWorkProps) {
   const prefersReducedMotion = useReducedMotion();
   const [isMounted, setIsMounted] = useState(false);
+  const [activeProject, setActiveProject] = useState<Project | null>(null);
 
   useEffect(() => {
     setIsMounted(true);
@@ -42,16 +44,25 @@ export function SelectedWork({ featured, projects }: SelectedWorkProps) {
   return (
     <div className="space-y-6">
       <motion.div {...reveal(0)}>
-        <FeaturedProjectCard project={featured} />
+        <FeaturedProjectCard project={featured} onSelect={setActiveProject} />
       </motion.div>
 
       <div className="grid gap-6 sm:grid-cols-2">
         {projects.map((project, index) => (
           <motion.div key={project.slug} {...reveal(index + 1)}>
-            <ProjectCard project={project} className="h-full" />
+            <ProjectCard
+              project={project}
+              className="h-full"
+              onSelect={setActiveProject}
+            />
           </motion.div>
         ))}
       </div>
+
+      <ProjectModal
+        project={activeProject}
+        onClose={() => setActiveProject(null)}
+      />
     </div>
   );
 }

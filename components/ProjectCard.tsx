@@ -11,12 +11,16 @@ type ProjectCardProps = {
   project: Project;
   className?: string;
   featured?: boolean;
+  // When provided, the card opens the summary modal instead of navigating to
+  // the detail page (used on the homepage). When omitted it stays a link.
+  onSelect?: (project: Project) => void;
 };
 
 export function ProjectCard({
   project,
   className = "",
-  featured = false
+  featured = false,
+  onSelect
 }: ProjectCardProps) {
   const summary = renderText(project.summary);
   const displaySummary =
@@ -25,16 +29,14 @@ export function ProjectCard({
     ? "(max-width: 768px) 100vw, (max-width: 1280px) 100vw, 66vw"
     : "(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw";
 
-  return (
-    <Card
-      as={Link}
-      href={`/projects/${project.slug}`}
-      variant="project"
-      className={cn(
-        "project-hover-card group block p-4 transition-[transform,box-shadow,border-color] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg sm:p-5",
-        className
-      )}
-    >
+  const cardClassName = cn(
+    "project-hover-card group block p-4 transition-[transform,box-shadow,border-color] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg sm:p-5",
+    onSelect ? "w-full cursor-pointer text-left" : "",
+    className
+  );
+
+  const content = (
+    <>
       <div
         className={[
           "relative aspect-[16/10] overflow-hidden rounded-xl border border-border/70 bg-gradient-to-br from-accent/18 via-accent/8 to-card"
@@ -88,6 +90,31 @@ export function ProjectCard({
         <span>View project</span>
         <ArrowUpRight size={15} aria-hidden="true" className="transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
       </div>
+    </>
+  );
+
+  if (onSelect) {
+    return (
+      <Card
+        as="button"
+        type="button"
+        onClick={() => onSelect(project)}
+        variant="project"
+        className={cardClassName}
+      >
+        {content}
+      </Card>
+    );
+  }
+
+  return (
+    <Card
+      as={Link}
+      href={`/projects/${project.slug}`}
+      variant="project"
+      className={cardClassName}
+    >
+      {content}
     </Card>
   );
 }

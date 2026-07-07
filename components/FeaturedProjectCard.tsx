@@ -3,26 +3,33 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Badge } from "@/components/Badge";
 import type { Project } from "@/lib/projects";
+import { cn } from "@/lib/cn";
 import { renderText } from "@/lib/renderText";
 
 type FeaturedProjectCardProps = {
   project: Project;
+  // When provided, opens the summary modal instead of navigating.
+  onSelect?: (project: Project) => void;
 };
 
 // Larger, full-width featured card: image on one side, text on the other
 // (stacked on mobile). Shares the "project" card tokens with the grid cards so
 // the section reads as one system.
-export function FeaturedProjectCard({ project }: FeaturedProjectCardProps) {
+export function FeaturedProjectCard({
+  project,
+  onSelect
+}: FeaturedProjectCardProps) {
   const summary = renderText(project.summary);
   const displaySummary =
     summary.length > 0 ? summary : "Project summary coming soon.";
 
-  return (
-    <Link
-      href={`/projects/${project.slug}`}
-      className="project-hover-card group block overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] bg-card text-cardFg shadow-medium transition-[transform,box-shadow,border-color] duration-200 ease-out hover:border-accent/44 hover:shadow-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
-    >
-      <div className="grid lg:grid-cols-2">
+  const className = cn(
+    "project-hover-card group block overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] bg-card text-cardFg shadow-medium transition-[transform,box-shadow,border-color] duration-200 ease-out hover:border-accent/44 hover:shadow-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
+    onSelect ? "w-full cursor-pointer text-left" : ""
+  );
+
+  const content = (
+    <div className="grid lg:grid-cols-2">
         {/* Fixed aspect-ratio frame + object-cover so image dimensions never
             dictate the card's height. Fills the cell on desktop. */}
         {/* Portrait screenshot: neutral paper pad + object-contain so the whole
@@ -76,6 +83,23 @@ export function FeaturedProjectCard({ project }: FeaturedProjectCardProps) {
           </div>
         </div>
       </div>
+  );
+
+  if (onSelect) {
+    return (
+      <button
+        type="button"
+        onClick={() => onSelect(project)}
+        className={className}
+      >
+        {content}
+      </button>
+    );
+  }
+
+  return (
+    <Link href={`/projects/${project.slug}`} className={className}>
+      {content}
     </Link>
   );
 }
