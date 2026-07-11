@@ -1,11 +1,12 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { motion, type Variants } from "framer-motion";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
-// Subtle, slow, non-bouncy. Elements fade in and rise ~12px, staggered top to
-// bottom on load. Nothing else in the hero animates.
+const TITLES = ["Software Engineer", "Full-Stack", "AI Systems"];
+
 const container: Variants = {
   hidden: {},
   show: {
@@ -31,11 +32,20 @@ const item: Variants = {
 export function Hero() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const animate = !prefersReducedMotion;
+  const [titleIndex, setTitleIndex] = useState(0);
+
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+    const id = setInterval(() => {
+      setTitleIndex((i) => (i + 1) % TITLES.length);
+    }, 2800);
+    return () => clearInterval(id);
+  }, [prefersReducedMotion]);
 
   return (
     <section
       id="home"
-      className="bg-hero-paper flex min-h-[68svh] items-center justify-center px-6 py-14 sm:min-h-[82svh] sm:py-32"
+      className="flex min-h-[68svh] items-center justify-center px-6 py-14 sm:min-h-[82svh] sm:py-32"
     >
       <motion.div
         variants={container}
@@ -43,30 +53,41 @@ export function Hero() {
         animate="show"
         className="flex w-full max-w-2xl flex-col items-center text-center"
       >
-        <motion.p
+        <motion.div
           variants={item}
-          className="font-body text-xs font-medium uppercase tracking-[0.22em] text-hero-muted"
+          className="flex h-5 items-center justify-center"
         >
-          Software Engineer
-        </motion.p>
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={TITLES[titleIndex]}
+              initial={animate ? { opacity: 0, y: 4 } : false}
+              animate={{ opacity: 1, y: 0 }}
+              exit={animate ? { opacity: 0, y: -4 } : undefined}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              className="font-body text-xs font-medium uppercase tracking-[0.22em] text-mutedFg"
+            >
+              {TITLES[titleIndex]}
+            </motion.p>
+          </AnimatePresence>
+        </motion.div>
 
         <motion.h1
           variants={item}
-          className="mt-6 font-display text-[clamp(2.75rem,7vw,5rem)] font-semibold leading-[1.02] tracking-[-0.02em] text-hero-ink"
+          className="mt-6 font-display text-[clamp(2.75rem,7vw,5rem)] font-semibold leading-[1.02] tracking-[-0.02em] text-fg"
         >
           Rishwari Ranjan
         </motion.h1>
 
         <motion.p
           variants={item}
-          className="mt-6 font-editorial text-xl leading-relaxed text-hero-ink sm:text-2xl"
+          className="mt-6 font-editorial text-xl leading-relaxed text-fg sm:text-2xl"
         >
           I build AI software people actually use.
         </motion.p>
 
         <motion.p
           variants={item}
-          className="mt-5 font-editorial text-sm text-hero-muted sm:text-base"
+          className="mt-5 font-editorial text-sm text-mutedFg sm:text-base"
         >
           The rest of the time, I&apos;m reading books older than lightbulbs.
         </motion.p>

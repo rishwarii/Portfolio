@@ -39,25 +39,17 @@ export const siteContent = {
       metric: "AWS Certified (2024)"
     }
   ],
-  howIBuild: {
+ howIBuild: {
     title: "How I Build",
-    description: "Principles I use to ship reliable AI-enabled products.",
+    description: "Two things I care about more than anything else.",
     items: [
       {
-        title: "Outcome-driven delivery",
-        body: "I define success metrics early and ship iteratively to reach measurable user outcomes."
+        title: "AI is a tool, not the point",
+        body: "I build with AI every day, but I'm the engineer making the calls — not a passenger watching it generate. The judgment is mine; the AI just makes me faster."
       },
       {
-        title: "Production reliability",
-        body: "I prioritize observability, safe rollouts, and failure modes so systems hold up under real usage."
-      },
-      {
-        title: "AI UX + guardrails",
-        body: "I design workflows that handle uncertainty with confidence checks, fallbacks, and safety constraints."
-      },
-      {
-        title: "Clean, scalable architecture",
-        body: "I build modular components and interfaces that make features easier to extend and maintain."
+        title: "Shipping something is easy now — shipping something reliable isn't",
+        body: "Anyone can get a demo working. The real work is everything after: the edge cases, the failure modes, the moment it has to hold up in front of real users."
       }
     ]
   },
@@ -119,9 +111,11 @@ export const siteContent = {
       isCurrent: true,
       highlights: [
         "Led end-to-end delivery of a patient-facing AI assistant now used by 500+ people a month, turning staff feedback into shipped features.",
+        "Building the practice's EHR and leading integrations with external vendors — Stedi for claims and eligibility, DoseSpot for e-prescribing — working directly with their engineering teams to ship into production.",
         "Built the reliability layer — deterministic routing, confidence checks, human-handoff escalation — that keeps responses safe in a clinical setting.",
         "Set up PHI-aware logging and incident review so the system stays observable and auditable in production."
       ]
+      
     },
     {
       id: "nagarro",
@@ -163,21 +157,23 @@ export const siteContent = {
         points: [
           "Graduate Teaching Assistant (CS161)"
         ]
-      },
-      {
-        title: "NDVI Vegetation Health Automation",
-        subtitle: "Research Project",
-        date: "Published Work",
-        courseTags: [
-          "Remote Sensing",
-          "Geospatial Workflows"
-        ],
-        points: [
-          "Automated Landsat-8 NDVI processing workflow.",
-          "Paper link available on Springer."
-        ],
-        link: "https://link.springer.com/chapter/10.1007/978-981-16-8403-6_32"
       }
+      
+      ,
+      // {
+      //   title: "NDVI Vegetation Health Automation",
+      //   subtitle: "Research Project",
+      //   date: "Published Work",
+      //   courseTags: [
+      //     "Remote Sensing",
+      //     "Geospatial Workflows"
+      //   ],
+      //   points: [
+      //     "Automated Landsat-8 NDVI processing workflow.",
+      //     "Paper link available on Springer."
+      //   ],
+      //   link: "https://link.springer.com/chapter/10.1007/978-981-16-8403-6_32"
+      // }
     ]
   },
   contact: {

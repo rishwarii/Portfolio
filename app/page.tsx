@@ -1,4 +1,5 @@
 import { Bot, Layers, ShieldCheck, Target } from "lucide-react";
+import Link from "next/link";
 import { Card } from "@/components/Card";
 import { ContactCard } from "@/components/ContactCard";
 import { ExternalLink } from "@/components/ExternalLink";
@@ -25,7 +26,7 @@ export default function HomePage() {
   ]
     .map(projectBySlug)
     .filter((project): project is Project => Boolean(project));
-  const [educationItem, researchItem] = siteContent.educationResearch.items;
+  const [educationItem] = siteContent.educationResearch.items;
   const buildIcons = [
     Target,
     ShieldCheck,
@@ -38,7 +39,7 @@ export default function HomePage() {
       <Hero />
       <SectionReadingCompanion />
 
-      <Section
+      {/* <Section
         id="featured-case-study"
         className="section-divider pt-16 sm:pt-20"
         aura="left"
@@ -51,7 +52,7 @@ export default function HomePage() {
         <div className="mt-14">
           <FeaturedCaseStudy />
         </div>
-      </Section>
+      </Section> */}
 
       <Section id="projects" className="section-divider" aura="right">
         <SectionHeading eyebrow="Selected Work" title="Selected Projects" />
@@ -94,10 +95,10 @@ export default function HomePage() {
       </Section>
 
       <Section id="education" className="section-divider" aura="left">
-        <SectionHeading
-          eyebrow={siteContent.educationResearch.title}
-          title="Education / Research"
-        />
+     <SectionHeading
+  eyebrow="Education"
+  title="Education"
+/>
         <div className="mt-14 grid gap-6 md:grid-cols-2">
           <Card variant="default">
             <h3 className="text-[1.65rem] font-semibold tracking-[-0.02em] text-fg">
@@ -129,7 +130,7 @@ export default function HomePage() {
             </ul>
           </Card>
 
-          <Card variant="default">
+          {/* <Card variant="default">
             <h3 className="text-2xl text-fg">{researchItem.title}</h3>
             <p className="mt-1 text-base text-mutedFg">{researchItem.subtitle}</p>
             <p className="mt-2 text-[0.68rem] uppercase tracking-[0.14em] text-mutedFg">
@@ -157,7 +158,7 @@ export default function HomePage() {
                 View publication
               </ExternalLink>
             ) : null}
-          </Card>
+          </Card> */}
         </div>
       </Section>
 
@@ -170,6 +171,21 @@ export default function HomePage() {
           <ContactCard />
         </div>
       </Section>
+
+      <div className="pb-16 pt-4 text-center sm:pb-20">
+        <Link
+          href="/about"
+          className="group inline-flex items-center gap-1.5 font-editorial text-sm italic text-mutedFg transition hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+        >
+          <span>
+            There&apos;s more to me than the résumé — books, paintings, and one
+            very opinionated cat.
+          </span>
+          <span aria-hidden="true" className="text-accent transition group-hover:translate-x-0.5">
+            →
+          </span>
+        </Link>
+      </div>
     </>
   );
 }
