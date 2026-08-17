@@ -6,6 +6,7 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { ExternalLink as ExternalLinkIcon, X } from "lucide-react";
 import { Badge } from "@/components/Badge";
+import { ChatbotArchitecture } from "@/components/ChatbotArchitecture";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import type { Project } from "@/lib/projects";
 
@@ -145,13 +146,19 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                 (incl. the portrait chatbot) shows fully, not cropped. */}
             <div className="relative h-[34vh] max-h-72 w-full flex-none overflow-hidden border-b border-border/70 bg-muted/40">
               <div className="absolute inset-3 sm:inset-4">
-                <Image
-                  src={project.thumbnail}
-                  alt={project.title}
-                  fill
-                  sizes="(max-width: 700px) 100vw, 42rem"
-                  className="object-contain"
-                />
+                {project.diagram ? (
+                  <div className="flex h-full w-full items-center justify-center p-4">
+                    <ChatbotArchitecture />
+                  </div>
+                ) : (
+                  <Image
+                    src={project.thumbnail}
+                    alt={project.title}
+                    fill
+                    sizes="(max-width: 700px) 100vw, 42rem"
+                    className="object-contain"
+                  />
+                )}
               </div>
             </div>
 

@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { notFound } from "next/navigation";
+import { ChatbotArchitecture } from "@/components/ChatbotArchitecture";
 import { Section } from "@/components/Section";
 import { SectionHeading } from "@/components/SectionHeading";
 import { getProjectBySlug, getProjects } from "@/lib/projects";
@@ -50,14 +51,20 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
 
       <Section className="pt-2" containerSize="hero">
         <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] bg-muted/40 shadow-soft">
-          <Image
-            src={project.thumbnail}
-            alt={project.title}
-            fill
-            sizes="(max-width: 1024px) 100vw, 60vw"
-            className="object-contain p-6"
-            priority
-          />
+          {project.diagram ? (
+            <div className="flex h-full w-full items-center justify-center p-6">
+              <ChatbotArchitecture />
+            </div>
+          ) : (
+            <Image
+              src={project.thumbnail}
+              alt={project.title}
+              fill
+              sizes="(max-width: 1024px) 100vw, 60vw"
+              className="object-contain p-6"
+              priority
+            />
+          )}
         </div>
 
         {project.tags.length > 0 ? (

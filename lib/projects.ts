@@ -19,6 +19,7 @@ export type Project = {
   summary: string;
   tags: string[];
   thumbnail: string;
+  diagram?: boolean;
   featured: boolean;
   // Concise modal highlights. Empty array => no highlights block (e.g. the
   // placeholder Job Tracker project).
@@ -39,7 +40,8 @@ const projects: Project[] = [
       "FastAPI",
       "LLM Safety"
     ],
-    thumbnail: "/images/projects/chatbot2.png",
+    thumbnail: "/images/projects/placeholder-3.svg",
+    diagram: true,
     featured: true,
     liveUrl: "https://animosanopsychiatry.com/",
     highlights: [
