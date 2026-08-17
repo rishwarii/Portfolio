@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { notFound } from "next/navigation";
-import { Card } from "@/components/Card";
 import { Section } from "@/components/Section";
 import { SectionHeading } from "@/components/SectionHeading";
 import { getProjectBySlug, getProjects } from "@/lib/projects";
-import { renderText } from "@/lib/renderText";
 
 type ProjectDetailPageProps = {
   params: {
@@ -23,102 +23,116 @@ export function generateMetadata({ params }: ProjectDetailPageProps): Metadata {
   const project = getProjectBySlug(params.slug);
 
   if (!project) {
-    return {
-      title: "Project | Not Found"
-    };
+    return { title: "Project | Not Found" };
   }
 
-  return {
-    title: `${project.title} | Project`
-  };
+  return { title: `${project.title} | Project` };
 }
 
 export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
   const project = getProjectBySlug(params.slug);
 
   if (!project) {
-    notFound();
+    return notFound();
   }
 
-  const summary = renderText(project.summary);
-  const overview = project.sections.overview.map(renderText).filter(Boolean);
-  const problem = project.sections.problem.map(renderText).filter(Boolean);
-  const approach = project.sections.approach.map(renderText).filter(Boolean);
-  const architecture = project.sections.architecture.map(renderText).filter(Boolean);
-  const outcomes = project.sections.outcomes.map(renderText).filter(Boolean);
-  const tradeoffs = project.sections.tradeoffs.map(renderText).filter(Boolean);
+  const architecture = project.sections.architecture.filter(Boolean);
 
   return (
     <>
       <Section reveal={false} spacing="compact" containerSize="hero">
         <SectionHeading
-          eyebrow="Project Detail"
+          eyebrow="Project"
           title={project.title}
-          description={summary.length > 0 ? summary : undefined}
+          description={project.summary}
         />
       </Section>
 
       <Section className="pt-2" containerSize="hero">
-        <Card variant="default" className="space-y-8 p-6 sm:p-8">
-          <section>
-            <h2 className="text-2xl text-fg">Overview</h2>
-            <ul className="mt-3 space-y-2 text-sm text-mutedFg sm:text-base">
-              {overview.map((line) => (
-                <li key={line}>{line}</li>
+        <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] bg-muted/40 shadow-soft">
+          <Image
+            src={project.thumbnail}
+            alt={project.title}
+            fill
+            sizes="(max-width: 1024px) 100vw, 60vw"
+            className="object-contain p-6"
+            priority
+          />
+        </div>
+
+        {project.tags.length > 0 ? (
+          <div className="mt-8 flex flex-wrap gap-2">
+            {project.tags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full border border-border/74 px-3 py-1 text-[0.68rem] font-medium uppercase tracking-[0.12em] text-mutedFg"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        ) : null}
+
+        {project.highlights.length > 0 ? (
+          <div className="mt-12">
+            <h2 className="font-editorial text-lg italic text-fg">Highlights</h2>
+            <ul className="mt-5 space-y-4">
+              {project.highlights.map((highlight) => (
+                <li key={highlight.text} className="flex gap-3">
+                  <span
+                    aria-hidden="true"
+                    className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
+                  />
+                  <p className="text-base leading-relaxed text-mutedFg sm:text-lg">
+                    {highlight.href ? (
+                      <a
+                        href={highlight.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1 text-fg underline decoration-accent/60 underline-offset-4 transition hover:decoration-accent"
+                      >
+                        {highlight.text}
+                        <ArrowUpRight size={14} aria-hidden="true" />
+                      </a>
+                    ) : (
+                      highlight.text
+                    )}
+                  </p>
+                </li>
               ))}
             </ul>
-          </section>
+          </div>
+        ) : null}
 
-          <section>
-            <h2 className="text-2xl text-fg">Problem</h2>
-            <ul className="mt-3 space-y-2 text-sm text-mutedFg sm:text-base">
-              {problem.map((line) => (
-                <li key={line}>{line}</li>
-              ))}
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="text-2xl text-fg">Approach</h2>
-            <ul className="mt-3 space-y-2 text-sm text-mutedFg sm:text-base">
-              {approach.map((line) => (
-                <li key={line}>{line}</li>
-              ))}
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="text-2xl text-fg">Architecture</h2>
-            <pre className="mt-3 overflow-x-auto rounded-xl border border-border/75 bg-accent/10 p-4 font-mono text-[0.68rem] leading-relaxed text-mutedFg sm:text-[0.72rem]">
+        {architecture.length > 0 ? (
+          <div className="mt-12">
+            <h2 className="font-editorial text-lg italic text-fg">Architecture</h2>
+            <pre className="mt-5 overflow-x-auto rounded-xl border border-border/75 bg-accent/10 p-5 font-mono text-[0.72rem] leading-relaxed text-mutedFg">
               {architecture.join("\n")}
             </pre>
-          </section>
+          </div>
+        ) : null}
 
-          <section>
-            <h2 className="text-2xl text-fg">Outcomes</h2>
-            <ul className="mt-3 space-y-2 text-sm text-mutedFg sm:text-base">
-              {outcomes.map((line) => (
-                <li key={line}>{line}</li>
-              ))}
-            </ul>
-          </section>
+        <div className="mt-14 flex flex-wrap items-center gap-6 border-t border-border/60 pt-8">
+          {project.liveUrl ? (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-fg underline decoration-accent/90 underline-offset-4 transition hover:text-mutedFg"
+            >
+              Live site
+              <ArrowUpRight size={14} aria-hidden="true" />
+            </a>
+          ) : null}
 
-          <section>
-            <h2 className="text-2xl text-fg">Tradeoffs</h2>
-            <ul className="mt-3 space-y-2 text-sm text-mutedFg sm:text-base">
-              {tradeoffs.map((line) => (
-                <li key={line}>{line}</li>
-              ))}
-            </ul>
-          </section>
-        </Card>
-
-        <Link
-          href="/projects"
-          className="mt-8 inline-flex text-sm font-semibold text-fg underline decoration-accent/90 underline-offset-4 transition hover:text-mutedFg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
-        >
-          Back to Projects
-        </Link>
+          <Link
+            href="/projects"
+            className="inline-flex text-sm font-semibold text-mutedFg underline decoration-border underline-offset-4 transition hover:text-fg"
+          >
+            Back to Projects
+          </Link>
+        </div>
       </Section>
     </>
   );

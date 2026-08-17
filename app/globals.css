@@ -14,38 +14,38 @@
   --micro-size: 0.7rem;
   --hero-grain-opacity: 0.05;
 
-  /* Defaults point to the lavender preset so SSR is stable and predictable. */
-  --brand-aura-1: #9991d9;
-  --brand-aura-2: #cfc9f1;
-  --brand-aura-3: #f2f0fa;
-  --brand-accent: #7762bd;
-  --brand-accent-strong: #5d4ba2;
-  --brand-ink: #241f2e;
-  --surface: #f6f3fb;
-  --surface-muted: #f2eef8;
-  --border-subtle: rgba(63, 49, 76, 0.08);
+  /* Defaults mirror the "lavender" preset below (now a rose palette) so SSR is stable and predictable. */
+  --brand-aura-1: #c2557a;
+  --brand-aura-2: #e6b9c8;
+  --brand-aura-3: #f0e6ea;
+  --brand-accent: #bd476e;
+  --brand-accent-strong: #96355a;
+  --brand-ink: #2a1b2e;
+  --surface: #fdf9fa;
+  --surface-muted: #f0e6ea;
+  --border-subtle: rgba(42, 27, 46, 0.08);
 
-  --brand-ink-hsl: 257 18% 15%;
-  --surface-hsl: 263 50% 97%;
-  --surface-muted-hsl: 264 42% 95%;
-  --brand-accent-hsl: 254 41% 56%;
-  --brand-accent-strong-hsl: 252 37% 47%;
-  --border-hsl: 262 24% 88%;
-  --muted-fg-hsl: 256 12% 37%;
-  --ring-hsl: 254 45% 58%;
+  --brand-ink-hsl: 287 26% 14%;
+  --surface-hsl: 345 50% 98%;
+  --surface-muted-hsl: 336 25% 92%;
+  --brand-accent-hsl: 340 47% 51%;
+  --brand-accent-strong-hsl: 337 48% 40%;
+  --border-hsl: 336 25% 92%;
+  --muted-fg-hsl: 291 7% 41%;
+  --ring-hsl: 340 47% 55%;
 
   /* Semantic tokens consumed by Tailwind classes and components. */
   --bg: var(--surface-hsl);
   --fg: var(--brand-ink-hsl);
   --muted: var(--surface-muted-hsl);
   --muted-fg: var(--muted-fg-hsl);
-  --card: 288 28% 99%;
+  --card: 0 0% 100%;
   --card-fg: var(--brand-ink-hsl);
   --border: var(--border-hsl);
   --primary: var(--brand-accent-hsl); /* Primary button color */
   --primary-fg: 0 0% 100%;
   --accent: var(--brand-accent-hsl); /* Secondary accents and hovers */
-  --accent-fg: 257 24% 20%;
+  --accent-fg: 287 26% 14%;
   --ring: var(--ring-hsl);
 
   --shadow-soft: 0 16px 38px -30px color-mix(in srgb, var(--brand-ink) 18%, transparent);
@@ -60,36 +60,36 @@
  * values. Hero aura uses --brand-aura-1/2/3. Buttons use --brand-accent.
  */
 html[data-preset="lavender"] {
-  --brand-aura-1: #9991d9;
-  --brand-aura-2: #cfc9f1;
-  --brand-aura-3: #f2f0fa;
-  --brand-accent: #7762bd;
-  --brand-accent-strong: #5d4ba2;
-  --brand-ink: #241f2e;
-  --surface: #f6f3fb;
-  --surface-muted: #f2eef8;
-  --border-subtle: rgba(63, 49, 76, 0.08);
+  --brand-aura-1: #c2557a;
+  --brand-aura-2: #e6b9c8;
+  --brand-aura-3: #f0e6ea;
+  --brand-accent: #bd476e;
+  --brand-accent-strong: #96355a;
+  --brand-ink: #2a1b2e;
+  --surface: #fdf9fa;
+  --surface-muted: #f0e6ea;
+  --border-subtle: rgba(42, 27, 46, 0.08);
 
-  --brand-ink-hsl: 257 18% 15%;
-  --surface-hsl: 263 50% 97%;
-  --surface-muted-hsl: 264 42% 95%;
-  --brand-accent-hsl: 254 41% 56%;
-  --brand-accent-strong-hsl: 252 37% 47%;
-  --border-hsl: 262 24% 88%;
-  --muted-fg-hsl: 256 12% 37%;
-  --ring-hsl: 254 45% 58%;
+  --brand-ink-hsl: 287 26% 14%;
+  --surface-hsl: 345 50% 98%;
+  --surface-muted-hsl: 336 25% 92%;
+  --brand-accent-hsl: 340 47% 51%;
+  --brand-accent-strong-hsl: 337 48% 40%;
+  --border-hsl: 336 25% 92%;
+  --muted-fg-hsl: 291 7% 41%;
+  --ring-hsl: 340 47% 55%;
 
   --bg: var(--surface-hsl);
   --fg: var(--brand-ink-hsl);
   --muted: var(--surface-muted-hsl);
   --muted-fg: var(--muted-fg-hsl);
-  --card: 288 28% 99%;
+  --card: 0 0% 100%;
   --card-fg: var(--brand-ink-hsl);
   --border: var(--border-hsl);
   --primary: var(--brand-accent-hsl);
   --primary-fg: 0 0% 100%;
   --accent: var(--brand-accent-hsl);
-  --accent-fg: 257 24% 20%;
+  --accent-fg: 287 26% 14%;
   --ring: var(--ring-hsl);
   --shadow-soft: 0 16px 38px -30px color-mix(in srgb, var(--brand-ink) 18%, transparent);
   --shadow-medium: 0 20px 44px -32px color-mix(in srgb, var(--brand-accent-strong) 24%, transparent);
@@ -133,36 +133,36 @@ html[data-preset="blush"] {
 }
 
 html[data-theme="dark"][data-preset="lavender"] {
-  --brand-aura-1: #5f5798;
-  --brand-aura-2: #8c84c8;
-  --brand-aura-3: #2c2940;
-  --brand-accent: #8d7fd0;
-  --brand-accent-strong: #c8bdef;
-  --brand-ink: #f2effb;
-  --surface: #130f1f;
-  --surface-muted: #211a31;
-  --border-subtle: #342c4a;
+  --brand-aura-1: #6b3550;
+  --brand-aura-2: #c97b95;
+  --brand-aura-3: #2a1e2c;
+  --brand-accent: #dd7fa0;
+  --brand-accent-strong: #f0afc4;
+  --brand-ink: #f7eef2;
+  --surface: #180f17;
+  --surface-muted: #241a22;
+  --border-subtle: #3a2830;
 
-  --brand-ink-hsl: 257 54% 96%;
-  --surface-hsl: 254 34% 9%;
-  --surface-muted-hsl: 253 30% 15%;
-  --brand-accent-hsl: 250 45% 66%;
-  --brand-accent-strong-hsl: 258 56% 84%;
-  --border-hsl: 255 27% 23%;
-  --muted-fg-hsl: 256 20% 74%;
-  --ring-hsl: 252 58% 72%;
+  --brand-ink-hsl: 333 36% 95%;
+  --surface-hsl: 307 23% 8%;
+  --surface-muted-hsl: 312 16% 12%;
+  --brand-accent-hsl: 339 58% 68%;
+  --brand-accent-strong-hsl: 341 68% 81%;
+  --border-hsl: 333 18% 19%;
+  --muted-fg-hsl: 336 17% 67%;
+  --ring-hsl: 341 59% 72%;
 
   --bg: var(--surface-hsl);
   --fg: var(--brand-ink-hsl);
   --muted: var(--surface-muted-hsl);
   --muted-fg: var(--muted-fg-hsl);
-  --card: 291 20% 13%;
+  --card: 311 19% 11%;
   --card-fg: var(--brand-ink-hsl);
   --border: var(--border-hsl);
   --primary: var(--brand-accent-hsl);
-  --primary-fg: 255 30% 12%;
+  --primary-fg: 290 23% 10%;
   --accent: var(--brand-accent-hsl);
-  --accent-fg: 257 44% 96%;
+  --accent-fg: 333 36% 95%;
   --ring: var(--ring-hsl);
   --hero-grain-opacity: 0.04;
 

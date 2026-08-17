@@ -55,7 +55,7 @@ export function Hero() {
       >
         <motion.div
           variants={item}
-          className="flex h-5 items-center justify-center"
+          className="flex h-7 items-center justify-center sm:h-8"
         >
           <AnimatePresence mode="wait">
             <motion.p
@@ -64,7 +64,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               exit={animate ? { opacity: 0, y: -4 } : undefined}
               transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="font-body text-xs font-medium uppercase tracking-[0.22em] text-mutedFg"
+              className="font-body text-sm font-medium uppercase tracking-[0.24em] text-accent sm:text-base"
             >
               {TITLES[titleIndex]}
             </motion.p>
@@ -98,13 +98,13 @@ export function Hero() {
         >
           <Link
             href="#projects"
-            className="inline-flex items-center justify-center rounded-lg bg-accent px-5 py-2.5 font-body text-sm font-medium text-white transition-colors hover:bg-accent/90"
+            className="inline-flex items-center justify-center rounded-full bg-accent px-6 py-2.5 font-body text-sm font-medium text-white transition-colors hover:bg-accent/90"
           >
             View Work
           </Link>
           <Link
             href="/resume"
-            className="inline-flex items-center justify-center rounded-lg border border-border bg-transparent px-5 py-2.5 font-body text-sm font-medium text-fg transition-colors hover:bg-accent/10"
+            className="inline-flex items-center justify-center rounded-full border border-border bg-transparent px-6 py-2.5 font-body text-sm font-medium text-fg transition-colors hover:bg-accent/10"
           >
             Resume
           </Link>
