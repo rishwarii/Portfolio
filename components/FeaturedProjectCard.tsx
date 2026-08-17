@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Badge } from "@/components/Badge";
+import { ChatbotArchitecture } from "@/components/ChatbotArchitecture";
 import type { Project } from "@/lib/projects";
 import { cn } from "@/lib/cn";
 import { renderText } from "@/lib/renderText";
@@ -30,10 +31,6 @@ export function FeaturedProjectCard({
 
   const content = (
     <div className="grid lg:grid-cols-2">
-        {/* Fixed aspect-ratio frame + object-cover so image dimensions never
-            dictate the card's height. Fills the cell on desktop. */}
-        {/* Portrait screenshot: neutral paper pad + object-contain so the whole
-            phone screen shows, centered and framed, never cropped or stretched. */}
         <div className="relative aspect-[4/5] overflow-hidden border-b border-border/70 bg-muted/40 lg:aspect-auto lg:min-h-[30rem] lg:border-b-0 lg:border-r">
           <Badge
             variant="accent"
@@ -41,20 +38,29 @@ export function FeaturedProjectCard({
           >
             Featured
           </Badge>
-          <div className="absolute inset-4 sm:inset-6">
-            <Image
-              src={project.thumbnail}
-              alt={project.title}
-              fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-contain transition duration-300 group-hover:scale-[1.01]"
-              priority
-            />
-          </div>
-          {/* Healthcare-only subtle caption near the image. */}
-          <p className="absolute bottom-3 left-3 z-10 rounded-md border border-border/60 bg-card/85 px-2 py-1 font-editorial text-[0.7rem] italic text-mutedFg backdrop-blur-sm">
-            Screens shown are non-sensitive by design.
-          </p>
+
+          {project.diagram ? (
+            <div className="flex h-full w-full items-center justify-center p-5 sm:p-8">
+              <ChatbotArchitecture />
+            </div>
+          ) : (
+            <>
+              <div className="absolute inset-4 sm:inset-6">
+                <Image
+                  src={project.thumbnail}
+                  alt={project.title}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-contain transition duration-300 group-hover:scale-[1.01]"
+                  priority
+                />
+              </div>
+              {/* Caption only applies to real screenshots, not the diagram. */}
+              <p className="absolute bottom-3 left-3 z-10 rounded-md border border-border/60 bg-card/85 px-2 py-1 font-editorial text-[0.7rem] italic text-mutedFg backdrop-blur-sm">
+                Screens shown are non-sensitive by design.
+              </p>
+            </>
+          )}
         </div>
 
         <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
