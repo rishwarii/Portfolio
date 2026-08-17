@@ -5,8 +5,7 @@ import Link from "next/link";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
-const TITLES = ["Software Engineer", "Full-Stack", "AI Systems"];
-
+const TITLES = ["AI Engineer", "Software Engineer", "Full-Stack"];
 const container: Variants = {
   hidden: {},
   show: {

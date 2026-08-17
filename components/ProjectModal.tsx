@@ -107,7 +107,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
       {project ? (
         <motion.div
           key="overlay"
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6"
+          className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -135,7 +135,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
               data-autofocus
               onClick={onClose}
               aria-label="Close"
-              className="absolute right-3 top-3 z-20 inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/90 bg-card/85 text-mutedFg backdrop-blur-sm transition hover:border-accent/70 hover:bg-accent/20 hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+              className="absolute right-3 top-3 z-[30] inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/90 bg-card/85 text-mutedFg backdrop-blur-sm transition hover:border-accent/70 hover:bg-accent/20 hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
             >
               <X size={16} aria-hidden="true" />
             </button>
