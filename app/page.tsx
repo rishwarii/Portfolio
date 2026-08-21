@@ -1,10 +1,9 @@
 import Link from "next/link";
+import { ChapterOpening } from "@/components/ChapterOpening";
 import { ContactCard } from "@/components/ContactCard";
-import { FolioMark } from "@/components/FolioMark";
 import { Hero } from "@/components/Hero";
 import { ProjectList } from "@/components/ProjectList";
 import { Section } from "@/components/Section";
-import { SectionHeading } from "@/components/SectionHeading";
 import { Timeline } from "@/components/Timeline";
 import { getProjects, type Project } from "@/lib/projects";
 import { siteContent } from "@/lib/siteContent";
@@ -22,25 +21,30 @@ export default function HomePage() {
     .map(projectBySlug)
     .filter((project): project is Project => Boolean(project));
   const [educationItem] = siteContent.educationResearch.items;
+  const { chapters } = siteContent;
 
   return (
     <>
       <Hero />
 
-      <Section id="projects" className="section-divider" containerSize="reading">
-        <SectionHeading eyebrow="Selected Work" title="Projects" />
-        <div className="mt-6">
+      <Section id="projects" containerSize="reading" spacing="compact">
+        <ChapterOpening
+          roman={chapters.projects.roman}
+          title={chapters.projects.title}
+          opener={chapters.projects.opener}
+          dropCap
+        />
+        <div className="mt-10">
           <ProjectList projects={listedProjects} />
         </div>
-        <FolioMark page="02" className="mt-16" />
       </Section>
 
-      <Section id="how-i-build" className="section-divider" containerSize="reading">
-        <SectionHeading
-          title={siteContent.howIBuild.title}
-          description={siteContent.howIBuild.description}
+      <Section id="how-i-build" containerSize="reading" spacing="compact">
+        <ChapterOpening
+          roman={chapters.howIBuild.roman}
+          title={chapters.howIBuild.title}
         />
-        <div className="mt-10 max-w-2xl">
+        <div>
           {siteContent.howIBuild.items.map((item, index) => (
             <article
               key={item.title}
@@ -50,75 +54,75 @@ export default function HomePage() {
                   : "border-b border-border py-8 first:pt-0"
               }
             >
-              <h3 className="font-novel text-xl font-normal tracking-[-0.015em] text-fg sm:text-[1.35rem]">
+              <h3 className="font-novel text-2xl font-normal tracking-[-0.02em] text-fg sm:text-3xl">
                 {item.title}
               </h3>
-              <p className="mt-3 font-editorial text-base leading-relaxed text-mutedFg">
+              <p className="mt-4 max-w-3xl font-editorial text-lg leading-relaxed text-mutedFg">
                 {item.body}
               </p>
             </article>
           ))}
         </div>
-        <FolioMark page="03" className="mt-16" />
       </Section>
 
-      <Section id="experience" className="section-divider" containerSize="reading">
-        <SectionHeading eyebrow="Experience" title="Experience" />
-        <div className="mt-6">
-          <Timeline />
-        </div>
-        <FolioMark page="04" className="mt-16" />
+      <Section id="experience" containerSize="reading" spacing="compact">
+        <ChapterOpening
+          roman={chapters.experience.roman}
+          title={chapters.experience.title}
+        />
+        <Timeline />
       </Section>
 
-      <Section id="education" className="section-divider" containerSize="reading">
-        <SectionHeading eyebrow="Education" title="Education" />
-        <div className="mt-10 max-w-2xl">
-          <h3 className="font-novel text-xl font-normal tracking-[-0.015em] text-fg sm:text-[1.35rem]">
+      <Section id="education" containerSize="reading" spacing="compact">
+        <ChapterOpening
+          roman={chapters.education.roman}
+          title={chapters.education.title}
+        />
+        <div>
+          <h3 className="font-novel text-2xl font-normal tracking-[-0.02em] text-fg sm:text-3xl">
             {educationItem.title}
           </h3>
-          <p className="mt-1 font-editorial text-base text-fg">
+          <p className="mt-2 font-editorial text-lg text-fg">
             {educationItem.subtitle}
           </p>
           {"gpa" in educationItem && educationItem.gpa ? (
-            <p className="mt-3 font-editorial text-sm italic text-mutedFg">
+            <p className="mt-4 font-editorial text-base italic text-mutedFg">
               GPA {educationItem.gpa}
             </p>
           ) : null}
           {"courseTags" in educationItem && educationItem.courseTags ? (
-            <p className="mt-3 font-editorial text-sm italic text-mutedFg">
+            <p className="mt-3 font-editorial text-base italic text-mutedFg">
               {educationItem.courseTags.join(" · ")}
             </p>
           ) : null}
-          <ul className="mt-5 space-y-2 font-editorial text-sm leading-relaxed text-mutedFg sm:text-base">
+          <ul className="mt-6 max-w-3xl space-y-2 font-editorial text-lg leading-relaxed text-mutedFg">
             {educationItem.points.map((point) => (
               <li key={point}>{point}</li>
             ))}
           </ul>
         </div>
-        <FolioMark page="05" className="mt-16" />
       </Section>
 
-      <Section id="contact" className="section-divider" containerSize="reading">
-        <SectionHeading
-          eyebrow="Contact"
-          title={siteContent.contact.title}
-          description={siteContent.contact.microcopy}
+      <Section id="contact" containerSize="reading" spacing="compact">
+        <ChapterOpening
+          roman={chapters.contact.roman}
+          title={chapters.contact.title}
+          opener={siteContent.contact.microcopy}
         />
         {siteContent.contact.availability.trim().length > 0 ? (
-          <p className="mt-3 max-w-2xl font-editorial text-sm italic text-mutedFg">
+          <p className="mt-3 max-w-3xl font-editorial text-lg italic text-mutedFg">
             {siteContent.contact.availability}
           </p>
         ) : null}
         <div className="mt-10">
           <ContactCard />
         </div>
-        <FolioMark page="06" className="mt-16" />
       </Section>
 
-      <div className="px-6 pb-16 pt-4 sm:px-16 sm:pb-20">
+      <div className="mx-auto w-full max-w-6xl px-6 pb-16 pt-4 sm:px-16 sm:pb-20">
         <Link
           href="/about"
-          className="group inline-flex max-w-2xl items-center gap-1.5 text-left font-editorial text-sm italic text-mutedFg transition hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+          className="group inline-flex items-center gap-1.5 text-left font-editorial text-base italic text-mutedFg transition hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
         >
           <span>
             There&apos;s more to me than the résumé — books, paintings, and one

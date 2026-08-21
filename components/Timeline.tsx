@@ -20,7 +20,7 @@ const companyLogoById: Record<string, LogoConfig> = {
 
 export function Timeline() {
   return (
-    <ol className="max-w-2xl">
+    <ol className="w-full">
       {siteContent.experience.map((item, index) => {
         const logo = companyLogoById[item.id];
         const isLast = index === siteContent.experience.length - 1;
@@ -59,23 +59,23 @@ export function Timeline() {
                       }}
                     />
                   ) : null}
-                  <h3 className="font-novel text-xl font-normal tracking-[-0.015em] text-fg sm:text-[1.35rem]">
+                  <h3 className="font-novel text-2xl font-normal tracking-[-0.02em] text-fg sm:text-3xl">
                     {item.company}
                   </h3>
                 </div>
-                <p className="mt-1 font-editorial text-base text-fg">
+                <p className="mt-2 font-editorial text-lg text-fg">
                   {item.title}
                   {item.location.trim().length > 0 ? (
                     <span className="text-mutedFg"> · {item.location}</span>
                   ) : null}
                 </p>
               </div>
-              <p className="shrink-0 font-editorial text-sm italic text-mutedFg sm:text-right">
+              <p className="shrink-0 font-editorial text-base italic text-mutedFg sm:text-right">
                 {item.date}
               </p>
             </header>
 
-            <ul className="mt-5 space-y-2 font-editorial text-sm leading-relaxed text-mutedFg sm:text-base">
+            <ul className="mt-6 max-w-3xl space-y-3 font-editorial text-lg leading-relaxed text-mutedFg">
               {item.highlights.slice(0, 3).map((point) => (
                 <li key={point}>{point}</li>
               ))}

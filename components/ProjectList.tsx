@@ -45,7 +45,7 @@ export function ProjectList({ projects, className }: ProjectListProps) {
 
   return (
     <>
-      <ul className={cn("max-w-2xl", className)}>
+      <ul className={cn("w-full", className)}>
         {projects.map((project, index) => {
           const summary = renderText(project.summary);
           const isLast = index === projects.length - 1;
@@ -61,10 +61,10 @@ export function ProjectList({ projects, className }: ProjectListProps) {
                 onClick={() => setActiveProject(project)}
                 className={entryClassName}
               >
-                <h3 className="font-novel text-xl font-normal tracking-[-0.015em] text-fg underline decoration-transparent decoration-1 underline-offset-4 transition-colors group-hover:decoration-border sm:text-2xl">
+                <h3 className="font-novel text-2xl font-normal tracking-[-0.02em] text-fg underline decoration-transparent decoration-1 underline-offset-4 transition-colors group-hover:decoration-border sm:text-3xl">
                   {project.title}
                 </h3>
-                <p className="mt-2 font-editorial text-base leading-relaxed text-mutedFg">
+                <p className="mt-3 max-w-3xl font-editorial text-lg leading-relaxed text-mutedFg">
                   {summary.length > 0 ? summary : "Project summary coming soon."}
                 </p>
               </button>
@@ -87,7 +87,7 @@ type ProjectIndexProps = {
 
 export function ProjectIndex({ projects }: ProjectIndexProps) {
   return (
-    <ul className="max-w-2xl">
+    <ul className="w-full">
       {projects.map((project, index) => {
         const summary = renderText(project.summary);
         const isLast = index === projects.length - 1;
@@ -98,10 +98,10 @@ export function ProjectIndex({ projects }: ProjectIndexProps) {
             className={isLast ? "" : "border-b border-border"}
           >
             <Link href={`/projects/${project.slug}`} className={entryClassName}>
-              <h3 className="font-novel text-xl font-normal tracking-[-0.015em] text-fg underline decoration-transparent decoration-1 underline-offset-4 transition-colors group-hover:decoration-border sm:text-2xl">
+              <h3 className="font-novel text-2xl font-normal tracking-[-0.02em] text-fg underline decoration-transparent decoration-1 underline-offset-4 transition-colors group-hover:decoration-border sm:text-3xl">
                 {project.title}
               </h3>
-              <p className="mt-2 font-editorial text-base leading-relaxed text-mutedFg">
+              <p className="mt-3 max-w-3xl font-editorial text-lg leading-relaxed text-mutedFg">
                 {summary.length > 0 ? summary : "Project summary coming soon."}
               </p>
             </Link>

@@ -2,13 +2,13 @@ import Link from "next/link";
 import { siteContent } from "@/lib/siteContent";
 
 const linkClassName =
-  "font-body text-sm font-medium text-fg underline decoration-border decoration-1 underline-offset-4 transition-colors hover:decoration-accent";
+  "font-body text-base font-medium text-fg underline decoration-border decoration-1 underline-offset-4 transition-colors hover:decoration-accent";
 
 export function ContactCard() {
   const { contact } = siteContent;
 
   return (
-    <div className="max-w-2xl">
+    <div>
       <div className="flex flex-wrap items-center gap-8">
         <a href={`mailto:${contact.email}`} className={linkClassName}>
           Email

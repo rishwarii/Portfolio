@@ -13,8 +13,8 @@ const sizeClassMap: Record<ContainerSize, string> = {
   hero: "mx-auto max-w-hero",
   content: "mx-auto max-w-content",
   narrow: "mx-auto max-w-4xl",
-  reading: "max-w-2xl",
-  page: ""
+  reading: "mx-auto max-w-6xl",
+  page: "mx-auto max-w-6xl"
 };
 
 export function Container({

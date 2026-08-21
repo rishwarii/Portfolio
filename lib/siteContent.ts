@@ -6,22 +6,40 @@ export const siteContent = {
   hero: {
     eyebrow: "Software Engineer — Applied AI",
     headline: "Rishwari Ranjan",
-    roles: [
-      "AI Engineer",
-      "Software Engineer",
-      "Full-Stack"
-    ],
     subheadline: "The system underneath, and the AI on top.",
     intro:
       "Software engineer at a psychiatry practice, building both the AI patients talk to and the record systems underneath it.",
-    folio: "01",
     primaryCta: {
-      label: "View Projects",
+      label: "View Work",
       href: "#projects"
     },
     secondaryCta: {
       label: "Resume",
       href: "/resume"
+    }
+  },
+  chapters: {
+    projects: {
+      roman: "I",
+      title: "Selected Work",
+      opener:
+        "End-to-end systems: the interface people touch, the record underneath, and the AI in between."
+    },
+    howIBuild: {
+      roman: "II",
+      title: "How I Build"
+    },
+    experience: {
+      roman: "III",
+      title: "Experience"
+    },
+    education: {
+      roman: "IV",
+      title: "Education"
+    },
+    contact: {
+      roman: "V",
+      title: "Let's Connect"
     }
   },
   proofStrip: [
