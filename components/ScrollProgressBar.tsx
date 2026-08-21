@@ -43,8 +43,12 @@ export function ScrollProgressBar() {
   return (
     <div
       aria-hidden="true"
-      className="scroll-progress-bar"
-      style={{ transform: `scaleX(${progress.toFixed(4)})` }}
-    />
+      className="reading-ribbon pointer-events-none fixed right-5 top-[18vh] z-40 hidden h-[64vh] w-px bg-border print:hidden lg:block"
+    >
+      <div
+        className="h-full w-full origin-top bg-accent"
+        style={{ transform: `scaleY(${progress.toFixed(4)})` }}
+      />
+    </div>
   );
 }

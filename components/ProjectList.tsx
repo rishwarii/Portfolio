@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { ProjectModal } from "@/components/ProjectModal";
@@ -16,7 +17,32 @@ type ProjectListProps = {
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 const entryClassName =
-  "group w-full py-8 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg";
+  "group flex w-full items-start gap-5 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg";
+
+function ProjectThumb({
+  project,
+  figure
+}: {
+  project: Project;
+  figure: number;
+}) {
+  return (
+    <span className="figure-plate mt-0.5 hidden w-[9.5rem] shrink-0 sm:block">
+      <span className="relative block aspect-[4/3] overflow-hidden bg-muted/20">
+        <Image
+          src={project.thumbnail}
+          alt=""
+          fill
+          sizes="152px"
+          className="object-cover"
+        />
+      </span>
+      <span className="mt-1.5 block text-center font-editorial text-[0.65rem] italic text-mutedFg">
+        Fig. {figure}
+      </span>
+    </span>
+  );
+}
 
 export function ProjectList({ projects, className }: ProjectListProps) {
   const prefersReducedMotion = useReducedMotion();
@@ -45,33 +71,34 @@ export function ProjectList({ projects, className }: ProjectListProps) {
 
   return (
     <>
-      <ul className={cn("w-full", className)}>
+      <ol className={cn("w-full", className)}>
         {projects.map((project, index) => {
           const summary = renderText(project.summary);
-          const isLast = index === projects.length - 1;
 
           return (
-            <motion.li
-              key={project.slug}
-              {...reveal(index)}
-              className={isLast ? "" : "border-b border-border"}
-            >
+            <motion.li key={project.slug} {...reveal(index)}>
               <button
                 type="button"
                 onClick={() => setActiveProject(project)}
                 className={entryClassName}
               >
-                <h3 className="font-novel text-2xl font-normal tracking-[-0.02em] text-fg underline decoration-transparent decoration-1 underline-offset-4 transition-colors group-hover:decoration-border sm:text-3xl">
-                  {project.title}
-                </h3>
-                <p className="mt-3 max-w-3xl font-editorial text-lg leading-relaxed text-mutedFg">
-                  {summary.length > 0 ? summary : "Project summary coming soon."}
-                </p>
+                <span className="w-5 shrink-0 pt-0.5 font-editorial text-sm text-mutedFg">
+                  {index + 1}.
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block font-novel text-xl font-normal tracking-[-0.02em] text-fg transition-colors group-hover:text-accent sm:text-2xl">
+                    {project.title}
+                  </span>
+                  <span className="mt-1 block font-editorial text-sm leading-relaxed text-mutedFg sm:text-base">
+                    {summary.length > 0 ? summary : "Project summary coming soon."}
+                  </span>
+                </span>
+                <ProjectThumb project={project} figure={index + 1} />
               </button>
             </motion.li>
           );
         })}
-      </ul>
+      </ol>
 
       <ProjectModal
         project={activeProject}
@@ -87,27 +114,29 @@ type ProjectIndexProps = {
 
 export function ProjectIndex({ projects }: ProjectIndexProps) {
   return (
-    <ul className="w-full">
+    <ol className="w-full">
       {projects.map((project, index) => {
         const summary = renderText(project.summary);
-        const isLast = index === projects.length - 1;
 
         return (
-          <li
-            key={project.slug}
-            className={isLast ? "" : "border-b border-border"}
-          >
+          <li key={project.slug}>
             <Link href={`/projects/${project.slug}`} className={entryClassName}>
-              <h3 className="font-novel text-2xl font-normal tracking-[-0.02em] text-fg underline decoration-transparent decoration-1 underline-offset-4 transition-colors group-hover:decoration-border sm:text-3xl">
-                {project.title}
-              </h3>
-              <p className="mt-3 max-w-3xl font-editorial text-lg leading-relaxed text-mutedFg">
-                {summary.length > 0 ? summary : "Project summary coming soon."}
-              </p>
+              <span className="w-5 shrink-0 pt-0.5 font-editorial text-sm text-mutedFg">
+                {index + 1}.
+              </span>
+              <span className="min-w-0 flex-1">
+                <h3 className="font-novel text-xl font-normal tracking-[-0.02em] text-fg transition-colors group-hover:text-accent sm:text-2xl">
+                  {project.title}
+                </h3>
+                <p className="mt-1 font-editorial text-sm leading-relaxed text-mutedFg sm:text-base">
+                  {summary.length > 0 ? summary : "Project summary coming soon."}
+                </p>
+              </span>
+              <ProjectThumb project={project} figure={index + 1} />
             </Link>
           </li>
         );
       })}
-    </ul>
+    </ol>
   );
 }

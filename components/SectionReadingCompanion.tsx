@@ -6,7 +6,6 @@ import { usePlayfulMode } from "@/hooks/usePlayfulMode";
 
 const WATCHED_SECTION_IDS = [
   "projects",
-  "how-i-build",
   "experience",
   "education",
   "contact"

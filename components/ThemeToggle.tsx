@@ -19,7 +19,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
       aria-label={`Switch to ${nextTheme.toLowerCase()} theme`}
       onClick={toggleTheme}
       className={cn(
-        "font-body text-sm text-mutedFg underline decoration-transparent decoration-1 underline-offset-4 transition-colors hover:text-fg hover:decoration-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
+        "font-editorial text-sm italic text-mutedFg underline decoration-transparent decoration-1 underline-offset-4 transition-colors hover:text-fg hover:decoration-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
         className
       )}
     >

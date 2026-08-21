@@ -1,6 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ChapterOpening } from "@/components/ChapterOpening";
 import { ContactCard } from "@/components/ContactCard";
+import { Container } from "@/components/Container";
 import { Hero } from "@/components/Hero";
 import { ProjectList } from "@/components/ProjectList";
 import { Section } from "@/components/Section";
@@ -31,52 +33,26 @@ export default function HomePage() {
         <ChapterOpening
           roman={chapters.projects.roman}
           title={chapters.projects.title}
-          opener={chapters.projects.opener}
-          dropCap
         />
-        <div className="mt-10">
+        <div className="mt-6">
           <ProjectList projects={listedProjects} />
         </div>
       </Section>
 
-      <Section id="how-i-build" containerSize="reading" spacing="compact">
-        <ChapterOpening
-          roman={chapters.howIBuild.roman}
-          title={chapters.howIBuild.title}
-        />
-        <div>
-          {siteContent.howIBuild.items.map((item, index) => (
-            <article
-              key={item.title}
-              className={
-                index === siteContent.howIBuild.items.length - 1
-                  ? "pt-8 first:pt-0"
-                  : "border-b border-border py-8 first:pt-0"
-              }
-            >
-              <h3 className="font-novel text-2xl font-normal tracking-[-0.02em] text-fg sm:text-3xl">
-                {item.title}
-              </h3>
-              <p className="mt-4 max-w-3xl font-editorial text-lg leading-relaxed text-mutedFg">
-                {item.body}
-              </p>
-            </article>
-          ))}
-        </div>
-      </Section>
-
-      <Section id="experience" containerSize="reading" spacing="compact">
+      <Section id="experience" containerSize="reading" spacing="leaf">
         <ChapterOpening
           roman={chapters.experience.roman}
           title={chapters.experience.title}
+          pause
         />
         <Timeline />
       </Section>
 
-      <Section id="education" containerSize="reading" spacing="compact">
+      <Section id="education" containerSize="reading" spacing="leaf">
         <ChapterOpening
           roman={chapters.education.roman}
           title={chapters.education.title}
+          pause
         />
         <div>
           <h3 className="font-novel text-2xl font-normal tracking-[-0.02em] text-fg sm:text-3xl">
@@ -95,22 +71,25 @@ export default function HomePage() {
               {educationItem.courseTags.join(" · ")}
             </p>
           ) : null}
-          <ul className="mt-6 max-w-3xl space-y-2 font-editorial text-lg leading-relaxed text-mutedFg">
-            {educationItem.points.map((point) => (
-              <li key={point}>{point}</li>
-            ))}
-          </ul>
+          {educationItem.points.length > 0 ? (
+            <ul className="mt-6 space-y-2 font-editorial text-base leading-relaxed text-mutedFg sm:text-lg">
+              {educationItem.points.map((point) => (
+                <li key={point}>{point}</li>
+              ))}
+            </ul>
+          ) : null}
         </div>
       </Section>
 
-      <Section id="contact" containerSize="reading" spacing="compact">
+      <Section id="contact" containerSize="reading" spacing="leaf">
         <ChapterOpening
           roman={chapters.contact.roman}
           title={chapters.contact.title}
           opener={siteContent.contact.microcopy}
+          pause
         />
         {siteContent.contact.availability.trim().length > 0 ? (
-          <p className="mt-3 max-w-3xl font-editorial text-lg italic text-mutedFg">
+          <p className="mt-3 font-editorial text-lg italic text-mutedFg">
             {siteContent.contact.availability}
           </p>
         ) : null}
@@ -119,19 +98,28 @@ export default function HomePage() {
         </div>
       </Section>
 
-      <div className="mx-auto w-full max-w-6xl px-6 pb-16 pt-4 sm:px-16 sm:pb-20">
-        <Link
-          href="/about"
-          className="group inline-flex items-center gap-1.5 text-left font-editorial text-base italic text-mutedFg transition hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
-        >
-          <span>
-            There&apos;s more to me than the résumé — books, paintings, and one
-            very opinionated cat.
-          </span>
-          <span aria-hidden="true" className="text-accent transition group-hover:translate-x-0.5">
-            →
-          </span>
-        </Link>
+      <div className="w-full pb-14 pt-4 sm:pb-16">
+        <Container size="reading">
+          <Image
+            src="/images/about/book-stack.png"
+            alt=""
+            width={220}
+            height={420}
+            className="mb-8 h-auto w-28 origin-bottom-left sm:w-36"
+          />
+          <Link
+            href="/about"
+            className="group inline-flex items-center gap-1.5 text-left font-editorial text-base italic text-mutedFg transition hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+          >
+            <span>
+              There&apos;s more to me than the résumé — books, paintings, and one
+              very opinionated cat.
+            </span>
+            <span aria-hidden="true" className="text-mutedFg">
+              →
+            </span>
+          </Link>
+        </Container>
       </div>
     </>
   );

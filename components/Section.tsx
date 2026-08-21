@@ -13,14 +13,15 @@ type SectionProps = {
   reveal?: boolean;
   withContainer?: boolean;
   containerSize?: ContainerSize;
-  spacing?: "compact" | "default" | "hero";
+  spacing?: "compact" | "default" | "hero" | "leaf";
   aura?: "none" | "left" | "right";
 };
 
 const spacingClassMap: Record<NonNullable<SectionProps["spacing"]>, string> = {
-  compact: "py-14 sm:py-16 lg:py-20",
-  default: "py-16 sm:py-20 lg:py-24",
-  hero: "pb-16 pt-14 sm:pb-20 sm:pt-16 lg:pb-24 lg:pt-20"
+  compact: "py-8 sm:py-10",
+  default: "py-12 sm:py-14",
+  hero: "pb-12 pt-14 sm:pb-16 sm:pt-16",
+  leaf: "py-10 sm:py-12"
 };
 
 export function Section({
@@ -36,9 +37,7 @@ export function Section({
   const prefersReducedMotion = useReducedMotion();
   const [isMounted, setIsMounted] = useState(false);
   const sectionClassName = cn(
-    // Offset anchor scroll target below the sticky navbar (nav height + breathing
-    // room) so section headings aren't hidden under it on jump/scroll-into-view.
-    "scroll-mt-32",
+    "scroll-mt-8",
     spacingClassMap[spacing],
     aura !== "none" && "section-aura",
     aura === "left" && "section-aura-left",

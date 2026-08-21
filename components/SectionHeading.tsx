@@ -27,7 +27,7 @@ export function SectionHeading({
       )}
     >
       {hasEyebrow ? (
-        <p className="caps-heading font-body text-xs font-medium uppercase tracking-[0.24em] text-accent sm:text-sm">
+        <p className="caps-heading font-novel text-[0.7rem] font-medium tracking-[0.32em] text-accent sm:text-xs">
           {eyebrow}
         </p>
       ) : null}

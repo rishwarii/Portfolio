@@ -4,6 +4,7 @@ export const siteContent = {
     role: "Full-Stack Engineer building AI-enabled systems with reliability and product thinking."
   },
   hero: {
+    halfTitle: "A Portfolio",
     eyebrow: "Software Engineer — Applied AI",
     headline: "Rishwari Ranjan",
     subheadline: "The system underneath, and the AI on top.",
@@ -25,20 +26,16 @@ export const siteContent = {
       opener:
         "End-to-end systems: the interface people touch, the record underneath, and the AI in between."
     },
-    howIBuild: {
-      roman: "II",
-      title: "How I Build"
-    },
     experience: {
-      roman: "III",
+      roman: "II",
       title: "Experience"
     },
     education: {
-      roman: "IV",
+      roman: "III",
       title: "Education"
     },
     contact: {
-      roman: "V",
+      roman: "IV",
       title: "Let's Connect"
     }
   },
@@ -56,20 +53,6 @@ export const siteContent = {
       metric: "AWS Certified (2024)"
     }
   ],
- howIBuild: {
-    title: "How I Build",
-    description: "Two things I care about more than anything else.",
-    items: [
-      {
-        title: "AI is a tool, not the point",
-        body: "I build with AI every day, but I'm the engineer making the calls — not a passenger watching it generate. The judgment is mine; the AI just makes me faster."
-      },
-      {
-        title: "Shipping something is easy now — shipping something reliable isn't",
-        body: "Anyone can get a demo working. The real work is everything after: the edge cases, the failure modes, the moment it has to hold up in front of real users."
-      }
-    ]
-  },
   featuredCaseStudy: {
     title: "Featured Case Study",
     project: "Production Healthcare AI Chatbot",
@@ -79,20 +62,21 @@ export const siteContent = {
       "The goal was reducing front-desk workload while maintaining reliable responses and safe escalation behavior in a sensitive domain."
     ],
     constraints: [
-      "Safety-sensitive prompts required deterministic handling and explicit escalation paths.",
-      "The system needed fast responses in production with operationally light deployment and observability."
+      "Crisis messages required deterministic handling before any generative model could run.",
+      "Answers had to stay grounded in clinic information while protecting PHI entered in free text."
     ],
     liveUrl: "https://animosanopsychiatry.com/",
     engineeringDecisions: [
-      "Added deterministic first-pass routing to reduce hallucination risk and improve response consistency.",
-      "Used confidence thresholds with human handoff fallback to keep uncertain responses out of user-facing flows.",
-      "Implemented PHI-aware structured logging to speed incident review and improve observability.",
-      "Designed modular service boundaries so retrieval and model providers can be swapped with low refactor overhead."
+      "Combined TF-IDF keyword retrieval with Gemini embedding search behind deterministic-first routing.",
+      "Handled crisis messages and simple shortcuts before generation.",
+      "Constrained low-temperature generation to retrieved clinic facts.",
+      "Redacted PHI entered accidentally in free-text conversations.",
+      "Secured deep-link parameter passing from the chatbot into the main booking site."
     ],
     impact: [
-      "500+ users/month",
-      "30% bookings via chatbot",
-      "Deployed on Google Cloud Run"
+      "60% of submitted ratings are 4–5 stars",
+      "Lower-rated conversations feed targeted routing, FAQ, and call-to-action fixes",
+      "Production booking integration"
     ],
     architectureFlow: [
       "Frontend",
@@ -110,8 +94,8 @@ export const siteContent = {
       "Model: Gemini 2.5 Flash"
     ],
     tradeoffs: [
-      "Deterministic routing improved reliability, but reduced flexibility for ambiguous user phrasing.",
-      "Strict confidence thresholds lowered unsafe outputs, while increasing fallback frequency in edge cases."
+      "Deterministic routing prioritizes safety and consistency over open-ended flexibility.",
+      "Grounded generation limits unsupported answers, while requiring continued retrieval-content maintenance."
     ],
     futureImprovements: [
       "Global rate limiting across upstream services",
@@ -122,39 +106,51 @@ export const siteContent = {
     {
       id: "animo-sano",
       company: "Animo Sano Psychiatry",
-      title: "Software Developer",
+      title: "Software Engineer",
       date: "Jul 2025–Present",
       location: "North Carolina, USA",
       isCurrent: true,
+      overview:
+        "Built the patient-facing AI chatbot from scratch, and co-architected the practice's multi-tenant EHR.",
       highlights: [
-        "Led end-to-end delivery of a patient-facing AI assistant now used by 500+ people a month, turning staff feedback into shipped features.",
-        "Building the practice's EHR and leading integrations with external vendors — Stedi for claims and eligibility, DoseSpot for e-prescribing — working directly with their engineering teams to ship into production.",
-        "Built the reliability layer — deterministic routing, confidence checks, human-handoff escalation — that keeps responses safe in a clinical setting.",
-        "Set up PHI-aware logging and incident review so the system stays observable and auditable in production."
-      ]
-      
+        "Designed and built a production RAG chatbot end-to-end, combining TF-IDF keyword retrieval with Gemini embedding search behind deterministic-first routing. Crisis messages and simple shortcuts are handled before generation; grounded, low-temperature prompts constrain answers to retrieved clinic facts.",
+        "Built redaction for PHI entered accidentally in free-text conversations, not only structured fields, and secured deep-link parameter passing from the chatbot into the main booking site.",
+        "Diagnosed and fixed a race condition spanning the chatbot and the internal booking website.",
+        "Co-architected the EHR's microservice, multi-tenant architecture and delivered the majority of its implementation.",
+        "Managed integrations with Stedi for claims and eligibility and DoseSpot for e-prescribing.",
+        "Introduced structured feedback collection to guide iteration. About 60% of submitted ratings are 4–5 stars; lower-rated interactions drive targeted routing, FAQ, and call-to-action fixes."
+      ],
+      projects: []
     },
     {
       id: "nagarro",
       company: "Nagarro",
-      title: "Associate Software Engineer",
+      title: "SDE / Front-End Engineer",
       date: "Jan 2022–Aug 2023",
       location: "Gurgaon, India",
       isCurrent: false,
+      overview:
+        "Front-end SDE on two live-tracking products for Austria-based clients.",
       highlights: [
-        "Built React + Redux modules for enterprise asset-tracking dashboards, shipping features on a bi-weekly Agile cadence.",
-        "Implemented JWT auth and role-based access that cut access-related defects across releases."
-      ]
-    },
-    {
-      id: "purdue-gta",
-      company: "Purdue University",
-      title: "Graduate Teaching Assistant",
-      date: "Aug 2024–May 2025",
-      location: "",
-      isCurrent: false,
-      highlights: [
-        "Taught CS161 labs (Java, OOP, data structures) to 40+ students, and built lightweight grading workflows that sped up feedback."
+        "Worked directly with business analysts to translate operational requirements into tracking and analytics interfaces."
+      ],
+      projects: [
+        {
+          title: "Shared mobility platform",
+          context: "Automotive client · EU",
+          highlights: [
+            "Built the front end for a shared-mobility vehicle tracking platform, rendering live IoT location and status data on an interactive Leaflet map refreshed every 10 seconds via WebSockets.",
+            "Delivered the interface with React, Redux Thunk, Node.js, and Leaflet."
+          ]
+        },
+        {
+          title: "Shipment tracking dashboard",
+          context: "Private logistics client",
+          highlights: [
+            "Built the front end, with supporting backend work, for a live fleet dashboard covering 55 vehicles and filtering by region, vehicle number, and origin/destination.",
+            "Implemented ETA calculation and live location tracking from streamed IoT data across intercity and intra-city delivery routes."
+          ]
+        }
       ]
     }
   ],
@@ -171,26 +167,8 @@ export const siteContent = {
           "Machine Learning",
           "Cloud Computing"
         ],
-        points: [
-          "Graduate Teaching Assistant (CS161)"
-        ]
+        points: []
       }
-      
-      ,
-      // {
-      //   title: "NDVI Vegetation Health Automation",
-      //   subtitle: "Research Project",
-      //   date: "Published Work",
-      //   courseTags: [
-      //     "Remote Sensing",
-      //     "Geospatial Workflows"
-      //   ],
-      //   points: [
-      //     "Automated Landsat-8 NDVI processing workflow.",
-      //     "Paper link available on Springer."
-      //   ],
-      //   link: "https://link.springer.com/chapter/10.1007/978-981-16-8403-6_32"
-      // }
     ]
   },
   contact: {

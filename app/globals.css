@@ -13,6 +13,9 @@
   --small-size: 0.9375rem;
   --micro-size: 0.7rem;
   --hero-grain-opacity: 0.05;
+  /* Book sheet: gutter is the paper margin, measure is the type area. */
+  --page-gutter: clamp(1.5rem, 10vw, 7rem);
+  --page-measure: 42rem;
 
   /* Defaults mirror the "lavender" preset below (now a rose palette) so SSR is stable and predictable. */
   --brand-aura-1: #c2557a;
@@ -480,21 +483,8 @@ html[data-theme="dark"] .section-aura::after {
   transform: translateY(0);
 }
 
-.scroll-progress-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 60;
-  height: 1px;
-  width: 100%;
-  transform-origin: 0 50%;
-  background: hsl(var(--accent));
-  pointer-events: none;
+.reading-ribbon > div {
   transition: transform 90ms linear;
-}
-
-html[data-theme="dark"] .scroll-progress-bar {
-  background: hsl(var(--accent));
 }
 
 .brand-wordmark {
@@ -526,6 +516,43 @@ html[data-theme="dark"] .scroll-progress-bar {
 .caps-heading {
   font-variant: small-caps;
   letter-spacing: 0.06em;
+}
+
+.chapter-nav {
+  left: calc(
+    var(--page-gutter) + min(var(--page-measure), 100vw - (2 * var(--page-gutter))) + 1.75rem
+  );
+}
+
+.figure-plate {
+  padding: 0.4rem;
+  border: 1px solid color-mix(in srgb, var(--brand-ink) 16%, transparent);
+  background: color-mix(in srgb, hsl(var(--bg)) 88%, #efe6e0);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--brand-ink) 8%, transparent);
+}
+
+.figure-plate img {
+  filter: contrast(0.96) saturate(0.86);
+}
+
+.edition-corner {
+  width: min(7.5rem, 26vw);
+  height: auto;
+}
+
+@media (min-width: 640px) {
+  .edition-corner {
+    width: min(10rem, 22vw);
+  }
+}
+
+.engraving {
+  mix-blend-mode: multiply;
+}
+
+html[data-theme="dark"] .engraving {
+  mix-blend-mode: screen;
+  filter: invert(1) contrast(1.05);
 }
 
 .grain-overlay {
@@ -719,7 +746,7 @@ html[data-theme="dark"] .grain-overlay {
     transform: none !important;
   }
 
-  .scroll-progress-bar {
+  .reading-ribbon > div {
     transition: none !important;
   }
 

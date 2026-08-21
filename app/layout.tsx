@@ -3,7 +3,6 @@ import type { ReactNode } from "react";
 import { Fraunces, Inter, Libre_Baskerville, Newsreader } from "next/font/google";
 import Script from "next/script";
 import { NavBar } from "@/components/NavBar";
-import { ScrollProgressBar } from "@/components/ScrollProgressBar";
 import "./globals.css";
 
 // Body: Inter (stands in for Geist, unavailable via next/font/google here).
@@ -106,10 +105,9 @@ export default function RootLayout({
   }
 })();`}</Script>
         <div className="grain-overlay" />
-        <ScrollProgressBar />
-        <div className="min-h-screen bg-bg">
+        <div className="min-h-screen bg-bg pb-16 lg:pb-0">
           <NavBar />
-          <main>{children}</main>
+          <main id="main">{children}</main>
         </div>
       </body>
     </html>

@@ -32,30 +32,30 @@ export type Project = {
 const projects: Project[] = [
   {
     slug: "healthcare-ai-chatbot",
-    title: "Healthcare AI Chatbot",
+    title: "Production Healthcare AI Chatbot",
     summary:
-      "Patient-facing assistant with reliability guardrails, crisis routing, and production auditability.",
+      "Patient-facing RAG assistant with deterministic crisis routing, free-text PHI redaction, and booking integration.",
     tags: [
       "React",
       "FastAPI",
       "LLM Safety"
     ],
-    thumbnail: "/images/projects/placeholder-3.svg",
+    thumbnail: "/images/projects/chatbot.png",
     diagram: true,
     featured: true,
     liveUrl: "https://animosanopsychiatry.com/",
     highlights: [
       {
-        text: "Deterministic first-pass routing to reduce hallucination risk and keep responses consistent."
+        text: "Combines TF-IDF keyword retrieval with Gemini embedding search behind a deterministic-first routing pipeline."
       },
       {
-        text: "Confidence thresholds with human-handoff fallback so uncertain answers stay out of user-facing flows."
+        text: "Handles crisis messages before generation runs, while grounded, low-temperature prompting limits answers to retrieved clinic facts."
       },
       {
-        text: "PHI-aware structured logging for fast incident review and production observability."
+        text: "Redacts PHI entered accidentally in free-text conversations and securely carries booking details into the main booking site."
       },
       {
-        text: "500+ users/month with ~30% of bookings via the assistant; deployed on Google Cloud Run."
+        text: "About 60% of submitted ratings are 4–5 stars; structured feedback drives targeted fixes to lower-rated interactions."
       }
     ],
     sections: {
@@ -63,7 +63,7 @@ const projects: Project[] = [
       problem: [""],
       approach: [""],
       architecture: [
-        "Rules/FAQ -> Retrieval -> Confidence Gate -> LLM -> Audit Logs"
+        "Crisis/shortcut routing -> TF-IDF + embedding retrieval -> grounded generation -> PHI-safe operations"
       ],
       outcomes: [""],
       tradeoffs: [""]
@@ -114,7 +114,7 @@ const projects: Project[] = [
       "Node.js",
       "PostgreSQL"
     ],
-    thumbnail: "/images/projects/placeholder-3.svg",
+    thumbnail: "/images/projects/jobtracker.jpg",
     featured: true,
     // Placeholder project — no highlights manufactured (Option C).
     highlights: [],
@@ -131,7 +131,7 @@ const projects: Project[] = [
     slug: "ndvi-vegetation-health-automation",
     title: "NDVI Vegetation Health Automation",
     summary:
-      "Remote sensing workflow that automates NDVI processing for faster vegetation health analysis at scale.",
+      "Landsat-8 NDVI workflow, published in Springer, with a U.S. copyright registration.",
     tags: [
       "Python",
       "Remote Sensing",
@@ -141,14 +141,14 @@ const projects: Project[] = [
     featured: true,
     highlights: [
       {
-        text: "Automated Landsat-8 NDVI processing workflow."
+        text: "Automated Landsat-8 NDVI processing for vegetation-health analysis."
       },
       {
-        text: "Faster vegetation-health analysis at scale."
-      },
-      {
-        text: "Published research — read the paper on Springer.",
+        text: "Published as a Springer book chapter.",
         href: "https://link.springer.com/chapter/10.1007/978-981-16-8403-6_32"
+      },
+      {
+        text: "U.S. copyright registration for the processing workflow."
       }
     ],
     sections: {
