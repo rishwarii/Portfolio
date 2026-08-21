@@ -1,6 +1,5 @@
 "use client";
 
-import { MoonStar, SunMedium } from "lucide-react";
 import { useTheme } from "@/hooks/useTheme";
 import { cn } from "@/lib/cn";
 
@@ -10,24 +9,21 @@ type ThemeToggleProps = {
 
 export function ThemeToggle({ className }: ThemeToggleProps) {
   const { isDark, isHydrated, toggleTheme } = useTheme();
+  const nextTheme = isHydrated && isDark ? "Light" : "Dark";
 
   return (
     <button
       type="button"
       role="switch"
       aria-checked={isDark}
-      aria-label={`Toggle ${isDark ? "light" : "dark"} theme`}
+      aria-label={`Switch to ${nextTheme.toLowerCase()} theme`}
       onClick={toggleTheme}
       className={cn(
-        "inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/90 bg-card text-mutedFg transition hover:border-accent/70 hover:bg-accent/20 hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
+        "font-body text-sm text-mutedFg underline decoration-transparent decoration-1 underline-offset-4 transition-colors hover:text-fg hover:decoration-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
         className
       )}
     >
-      {isHydrated && isDark ? (
-        <MoonStar size={16} aria-hidden="true" />
-      ) : (
-        <SunMedium size={16} aria-hidden="true" />
-      )}
+      {nextTheme}
     </button>
   );
 }

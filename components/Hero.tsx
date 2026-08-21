@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
+import { FolioMark } from "@/components/FolioMark";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { siteContent } from "@/lib/siteContent";
 
@@ -28,7 +29,7 @@ const item: Variants = {
   }
 };
 
-const ROLES = ["AI Engineer", "Software Engineer", "Full-Stack"];
+const ROLES = siteContent.hero.roles;
 
 function TypewriterRoles() {
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -76,86 +77,65 @@ function TypewriterRoles() {
     return () => clearTimeout(timeoutId);
   }, [roleIndex, prefersReducedMotion]);
 
-  return (
-    <p className="font-novel text-lg text-accent sm:text-xl">
-      {displayText}
-    </p>
-  );
+  return <p className="font-novel text-lg text-accent sm:text-xl">{displayText}</p>;
 }
 
 export function Hero() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const animate = !prefersReducedMotion;
   const { hero } = siteContent;
+  const dropCap = hero.intro.charAt(0);
+  const introRest = hero.intro.slice(1);
 
   return (
     <section
       id="home"
-      className="relative flex min-h-fit flex-col justify-start overflow-hidden px-6 pb-14 pt-16 sm:px-16 sm:pb-24 sm:pt-24"
+      className="relative flex min-h-fit flex-col justify-start px-6 pb-14 pt-16 sm:px-16 sm:pb-24 sm:pt-24"
     >
-      {/* Grain texture — targets the existing #heroGrain rule in globals.css */}
-      <div id="heroGrain" />
-
       <motion.div
         variants={container}
         initial={animate ? "hidden" : false}
         animate="show"
         className="relative z-[1] flex w-full max-w-2xl flex-col items-start text-left"
       >
-        {/* Role eyebrow — honest, not a fake chapter label */}
         <motion.p
           variants={item}
           className="caps-heading font-body text-xs font-medium uppercase tracking-[0.24em] text-accent sm:text-sm"
         >
-          Software Engineer — Applied AI
+          {hero.eyebrow}
         </motion.p>
 
-        {/* Name — with grain texture clipped to the letterforms */}
         <motion.h1
           variants={item}
-          className="relative mt-4 font-novel text-[clamp(2.25rem,4.5vw,3.75rem)] font-normal uppercase leading-[1.05] tracking-[0.06em] text-fg sm:tracking-[0.09em]"
+          className="mt-4 font-novel text-[clamp(2.25rem,4.5vw,3.75rem)] font-normal uppercase leading-[1.05] tracking-[0.06em] text-fg sm:tracking-[0.09em]"
         >
-          <span aria-hidden="true" className="grain-text-overlay">
-            Rishwari Ranjan
-          </span>
-          Rishwari Ranjan
+          {hero.headline}
         </motion.h1>
 
-        {/* Typewriter rotation */}
         <motion.div variants={item} className="mt-4 h-7 sm:h-8">
           <TypewriterRoles />
         </motion.div>
 
-        {/* Subheadline */}
         <motion.p
           variants={item}
           className="mt-5 font-editorial text-lg leading-relaxed text-mutedFg sm:text-xl"
         >
-          The system underneath, and the AI on top.
+          {hero.subheadline}
         </motion.p>
 
-        {/* Hairline rule */}
-        <motion.div
-          variants={item}
-          className="mt-10 h-px w-full max-w-md bg-border"
-        />
+        <motion.div variants={item} className="mt-10 h-px w-full max-w-md bg-border" />
 
-        {/* Drop-cap paragraph */}
         <motion.p
           variants={item}
           className="mt-10 max-w-md font-editorial text-base leading-relaxed text-fg sm:text-lg"
         >
           <span className="float-left mr-2 font-display text-5xl leading-[0.8] text-accent sm:text-6xl">
-            S
+            {dropCap}
           </span>
-          oftware engineer at a psychiatry practice, building both the AI patients talk to and the record systems underneath it.
+          {introRest}
         </motion.p>
 
-        {/* Links — plain text, no pills */}
-        <motion.div
-          variants={item}
-          className="mt-10 flex flex-wrap items-center gap-8"
-        >
+        <motion.div variants={item} className="mt-10 flex flex-wrap items-center gap-8">
           <Link
             href={hero.primaryCta.href}
             className="font-body text-sm font-medium text-fg underline decoration-border decoration-1 underline-offset-4 transition-colors hover:decoration-accent"
@@ -168,17 +148,17 @@ export function Hero() {
           >
             {hero.secondaryCta.label}
           </Link>
-        </motion.div>      </motion.div>
+        </motion.div>
+      </motion.div>
 
-      {/* Folio mark */}
-      <motion.p
+      <motion.div
         variants={item}
         initial={animate ? "hidden" : false}
         animate="show"
-        className="relative z-[1] mt-16 font-editorial text-xs text-mutedFg"
+        className="relative z-[1] mt-16"
       >
-        — p. 01 —
-      </motion.p>
+        <FolioMark page={hero.folio} />
+      </motion.div>
     </section>
   );
 }

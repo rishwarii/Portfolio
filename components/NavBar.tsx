@@ -117,7 +117,7 @@ export function NavBar() {
   return (
     <header className="nav-frosted sticky top-0 z-50">
       <nav aria-label="Primary" className="py-4">
-        <Container size="content" className="flex flex-wrap items-center justify-between gap-4 px-4 sm:px-8">
+        <Container size="page" className="flex flex-wrap items-center justify-between gap-4">
           <Link
             href="/"
             aria-label="Rishwari Ranjan - Home"

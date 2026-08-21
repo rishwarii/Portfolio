@@ -8,7 +8,7 @@
   --radius-xl: 1.1rem;
   --radius-2xl: 1.45rem;
   --display-size: clamp(2.9rem, 8vw, 5.65rem);
-  --section-title-size: clamp(1.95rem, 4.2vw, 3rem);
+  --section-title-size: clamp(1.4rem, 2.6vw, 1.9rem);
   --body-size: 1rem;
   --small-size: 0.9375rem;
   --micro-size: 0.7rem;
@@ -253,14 +253,30 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-display), sans-serif;
-  line-height: 1.12;
-  letter-spacing: -0.028em;
+  font-family: var(--font-newsreader), Georgia, serif;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 500;
 }
 
-p,
+p {
+  font-family: var(--font-editorial), Georgia, serif;
+  color: hsl(var(--muted-fg));
+}
+
 li {
   color: hsl(var(--muted-fg));
+}
+
+/* Scoped letterpress for headings and body copy only — never links, buttons, or spans. */
+html[data-theme="light"] :is(h2, h3, h4, h5, h6):not(:has(a, button, span)) {
+  color: color-mix(in srgb, var(--brand-ink) 94%, #4a3048);
+  text-shadow: 0 0.35px 0.3px color-mix(in srgb, var(--brand-ink) 18%, transparent);
+  filter: contrast(92%) blur(0.22px);
+}
+
+html[data-theme="light"] p:not(:has(a, button, span)):not(.caps-heading) {
+  text-shadow: 0 0.25px 0.2px color-mix(in srgb, var(--brand-ink) 12%, transparent);
 }
 
 a {
@@ -469,26 +485,16 @@ html[data-theme="dark"] .section-aura::after {
   top: 0;
   left: 0;
   z-index: 60;
-  height: 3px;
+  height: 1px;
   width: 100%;
   transform-origin: 0 50%;
-  background: linear-gradient(
-    90deg,
-    hsl(var(--accent)),
-    color-mix(in srgb, hsl(var(--accent)) 62%, hsl(var(--primary)))
-  );
-  box-shadow: 0 0 12px color-mix(in srgb, hsl(var(--accent)) 45%, transparent);
+  background: hsl(var(--accent));
   pointer-events: none;
   transition: transform 90ms linear;
 }
 
 html[data-theme="dark"] .scroll-progress-bar {
-  background: linear-gradient(
-    90deg,
-    hsl(var(--accent)),
-    color-mix(in srgb, hsl(var(--accent)) 55%, hsl(var(--primary)))
-  );
-  box-shadow: 0 0 14px color-mix(in srgb, hsl(var(--accent)) 55%, transparent);
+  background: hsl(var(--accent));
 }
 
 .brand-wordmark {
@@ -517,114 +523,6 @@ html[data-theme="dark"] .scroll-progress-bar {
   clip-path: inset(0 0 0 0);
 }
 
-#heroAura {
-  position: absolute;
-  inset: -12%;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 1;
-  transform: translate3d(
-    calc(var(--hero-aura-x, 0px) * 1.18),
-    calc(var(--hero-aura-y, 0px) * 1.18),
-    0
-  );
-  will-change: transform;
-  filter: blur(4px) saturate(1.34);
-  background:
-    linear-gradient(
-      184deg,
-      color-mix(in srgb, var(--surface) 95%, white) 0%,
-      color-mix(in srgb, var(--surface) 98%, transparent) 100%
-    ),
-    radial-gradient(56% 52% at 7% 6%, color-mix(in srgb, var(--brand-aura-1) 88%, transparent) 0%, transparent 64%),
-    radial-gradient(30% 28% at 86% 10%, color-mix(in srgb, var(--brand-aura-2) 82%, transparent) 0%, transparent 68%),
-    radial-gradient(45% 34% at 52% 78%, color-mix(in srgb, var(--brand-aura-3) 48%, transparent) 0%, transparent 78%);
-}
-
-#heroAura::before,
-#heroAura::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-#heroAura::before {
-  opacity: 0.8;
-  filter: blur(6px) saturate(1.28);
-  transform: translate3d(
-    calc(var(--hero-aura-x, 0px) * -0.65),
-    calc(var(--hero-aura-y, 0px) * -0.65),
-    0
-  );
-  background:
-    radial-gradient(40% 36% at 16% 21%, color-mix(in srgb, var(--brand-aura-1) 74%, transparent) 0%, transparent 68%),
-    radial-gradient(28% 24% at 80% 24%, color-mix(in srgb, var(--brand-aura-2) 66%, transparent) 0%, transparent 72%);
-}
-
-#heroAura::after {
-  opacity: 0.28;
-  filter: blur(3px) saturate(1.18);
-  transform: translate3d(
-    calc(var(--hero-aura-x, 0px) * 2.2),
-    calc(var(--hero-aura-y, 0px) * 2.2),
-    0
-  );
-  background: radial-gradient(40% 30% at 54% 74%, color-mix(in srgb, var(--brand-aura-3) 52%, transparent) 0%, transparent 76%);
-}
-
-html[data-theme="dark"] #heroAura {
-  filter: blur(6px) saturate(1.22);
-  background:
-    linear-gradient(
-      184deg,
-      color-mix(in srgb, var(--surface) 93%, #18131f) 0%,
-      color-mix(in srgb, var(--surface) 98%, transparent) 100%
-    ),
-    radial-gradient(56% 50% at 8% 8%, color-mix(in srgb, var(--brand-aura-1) 66%, transparent) 0%, transparent 66%),
-    radial-gradient(28% 24% at 84% 12%, color-mix(in srgb, var(--brand-aura-2) 58%, transparent) 0%, transparent 70%),
-    radial-gradient(44% 32% at 54% 78%, color-mix(in srgb, var(--brand-aura-3) 44%, transparent) 0%, transparent 82%);
-}
-
-html[data-theme="dark"] #heroAura::before {
-  background:
-    radial-gradient(42% 34% at 18% 24%, color-mix(in srgb, var(--brand-aura-1) 50%, transparent) 0%, transparent 70%),
-    radial-gradient(28% 24% at 79% 24%, color-mix(in srgb, var(--brand-aura-2) 44%, transparent) 0%, transparent 72%);
-}
-
-html[data-theme="dark"] #heroAura::after {
-  opacity: 0.28;
-  background: radial-gradient(40% 32% at 54% 74%, color-mix(in srgb, var(--brand-aura-3) 40%, transparent) 0%, transparent 80%);
-}
-
-#heroGrain {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: var(--hero-grain-opacity);
-  background-image:
-    radial-gradient(
-      130% 92% at 50% 46%,
-      transparent 58%,
-      color-mix(in srgb, var(--brand-ink) 6%, transparent) 100%
-    ),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.05' numOctaves='2' seed='14' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.65'/%3E%3C/svg%3E");
-  background-size: 100% 100%, 180px 180px;
-  background-repeat: no-repeat, repeat;
-  mix-blend-mode: multiply;
-}
-
-html[data-theme="dark"] #heroGrain {
-  background-image:
-    radial-gradient(
-      130% 92% at 50% 46%,
-      transparent 58%,
-      color-mix(in srgb, #000 26%, transparent) 100%
-    ),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.05' numOctaves='2' seed='14' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.65'/%3E%3C/svg%3E");
-}
-
 .caps-heading {
   font-variant: small-caps;
   letter-spacing: 0.06em;
@@ -632,28 +530,19 @@ html[data-theme="dark"] #heroGrain {
 
 .grain-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100vw;
   height: 100vh;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.10;
+  opacity: 0.06;
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-.grain-text-overlay {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  color: transparent;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 140px 140px;
-  -webkit-background-clip: text;
-  background-clip: text;
-  mix-blend-mode: multiply;
-  opacity: 0.55;
+html[data-theme="dark"] .grain-overlay {
+  mix-blend-mode: overlay;
+  opacity: 0.04;
 }
 
 .hero-bottom-fade-layer {

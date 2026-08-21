@@ -11,10 +11,10 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <Section id="about" aura="left" spacing="hero">
+    <Section id="about" spacing="hero" containerSize="narrow">
       <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
         <div>
-         <p className="micro-label font-medium text-mutedFg/95">About</p>
+         <h1 className="caps-heading font-body text-xs font-medium uppercase tracking-[0.24em] text-accent sm:text-sm">About</h1>
           <p className="mt-6 font-editorial text-2xl leading-relaxed text-fg sm:text-3xl sm:leading-[1.55]">
             I&apos;m an engineer, but I don&apos;t think like one all the time. Away
             from the keyboard it&apos;s usually a 19th-century novel, or a

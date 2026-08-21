@@ -57,8 +57,8 @@ const tiles: BentoTile[] = [
 ];
 
 const TILE_FRAME =
-  "group relative flex flex-col overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] bg-card shadow-soft transition-[box-shadow,border-color] duration-200 hover:shadow-card";
-const TILE_FRAME_LINKED = "hover:border-accent/36";
+  "group relative flex flex-col overflow-hidden border border-border bg-card";
+const TILE_FRAME_LINKED = "hover:border-accent/40";
 
 export function AboutBento() {
   return (
@@ -89,9 +89,9 @@ export function AboutBento() {
         const linkArrow = tile.href ? (
           <span
             aria-hidden="true"
-            className="absolute right-3 top-3 z-10 inline-flex h-7 w-7 items-center justify-center rounded-full border border-border/60 bg-card/85 text-mutedFg backdrop-blur-sm transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-fg"
+            className="absolute right-3 top-3 z-10 text-white/90 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
           >
-            <ArrowUpRight size={14} />
+            <ArrowUpRight size={16} />
           </span>
         ) : null;
 

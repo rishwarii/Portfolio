@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { notFound } from "next/navigation";
 import { ChatbotArchitecture } from "@/components/ChatbotArchitecture";
 import { Section } from "@/components/Section";
@@ -13,6 +12,9 @@ type ProjectDetailPageProps = {
     slug: string;
   };
 };
+
+const linkClassName =
+  "font-body text-sm font-medium text-fg underline decoration-border decoration-1 underline-offset-4 transition-colors hover:decoration-accent";
 
 export function generateStaticParams() {
   return getProjects().map((project) => ({
@@ -41,7 +43,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
 
   return (
     <>
-      <Section reveal={false} spacing="compact" containerSize="hero">
+      <Section reveal={false} spacing="compact" containerSize="reading">
         <SectionHeading
           eyebrow="Project"
           title={project.title}
@@ -49,8 +51,8 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
         />
       </Section>
 
-      <Section className="pt-2" containerSize="hero">
-        <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] bg-muted/40 shadow-soft">
+      <Section className="pt-2" containerSize="reading">
+        <div className="relative aspect-[16/10] w-full overflow-hidden border border-border bg-muted/30">
           {project.diagram ? (
             <div className="flex h-full w-full items-center justify-center p-6">
               <ChatbotArchitecture />
@@ -60,7 +62,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               src={project.thumbnail}
               alt={project.title}
               fill
-              sizes="(max-width: 1024px) 100vw, 60vw"
+              sizes="(max-width: 1024px) 100vw, 42rem"
               className="object-contain p-6"
               priority
             />
@@ -68,38 +70,26 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
         </div>
 
         {project.tags.length > 0 ? (
-          <div className="mt-8 flex flex-wrap gap-2">
-            {project.tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full border border-border/74 px-3 py-1 text-[0.68rem] font-medium uppercase tracking-[0.12em] text-mutedFg"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
+          <p className="mt-8 font-editorial text-sm italic text-mutedFg">
+            {project.tags.join(" · ")}
+          </p>
         ) : null}
 
         {project.highlights.length > 0 ? (
           <div className="mt-12">
             <h2 className="font-editorial text-lg italic text-fg">Highlights</h2>
-            <ul className="mt-5 space-y-4">
+            <ul className="mt-5 space-y-3">
               {project.highlights.map((highlight) => (
-                <li key={highlight.text} className="flex gap-3">
-                  <span
-                    aria-hidden="true"
-                    className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
-                  />
-                  <p className="text-base leading-relaxed text-mutedFg sm:text-lg">
+                <li key={highlight.text}>
+                  <p className="font-editorial text-base leading-relaxed text-mutedFg sm:text-lg">
                     {highlight.href ? (
                       <a
                         href={highlight.href}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-1 text-fg underline decoration-accent/60 underline-offset-4 transition hover:decoration-accent"
+                        className={linkClassName}
                       >
                         {highlight.text}
-                        <ArrowUpRight size={14} aria-hidden="true" />
                       </a>
                     ) : (
                       highlight.text
@@ -114,29 +104,25 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
         {architecture.length > 0 ? (
           <div className="mt-12">
             <h2 className="font-editorial text-lg italic text-fg">Architecture</h2>
-            <pre className="mt-5 overflow-x-auto rounded-xl border border-border/75 bg-accent/10 p-5 font-mono text-[0.72rem] leading-relaxed text-mutedFg">
-              {architecture.join("\n")}
-            </pre>
+            <p className="mt-5 font-editorial text-sm leading-relaxed text-mutedFg sm:text-base">
+              {architecture.join(" → ")}
+            </p>
           </div>
         ) : null}
 
-        <div className="mt-14 flex flex-wrap items-center gap-6 border-t border-border/60 pt-8">
+        <div className="mt-14 flex flex-wrap items-center gap-8 border-t border-border pt-8">
           {project.liveUrl ? (
             <a
               href={project.liveUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-fg underline decoration-accent/90 underline-offset-4 transition hover:text-mutedFg"
+              className={linkClassName}
             >
               Live site
-              <ArrowUpRight size={14} aria-hidden="true" />
             </a>
           ) : null}
 
-          <Link
-            href="/projects"
-            className="inline-flex text-sm font-semibold text-mutedFg underline decoration-border underline-offset-4 transition hover:text-fg"
-          >
+          <Link href="/projects" className={linkClassName}>
             Back to Projects
           </Link>
         </div>

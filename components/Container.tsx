@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-export type ContainerSize = "hero" | "content" | "narrow";
+export type ContainerSize = "hero" | "content" | "narrow" | "reading" | "page";
 
 type ContainerProps = {
   size?: ContainerSize;
@@ -10,9 +10,11 @@ type ContainerProps = {
 };
 
 const sizeClassMap: Record<ContainerSize, string> = {
-  hero: "max-w-hero",
-  content: "max-w-content",
-  narrow: "max-w-4xl"
+  hero: "mx-auto max-w-hero",
+  content: "mx-auto max-w-content",
+  narrow: "mx-auto max-w-4xl",
+  reading: "max-w-2xl",
+  page: ""
 };
 
 export function Container({
@@ -21,7 +23,7 @@ export function Container({
   children
 }: ContainerProps) {
   return (
-    <div className={cn("mx-auto w-full px-6 sm:px-8", sizeClassMap[size], className)}>
+    <div className={cn("w-full px-6 sm:px-16", sizeClassMap[size], className)}>
       {children}
     </div>
   );

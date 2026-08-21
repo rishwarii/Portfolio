@@ -1,29 +1,28 @@
 import Link from "next/link";
-import { Card } from "@/components/Card";
 import { ExternalLink } from "@/components/ExternalLink";
 import { Section } from "@/components/Section";
 import { SectionHeading } from "@/components/SectionHeading";
 import { siteContent } from "@/lib/siteContent";
 
+const linkClassName =
+  "font-body text-sm font-medium text-fg underline decoration-border decoration-1 underline-offset-4 transition-colors hover:decoration-accent";
+
 export default function ResumePage() {
   return (
-    <Section reveal={false} spacing="compact" containerSize="narrow">
+    <Section reveal={false} spacing="compact" containerSize="reading">
       <SectionHeading eyebrow="Resume" title="Professional Snapshot" />
-      <Card variant="default" className="mt-8">
+      <div className="mt-10">
         {siteContent.contact.resume.trim().length > 0 ? (
-          <ExternalLink href={siteContent.contact.resume} className="mt-1 font-semibold">
+          <ExternalLink href={siteContent.contact.resume} className={linkClassName}>
             Open Resume
           </ExternalLink>
         ) : (
-          <p className="text-sm text-mutedFg sm:text-base">
+          <p className="font-editorial text-base text-mutedFg">
             Resume URL will be added here.
           </p>
         )}
-      </Card>
-      <Link
-        href="/"
-        className="mt-8 inline-flex text-sm font-semibold text-fg underline decoration-accent/90 underline-offset-4 transition hover:text-mutedFg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
-      >
+      </div>
+      <Link href="/" className={`mt-10 inline-flex ${linkClassName}`}>
         Back to Home
       </Link>
     </Section>

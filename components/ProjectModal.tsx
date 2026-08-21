@@ -4,8 +4,6 @@ import { useEffect, useId, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { ExternalLink as ExternalLinkIcon, X } from "lucide-react";
-import { Badge } from "@/components/Badge";
 import { ChatbotArchitecture } from "@/components/ChatbotArchitecture";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import type { Project } from "@/lib/projects";
@@ -18,6 +16,9 @@ type ProjectModalProps = {
 const FOCUSABLE =
   'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
 
+const linkClassName =
+  "font-body text-sm font-medium text-fg underline decoration-border decoration-1 underline-offset-4 transition-colors hover:decoration-accent";
+
 export function ProjectModal({ project, onClose }: ProjectModalProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
   const panelRef = useRef<HTMLDivElement>(null);
@@ -25,8 +26,6 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
   const titleId = useId();
   const open = project != null;
 
-  // Lock background scroll, move focus into the modal, and return focus to the
-  // triggering card on close.
   useEffect(() => {
     if (!open) {
       return;
@@ -49,7 +48,6 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
     };
   }, [open]);
 
-  // Escape to close + trap Tab within the modal.
   useEffect(() => {
     if (!open) {
       return;
@@ -98,9 +96,9 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
   const panelMotion = prefersReducedMotion
     ? { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 } }
     : {
-        initial: { opacity: 0, scale: 0.96 },
-        animate: { opacity: 1, scale: 1 },
-        exit: { opacity: 0, scale: 0.96 }
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        exit: { opacity: 0 }
       };
 
   return (
@@ -115,10 +113,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
           transition={{ duration: 0.2, ease: "easeOut" }}
           onClick={onClose}
         >
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 bg-fg/45 backdrop-blur-sm"
-          />
+          <div aria-hidden="true" className="absolute inset-0 bg-bg/80" />
 
           <motion.div
             key="panel"
@@ -126,7 +121,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             role="dialog"
             aria-modal="true"
             aria-labelledby={titleId}
-            className="relative z-[1] flex max-h-[90vh] w-full max-w-[44rem] flex-col overflow-hidden rounded-2xl border border-border bg-card text-cardFg shadow-feature"
+            className="relative z-[1] flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden border border-border bg-bg text-fg"
             transition={{ duration: 0.2, ease: "easeOut" }}
             onClick={(event) => event.stopPropagation()}
             {...panelMotion}
@@ -135,19 +130,15 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
               type="button"
               data-autofocus
               onClick={onClose}
-              aria-label="Close"
-              className="absolute right-3 top-3 z-[30] inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/90 bg-card/85 text-mutedFg backdrop-blur-sm transition hover:border-accent/70 hover:bg-accent/20 hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+              className="absolute right-5 top-4 z-[30] font-body text-sm text-mutedFg underline decoration-transparent decoration-1 underline-offset-4 transition-colors hover:text-fg hover:decoration-border"
             >
-              <X size={16} aria-hidden="true" />
+              Close
             </button>
 
-            {/* Fixed, height-capped image header (supporting preview, not the
-                dominant element). Contain on a neutral pad so any aspect ratio
-                (incl. the portrait chatbot) shows fully, not cropped. */}
-            <div className="relative h-[34vh] max-h-72 w-full flex-none overflow-hidden border-b border-border/70 bg-muted/40">
-              <div className="absolute inset-3 sm:inset-4">
+            <div className="relative h-[28vh] max-h-56 w-full flex-none overflow-hidden border-b border-border bg-muted/30">
+              <div className="absolute inset-4">
                 {project.diagram ? (
-                  <div className="flex h-full w-full items-center justify-center p-4">
+                  <div className="flex h-full w-full items-center justify-center">
                     <ChatbotArchitecture />
                   </div>
                 ) : (
@@ -162,47 +153,37 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
               </div>
             </div>
 
-            {/* Scrollable body — never lets the panel exceed the viewport. */}
             <div className="flex-1 overflow-y-auto overscroll-contain">
-              <div className="p-7 sm:p-9">
+              <div className="px-7 py-8 sm:px-9">
                 <h2
                   id={titleId}
-                  className="font-display text-2xl text-fg sm:text-3xl"
+                  className="font-novel text-2xl font-normal tracking-[-0.02em] text-fg sm:text-3xl"
                 >
                   {project.title}
                 </h2>
-                <p className="mt-2 font-body text-sm text-mutedFg sm:text-base">
+                <p className="mt-3 font-editorial text-base leading-relaxed text-mutedFg">
                   {project.summary}
                 </p>
 
                 {project.highlights.length > 0 ? (
-                  <div className="mt-6">
+                  <div className="mt-8">
                     <p className="font-editorial text-sm italic text-mutedFg">
                       Highlights
                     </p>
-                    <ul className="mt-3 space-y-2 font-body text-sm text-mutedFg sm:text-base">
+                    <ul className="mt-3 space-y-2 font-editorial text-sm leading-relaxed text-mutedFg sm:text-base">
                       {project.highlights.map((highlight) => (
-                        <li key={highlight.text} className="flex gap-2.5">
-                          <span
-                            aria-hidden="true"
-                            className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-accent"
-                          />
+                        <li key={highlight.text}>
                           {highlight.href ? (
                             <a
                               href={highlight.href}
                               target="_blank"
                               rel="noreferrer"
-                              className="inline-flex items-center gap-1.5 text-fg underline decoration-accent/90 underline-offset-4 transition hover:text-mutedFg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+                              className={linkClassName}
                             >
                               {highlight.text}
-                              <ExternalLinkIcon
-                                size={13}
-                                aria-hidden="true"
-                                className="flex-none"
-                              />
                             </a>
                           ) : (
-                            <span>{highlight.text}</span>
+                            highlight.text
                           )}
                         </li>
                       ))}
@@ -210,34 +191,27 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                   </div>
                 ) : null}
 
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <Badge key={tag} variant="outline">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
+                {project.tags.length > 0 ? (
+                  <p className="mt-8 font-editorial text-sm italic text-mutedFg">
+                    {project.tags.join(" · ")}
+                  </p>
+                ) : null}
               </div>
 
-              <div className="flex flex-wrap items-center gap-5 border-t border-border/70 px-7 py-5 sm:px-9">
+              <div className="flex flex-wrap items-center gap-8 border-t border-border px-7 py-5 sm:px-9">
                 {project.liveUrl ? (
                   <a
                     href={project.liveUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 font-body text-sm font-medium text-fg underline decoration-accent/90 underline-offset-4 transition hover:text-mutedFg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+                    className={linkClassName}
                   >
                     Live site
-                    <ExternalLinkIcon size={14} aria-hidden="true" />
                   </a>
                 ) : null}
 
-                <Link
-                  href={`/projects/${project.slug}`}
-                  className="inline-flex items-center gap-1.5 font-body text-sm font-medium text-fg underline decoration-accent/90 underline-offset-4 transition hover:text-mutedFg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
-                >
+                <Link href={`/projects/${project.slug}`} className={linkClassName}>
                   Full case study
-                  <ExternalLinkIcon size={14} aria-hidden="true" />
                 </Link>
               </div>
             </div>

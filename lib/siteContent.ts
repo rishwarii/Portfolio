@@ -4,18 +4,17 @@ export const siteContent = {
     role: "Full-Stack Engineer building AI-enabled systems with reliability and product thinking."
   },
   hero: {
-    oneLiner: "",
+    eyebrow: "Software Engineer — Applied AI",
     headline: "Rishwari Ranjan",
-    roleLine: "Software Engineer, AI Products",
-    subheadline:
-      "Python + cloud deployments (AWS/GCP), reliability-first systems, and AI workflows with guardrails.",
-    stackChips: [
-      "Python",
-      "AWS",
-      "GCP"
+    roles: [
+      "AI Engineer",
+      "Software Engineer",
+      "Full-Stack"
     ],
-    supportingLine:
-      "Shipped production chatbot systems with safety checks, logging, and human handoff.",
+    subheadline: "The system underneath, and the AI on top.",
+    intro:
+      "Software engineer at a psychiatry practice, building both the AI patients talk to and the record systems underneath it.",
+    folio: "01",
     primaryCta: {
       label: "View Projects",
       href: "#projects"
@@ -178,8 +177,8 @@ export const siteContent = {
   },
   contact: {
     title: "Let's Connect",
-    microcopy: "Open to Software Engineer roles (AI products).",
-    availability: "Actively interviewing.",
+    microcopy: "If you're hiring or collaborating, I'm happy to connect.",
+    availability: "Open to AI Engineer, Software Engineer, and Full-Stack roles.",
     email: "rishwari.connect@gmail.com",
     linkedin: "https://www.linkedin.com/in/rishwari/",
     github: "https://github.com/rishwarii",
