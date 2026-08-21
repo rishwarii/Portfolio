@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
-import { Fraunces, Inter, Libre_Baskerville } from "next/font/google";
+import { Fraunces, Inter, Libre_Baskerville, Newsreader } from "next/font/google";
 import Script from "next/script";
 import { NavBar } from "@/components/NavBar";
 import { ScrollProgressBar } from "@/components/ScrollProgressBar";
@@ -47,6 +47,13 @@ const editorial = Libre_Baskerville({
   display: "swap"
 });
 
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  variable: "--font-newsreader",
+  style: ["normal", "italic"],
+  weight: ["400", "500", "600"]
+});
+
 export const metadata: Metadata = {
   title: "Rishwari Ranjan | Portfolio",
   description:
@@ -79,7 +86,7 @@ export default function RootLayout({
       lang="en"
       data-theme="light"
       data-preset="lavender"
-      className={`${body.variable} ${display.variable} ${editorial.variable}`}
+      className={`${body.variable} ${display.variable} ${editorial.variable} ${newsreader.variable}`}
     >
       <body className="bg-bg text-fg antialiased">
         <Script id="theme-init" strategy="beforeInteractive">{`(() => {
@@ -98,6 +105,7 @@ export default function RootLayout({
     document.documentElement.setAttribute("data-theme", "light");
   }
 })();`}</Script>
+        <div className="grain-overlay" />
         <ScrollProgressBar />
         <div className="min-h-screen bg-bg">
           <NavBar />

@@ -46,6 +46,7 @@ const config: Config = {
         editorial: [
           "var(--font-editorial)"
         ],
+        novel: ["var(--font-newsreader)", "Georgia", "serif"],
         body: [
           "var(--font-body)"
         ],

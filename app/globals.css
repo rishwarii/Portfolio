@@ -612,7 +612,7 @@ html[data-theme="dark"] #heroAura::after {
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.05' numOctaves='2' seed='14' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.65'/%3E%3C/svg%3E");
   background-size: 100% 100%, 180px 180px;
   background-repeat: no-repeat, repeat;
-  mix-blend-mode: soft-light;
+  mix-blend-mode: multiply;
 }
 
 html[data-theme="dark"] #heroGrain {
@@ -623,6 +623,37 @@ html[data-theme="dark"] #heroGrain {
       color-mix(in srgb, #000 26%, transparent) 100%
     ),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.05' numOctaves='2' seed='14' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.65'/%3E%3C/svg%3E");
+}
+
+.caps-heading {
+  font-variant: small-caps;
+  letter-spacing: 0.06em;
+}
+
+.grain-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.10;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.grain-text-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  color: transparent;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
+  -webkit-background-clip: text;
+  background-clip: text;
+  mix-blend-mode: multiply;
+  opacity: 0.55;
 }
 
 .hero-bottom-fade-layer {
