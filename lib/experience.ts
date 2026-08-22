@@ -2,7 +2,7 @@ import { siteContent } from "@/lib/siteContent";
 
 export type ExperienceRole = (typeof siteContent.experience)[number];
 
-export function getExperienceRoles(): ExperienceRole[] {
+export function getExperienceRoles(): readonly ExperienceRole[] {
   return siteContent.experience;
 }
 
