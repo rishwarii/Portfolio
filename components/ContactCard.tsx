@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { siteContent } from "@/lib/siteContent";
 
 const linkClassName =
@@ -29,9 +28,6 @@ export function ContactCard() {
         >
           GitHub
         </a>
-        <Link href="/resume" className={linkClassName}>
-          Resume
-        </Link>
       </div>
     </div>
   );

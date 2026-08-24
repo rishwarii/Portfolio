@@ -29,7 +29,7 @@ export default function HomePage() {
     <>
       <Hero />
 
-      <Section id="projects" containerSize="reading" spacing="compact">
+      <Section id="projects" className="chapter-rule" containerSize="reading" spacing="compact">
         <ChapterOpening
           roman={chapters.projects.roman}
           title={chapters.projects.title}
@@ -39,20 +39,18 @@ export default function HomePage() {
         </div>
       </Section>
 
-      <Section id="experience" containerSize="reading" spacing="leaf">
+      <Section id="experience" className="chapter-rule" containerSize="reading" spacing="leaf">
         <ChapterOpening
           roman={chapters.experience.roman}
           title={chapters.experience.title}
-          pause
         />
         <Timeline />
       </Section>
 
-      <Section id="education" containerSize="reading" spacing="leaf">
+      <Section id="education" className="chapter-rule" containerSize="reading" spacing="leaf">
         <ChapterOpening
           roman={chapters.education.roman}
           title={chapters.education.title}
-          pause
         />
         <div>
           <h3 className="font-novel text-2xl font-normal tracking-[-0.02em] text-fg sm:text-3xl">
@@ -81,12 +79,11 @@ export default function HomePage() {
         </div>
       </Section>
 
-      <Section id="contact" containerSize="reading" spacing="leaf">
+      <Section id="contact" className="chapter-rule" containerSize="reading" spacing="leaf">
         <ChapterOpening
           roman={chapters.contact.roman}
           title={chapters.contact.title}
           opener={siteContent.contact.microcopy}
-          pause
         />
         {siteContent.contact.availability.trim().length > 0 ? (
           <p className="mt-3 font-editorial text-lg italic text-mutedFg">

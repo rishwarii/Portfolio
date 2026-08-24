@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import Image from "next/image";
+import { InkOrnament } from "@/components/InkOrnament";
 import { cn } from "@/lib/cn";
 
 type EditionFrameProps = {
@@ -7,19 +7,10 @@ type EditionFrameProps = {
   className?: string;
 };
 
-const CORNER_SRC = "/images/ornaments/vine-corner-floral-frame.webp";
+const CORNER_SRC = "/images/ornaments/vine-corner-floral-frame-alpha.png";
 
 function Corner({ className }: { className: string }) {
-  return (
-    <Image
-      src={CORNER_SRC}
-      alt=""
-      width={280}
-      height={280}
-      aria-hidden="true"
-      className={cn("edition-corner engraving", className)}
-    />
-  );
+  return <InkOrnament src={CORNER_SRC} className={cn("edition-corner", className)} />;
 }
 
 export function EditionFrame({ children, className }: EditionFrameProps) {

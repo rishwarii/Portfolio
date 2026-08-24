@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Fraunces, Inter, Libre_Baskerville, Newsreader } from "next/font/google";
 import Script from "next/script";
 import { NavBar } from "@/components/NavBar";
+import { SiteFooter } from "@/components/SiteFooter";
 import "./globals.css";
 
 // Body: Inter (stands in for Geist, unavailable via next/font/google here).
@@ -105,9 +106,18 @@ export default function RootLayout({
   }
 })();`}</Script>
         <div className="grain-overlay" />
-        <div className="min-h-screen bg-bg pb-16 lg:pb-0">
-          <NavBar />
-          <main id="main">{children}</main>
+        <div className="min-h-screen bg-bg">
+          <a
+            href="#main"
+            className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[80] focus:bg-bg focus:px-3 focus:py-2 focus:font-editorial focus:text-sm"
+          >
+            Skip to content
+          </a>
+          <div className="page-sheet">
+            <NavBar />
+            <main id="main">{children}</main>
+            <SiteFooter />
+          </div>
         </div>
       </body>
     </html>

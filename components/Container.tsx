@@ -10,11 +10,11 @@ type ContainerProps = {
 };
 
 const innerClassMap: Record<ContainerSize, string> = {
-  hero: "w-full max-w-page",
-  content: "w-full max-w-page",
+  hero: "w-full",
+  content: "w-full",
   narrow: "w-full max-w-xl",
-  reading: "w-full max-w-page",
-  folio: "w-full max-w-content",
+  reading: "w-full",
+  folio: "w-full",
   page: "w-full"
 };
 
@@ -24,7 +24,7 @@ export function Container({
   children
 }: ContainerProps) {
   return (
-    <div className="w-full pl-[var(--page-gutter)] pr-[var(--page-gutter)]">
+    <div className="w-full">
       <div className={cn(innerClassMap[size], className)}>{children}</div>
     </div>
   );

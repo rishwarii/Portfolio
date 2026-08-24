@@ -14,8 +14,12 @@
   --micro-size: 0.7rem;
   --hero-grain-opacity: 0.05;
   /* Book sheet: gutter is the paper margin, measure is the type area. */
-  --page-gutter: clamp(1.5rem, 10vw, 7rem);
-  --page-measure: 42rem;
+  --page-gutter: 2rem;
+  --page-max: 65rem;
+  --page-measure: 38rem;
+  --page-rail: 17.5rem;
+  --page-rail-gap: 4rem;
+  --hairline: rgba(42, 27, 46, 0.12);
 
   /* Defaults mirror the "lavender" preset below (now a rose palette) so SSR is stable and predictable. */
   --brand-aura-1: #c2557a;
@@ -223,6 +227,7 @@ html[data-theme="light"] {
 
 html[data-theme="dark"] {
   color-scheme: dark;
+  --hairline: rgba(247, 238, 242, 0.14);
 }
 
 * {
@@ -518,10 +523,60 @@ html[data-theme="dark"] .section-aura::after {
   letter-spacing: 0.06em;
 }
 
-.chapter-nav {
-  left: calc(
-    var(--page-gutter) + min(var(--page-measure), 100vw - (2 * var(--page-gutter))) + 1.75rem
-  );
+.page-sheet {
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 60px 20px 100px;
+}
+
+.page-sheet > main {
+  width: 100%;
+}
+
+.chapter-rule {
+  border-bottom: 1px solid rgba(42, 27, 46, 0.12);
+  margin: 48px 0;
+}
+
+html[data-theme="dark"] .chapter-rule {
+  border-bottom-color: rgba(247, 238, 242, 0.14);
+}
+
+.drop-cap::first-letter {
+  float: left;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 3.5rem;
+  line-height: 0.8;
+  margin-right: 12px;
+  color: #bd476e;
+}
+
+.novel-figure {
+  display: block;
+  width: 100%;
+  max-width: 540px;
+  margin: 20px auto 0;
+}
+
+.novel-figure-frame {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 1px solid rgba(42, 27, 46, 0.15);
+}
+
+html[data-theme="dark"] .novel-figure-frame {
+  border-color: rgba(247, 238, 242, 0.18);
+}
+
+.folio-mark {
+  margin-top: 0;
+  text-align: center;
+  font-family: var(--font-newsreader), Georgia, serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  color: #6e6270;
 }
 
 .figure-plate {
@@ -535,24 +590,31 @@ html[data-theme="dark"] .section-aura::after {
   filter: contrast(0.96) saturate(0.86);
 }
 
+.figure-plate-natural img {
+  filter: none;
+}
+
+.ink-ornament {
+  display: block;
+  background-color: var(--brand-ink);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
 .edition-corner {
+  position: absolute;
   width: min(7.5rem, 26vw);
-  height: auto;
+  aspect-ratio: 1;
 }
 
 @media (min-width: 640px) {
   .edition-corner {
     width: min(10rem, 22vw);
   }
-}
-
-.engraving {
-  mix-blend-mode: multiply;
-}
-
-html[data-theme="dark"] .engraving {
-  mix-blend-mode: screen;
-  filter: invert(1) contrast(1.05);
 }
 
 .grain-overlay {

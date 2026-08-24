@@ -16,10 +16,7 @@ type ProjectListProps = {
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const entryClassName =
-  "group flex w-full items-start gap-5 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg";
-
-function ProjectThumb({
+function ProjectFigure({
   project,
   figure
 }: {
@@ -27,18 +24,18 @@ function ProjectThumb({
   figure: number;
 }) {
   return (
-    <span className="figure-plate mt-0.5 hidden w-[9.5rem] shrink-0 sm:block">
-      <span className="relative block aspect-[4/3] overflow-hidden bg-muted/20">
+    <span className="novel-figure block">
+      <span className="novel-figure-frame block">
         <Image
           src={project.thumbnail}
           alt=""
           fill
-          sizes="152px"
+          sizes="560px"
           className="object-cover"
         />
       </span>
-      <span className="mt-1.5 block text-center font-editorial text-[0.65rem] italic text-mutedFg">
-        Fig. {figure}
+      <span className="mt-2 block text-center font-editorial text-sm italic text-mutedFg">
+        Figure {figure}. {project.title}
       </span>
     </span>
   );
@@ -80,20 +77,15 @@ export function ProjectList({ projects, className }: ProjectListProps) {
               <button
                 type="button"
                 onClick={() => setActiveProject(project)}
-                className={entryClassName}
+                className="group w-full py-6 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
               >
-                <span className="w-5 shrink-0 pt-0.5 font-editorial text-sm text-mutedFg">
-                  {index + 1}.
+                <span className="block font-novel text-xl font-normal tracking-[-0.02em] text-fg transition-colors group-hover:text-accent sm:text-2xl">
+                  {index + 1}. {project.title}
                 </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block font-novel text-xl font-normal tracking-[-0.02em] text-fg transition-colors group-hover:text-accent sm:text-2xl">
-                    {project.title}
-                  </span>
-                  <span className="mt-1 block font-editorial text-sm leading-relaxed text-mutedFg sm:text-base">
-                    {summary.length > 0 ? summary : "Project summary coming soon."}
-                  </span>
+                <span className="mt-2 block font-editorial text-sm leading-relaxed text-mutedFg sm:text-base">
+                  {summary.length > 0 ? summary : "Project summary coming soon."}
                 </span>
-                <ProjectThumb project={project} figure={index + 1} />
+                <ProjectFigure project={project} figure={index + 1} />
               </button>
             </motion.li>
           );
@@ -120,19 +112,17 @@ export function ProjectIndex({ projects }: ProjectIndexProps) {
 
         return (
           <li key={project.slug}>
-            <Link href={`/projects/${project.slug}`} className={entryClassName}>
-              <span className="w-5 shrink-0 pt-0.5 font-editorial text-sm text-mutedFg">
-                {index + 1}.
-              </span>
-              <span className="min-w-0 flex-1">
-                <h3 className="font-novel text-xl font-normal tracking-[-0.02em] text-fg transition-colors group-hover:text-accent sm:text-2xl">
-                  {project.title}
-                </h3>
-                <p className="mt-1 font-editorial text-sm leading-relaxed text-mutedFg sm:text-base">
-                  {summary.length > 0 ? summary : "Project summary coming soon."}
-                </p>
-              </span>
-              <ProjectThumb project={project} figure={index + 1} />
+            <Link
+              href={`/projects/${project.slug}`}
+              className="group block py-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+            >
+              <h3 className="font-novel text-xl font-normal tracking-[-0.02em] text-fg transition-colors group-hover:text-accent sm:text-2xl">
+                {index + 1}. {project.title}
+              </h3>
+              <p className="mt-2 font-editorial text-sm leading-relaxed text-mutedFg sm:text-base">
+                {summary.length > 0 ? summary : "Project summary coming soon."}
+              </p>
+              <ProjectFigure project={project} figure={index + 1} />
             </Link>
           </li>
         );

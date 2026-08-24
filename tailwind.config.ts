@@ -60,7 +60,7 @@ const config: Config = {
       maxWidth: {
         hero: "64rem",
         content: "72rem",
-        page: "42rem"
+        page: "var(--page-measure)"
       },
       borderRadius: {
         lg: "var(--radius-lg)",

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { InkOrnament } from "@/components/InkOrnament";
 import { cn } from "@/lib/cn";
 
 type VineSprigProps = {
@@ -11,12 +11,9 @@ export function VineSprig({ className }: VineSprigProps) {
       aria-hidden="true"
       className={cn("flex justify-center py-12 sm:py-14", className)}
     >
-      <Image
-        src="/images/ornaments/vine-sprig-pattern.jpg"
-        alt=""
-        width={640}
-        height={120}
-        className="engraving h-auto w-44 opacity-80 sm:w-60"
+      <InkOrnament
+        src="/images/ornaments/vine-sprig-pattern-alpha.png"
+        className="h-5 w-48 sm:h-6 sm:w-64"
       />
     </div>
   );

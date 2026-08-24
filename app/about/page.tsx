@@ -24,25 +24,25 @@ export default function AboutPage() {
             height={420}
             className="h-auto w-16 sm:w-20"
           />
-          <h1 className="caps-heading mt-6 font-novel text-[0.7rem] font-medium tracking-[0.32em] text-accent sm:text-xs">
+          <h1 className="caps-heading mt-6 font-novel text-xs font-medium tracking-[0.32em] text-accent sm:text-sm">
             A note
           </h1>
         </div>
 
-        <figure className="mx-auto mt-10 w-full max-w-md sm:mt-12">
-          <div className="figure-plate">
+        <figure className="mx-auto mt-10 w-full max-w-lg sm:mt-12">
+          <div className="figure-plate figure-plate-natural">
             <div className="relative aspect-[3/4] overflow-hidden">
               <Image
                 src="/images/bento/bookbyriver.jpg"
                 alt="Reading a Kindle on the grass by a river at sunset"
                 fill
                 priority
-                sizes="(max-width: 768px) 100vw, 28rem"
+                sizes="(max-width: 768px) 100vw, 32rem"
                 className="object-cover"
               />
             </div>
           </div>
-          <figcaption className="mt-3 text-center font-editorial text-sm italic text-mutedFg">
+          <figcaption className="mt-3 text-center font-editorial text-base italic text-mutedFg">
             Reading by the river.
           </figcaption>
         </figure>
@@ -61,15 +61,10 @@ export default function AboutPage() {
             href="https://open.spotify.com/playlist/16MpcaQE722ZsIRVpHdc3u"
             target="_blank"
             rel="noreferrer"
-            className="group inline-flex items-center gap-1.5 font-editorial text-sm italic text-mutedFg transition hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+            className="inline-flex items-center gap-1.5 font-editorial text-base italic text-mutedFg underline decoration-transparent underline-offset-4 transition-colors hover:text-fg hover:decoration-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
           >
             <span>The playlist I code to</span>
-            <span
-              aria-hidden="true"
-              className="text-mutedFg transition group-hover:translate-x-0.5"
-            >
-              →
-            </span>
+            <span aria-hidden="true">→</span>
           </Link>
         </div>
 

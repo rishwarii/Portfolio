@@ -9,7 +9,7 @@ type ThemeToggleProps = {
 
 export function ThemeToggle({ className }: ThemeToggleProps) {
   const { isDark, isHydrated, toggleTheme } = useTheme();
-  const nextTheme = isHydrated && isDark ? "Light" : "Dark";
+  const nextTheme = isHydrated && isDark ? "Light Mode" : "Dark Mode";
 
   return (
     <button
