@@ -40,7 +40,7 @@ const projects: Project[] = [
       "FastAPI",
       "LLM Safety"
     ],
-    thumbnail: "/images/projects/chatbot.png",
+    thumbnail: "/images/projects/placeholder-1.svg",
     diagram: true,
     featured: true,
     liveUrl: "https://animosanopsychiatry.com/",

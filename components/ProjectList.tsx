@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
+import { ChatbotArchitecture } from "@/components/ChatbotArchitecture";
 import { ProjectModal } from "@/components/ProjectModal";
 import type { Project } from "@/lib/projects";
 import { cn } from "@/lib/cn";
@@ -26,13 +27,19 @@ function ProjectFigure({
   return (
     <span className="novel-figure block">
       <span className="novel-figure-frame block">
-        <Image
-          src={project.thumbnail}
-          alt=""
-          fill
-          sizes="560px"
-          className="object-cover"
-        />
+        {project.diagram ? (
+          <span className="absolute inset-0 flex items-center justify-center p-4">
+            <ChatbotArchitecture />
+          </span>
+        ) : (
+          <Image
+            src={project.thumbnail}
+            alt=""
+            fill
+            sizes="560px"
+            className="object-cover"
+          />
+        )}
       </span>
       <span className="mt-2 block text-center font-editorial text-sm italic text-mutedFg">
         Figure {figure}. {project.title}
