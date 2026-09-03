@@ -6,7 +6,7 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChatbotArchitecture } from "@/components/ChatbotArchitecture";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
-import type { Project } from "@/lib/projects";
+import { hasCaseStudy, type Project } from "@/lib/projects";
 
 type ProjectModalProps = {
   project: Project | null;
@@ -198,22 +198,26 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                 ) : null}
               </div>
 
-              <div className="flex flex-wrap items-center gap-8 border-t border-border px-7 py-5 sm:px-9">
-                {project.liveUrl ? (
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className={linkClassName}
-                  >
-                    Live site
-                  </a>
-                ) : null}
+              {project.liveUrl || hasCaseStudy(project) ? (
+                <div className="flex flex-wrap items-center gap-8 border-t border-border px-7 py-5 sm:px-9">
+                  {project.liveUrl ? (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={linkClassName}
+                    >
+                      Live site
+                    </a>
+                  ) : null}
 
-                <Link href={`/projects/${project.slug}`} className={linkClassName}>
-                  Full case study
-                </Link>
-              </div>
+                  {hasCaseStudy(project) ? (
+                    <Link href={`/projects/${project.slug}`} className={linkClassName}>
+                      Full case study
+                    </Link>
+                  ) : null}
+                </div>
+              ) : null}
             </div>
           </motion.div>
         </motion.div>

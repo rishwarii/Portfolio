@@ -29,12 +29,34 @@ export type Project = {
   sections: Record<ProjectSectionKey, string[]>;
 };
 
+export const CASE_STUDY_SECTIONS: {
+  key: ProjectSectionKey;
+  label: string;
+}[] = [
+  { key: "overview", label: "Context" },
+  { key: "problem", label: "Constraints" },
+  { key: "approach", label: "Approach" },
+  { key: "architecture", label: "Architecture" },
+  { key: "outcomes", label: "Outcomes" },
+  { key: "tradeoffs", label: "Tradeoffs" }
+];
+
+export function filledSectionParagraphs(paragraphs: string[]): string[] {
+  return paragraphs.filter((paragraph) => paragraph.trim().length > 0);
+}
+
+export function hasCaseStudy(project: Project): boolean {
+  return CASE_STUDY_SECTIONS.some(({ key }) =>
+    filledSectionParagraphs(project.sections[key]).length > 0
+  );
+}
+
 const projects: Project[] = [
   {
     slug: "healthcare-ai-chatbot",
-    title: "Production Healthcare AI Chatbot",
+    title: "Patient-facing AI for a psychiatry clinic",
     summary:
-      "Patient-facing RAG assistant with deterministic crisis routing, free-text PHI redaction, and booking integration.",
+      "Clinic assistant with crisis-first routing, PHI redaction, and booking into the live site.",
     tags: [
       "React",
       "FastAPI",
@@ -59,21 +81,40 @@ const projects: Project[] = [
       }
     ],
     sections: {
-      overview: [""],
-      problem: [""],
-      approach: [""],
-      architecture: [
-        "Crisis/shortcut routing -> TF-IDF + embedding retrieval -> grounded generation -> PHI-safe operations"
+      overview: [
+        "Built for a psychiatry practice to support prospective and existing patients with booking guidance and common care questions.",
+        "The goal was reducing front-desk workload while maintaining reliable responses and safe escalation behavior in a sensitive domain."
       ],
-      outcomes: [""],
-      tradeoffs: [""]
+      problem: [
+        "Crisis messages required deterministic handling before any generative model could run.",
+        "Answers had to stay grounded in clinic information while protecting PHI entered in free text."
+      ],
+      approach: [
+        "Combined TF-IDF keyword retrieval with Gemini embedding search behind deterministic-first routing.",
+        "Handled crisis messages and simple shortcuts before generation.",
+        "Constrained low-temperature generation to retrieved clinic facts.",
+        "Redacted PHI entered accidentally in free-text conversations.",
+        "Secured deep-link parameter passing from the chatbot into the main booking site."
+      ],
+      architecture: [
+        "Crisis/shortcut routing → TF-IDF + embedding retrieval → grounded generation → PHI-safe operations"
+      ],
+      outcomes: [
+        "About 60% of submitted ratings are 4–5 stars.",
+        "Lower-rated conversations feed targeted routing, FAQ, and call-to-action fixes.",
+        "Integrated with the clinic's live booking site."
+      ],
+      tradeoffs: [
+        "Deterministic routing prioritizes safety and consistency over open-ended flexibility.",
+        "Grounded generation limits unsupported answers, while requiring continued retrieval-content maintenance."
+      ]
     }
   },
   {
     slug: "campuscrew",
     title: "CampusCrew",
     summary:
-      "Student community platform with moderation workflows and scalable role-based collaboration features.",
+      "Student community with role-based forums and moderation workflows, so collaboration stays permissioned as it scales.",
     tags: [
       "React",
       "Supabase",
@@ -83,13 +124,10 @@ const projects: Project[] = [
     featured: true,
     highlights: [
       {
-        text: "Student community platform for collaboration and discussion."
+        text: "Role-based forums so students collaborate with the right permissions as the community grows."
       },
       {
-        text: "Moderation workflows to keep community content safe."
-      },
-      {
-        text: "Role-based access for scalable, permissioned collaboration."
+        text: "Moderation workflows for keeping discussion usable, not just open."
       },
       {
         text: "Built with React and Supabase."
@@ -115,7 +153,7 @@ const projects: Project[] = [
       "PostgreSQL"
     ],
     thumbnail: "/images/projects/jobtracker.jpg",
-    featured: true,
+    featured: false,
     // Placeholder project — no highlights manufactured (Option C).
     highlights: [],
     sections: {

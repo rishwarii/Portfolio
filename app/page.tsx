@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ChapterOpening } from "@/components/ChapterOpening";
 import { ContactCard } from "@/components/ContactCard";
 import { Container } from "@/components/Container";
+import { FeaturedWork } from "@/components/FeaturedWork";
 import { Hero } from "@/components/Hero";
 import { ProjectList } from "@/components/ProjectList";
 import { Section } from "@/components/Section";
@@ -14,32 +15,37 @@ export default function HomePage() {
   const projects = getProjects();
   const projectBySlug = (slug: string) =>
     projects.find((project) => project.slug === slug);
+  const featuredProject = projectBySlug("healthcare-ai-chatbot");
   const listedProjects = [
-    "healthcare-ai-chatbot",
     "campuscrew",
-    "ndvi-vegetation-health-automation",
-    "ai-job-tracker"
+    "ndvi-vegetation-health-automation"
   ]
     .map(projectBySlug)
     .filter((project): project is Project => Boolean(project));
-  const [educationItem] = siteContent.educationResearch.items;
+  const educationItems = siteContent.educationResearch.items;
   const { chapters } = siteContent;
 
   return (
     <>
       <Hero />
 
-      <Section id="projects" className="chapter-rule" containerSize="reading" spacing="compact">
+      <Section id="projects" className="chapter-rule" containerSize="reading" spacing="chapter">
         <ChapterOpening
           roman={chapters.projects.roman}
           title={chapters.projects.title}
+          opener={chapters.projects.opener}
         />
-        <div className="mt-6">
-          <ProjectList projects={listedProjects} />
+        {featuredProject ? (
+          <div className="mt-8">
+            <FeaturedWork project={featuredProject} figure={1} />
+          </div>
+        ) : null}
+        <div className="mt-14 border-t border-border pt-10">
+          <ProjectList projects={listedProjects} figureStart={2} />
         </div>
       </Section>
 
-      <Section id="experience" className="chapter-rule" containerSize="reading" spacing="leaf">
+      <Section id="experience" className="chapter-rule" containerSize="reading" spacing="chapter">
         <ChapterOpening
           roman={chapters.experience.roman}
           title={chapters.experience.title}
@@ -47,46 +53,70 @@ export default function HomePage() {
         <Timeline />
       </Section>
 
-      <Section id="education" className="chapter-rule" containerSize="reading" spacing="leaf">
+      <Section id="education" className="chapter-rule" containerSize="reading" spacing="chapter">
         <ChapterOpening
           roman={chapters.education.roman}
           title={chapters.education.title}
         />
-        <div>
-          <h3 className="font-novel text-2xl font-normal tracking-[-0.02em] text-fg sm:text-3xl">
-            {educationItem.title}
-          </h3>
-          <p className="mt-2 font-editorial text-lg text-fg">
-            {educationItem.subtitle}
-          </p>
-          {"gpa" in educationItem && educationItem.gpa ? (
-            <p className="mt-4 font-editorial text-base italic text-mutedFg">
-              GPA {educationItem.gpa}
-            </p>
-          ) : null}
-          {"courseTags" in educationItem && educationItem.courseTags ? (
-            <p className="mt-3 font-editorial text-base italic text-mutedFg">
-              {educationItem.courseTags.join(" · ")}
-            </p>
-          ) : null}
-          {educationItem.points.length > 0 ? (
-            <ul className="mt-6 space-y-2 font-editorial text-base leading-relaxed text-mutedFg sm:text-lg">
-              {educationItem.points.map((point) => (
-                <li key={point}>{point}</li>
-              ))}
-            </ul>
-          ) : null}
+        <div className="mt-8 space-y-10">
+          {educationItems.map((item) => (
+            <div key={item.title}>
+              {item.href.trim().length > 0 ? (
+                <h3 className="font-novel text-2xl font-normal tracking-[-0.02em] text-fg sm:text-3xl">
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+                  >
+                    {item.title}
+                  </a>
+                </h3>
+              ) : (
+                <h3 className="font-novel text-2xl font-normal tracking-[-0.02em] text-fg sm:text-3xl">
+                  {item.title}
+                </h3>
+              )}
+              {item.subtitle.trim().length > 0 ? (
+                <p className="mt-2 font-editorial text-xl text-fg">
+                  {item.subtitle}
+                </p>
+              ) : null}
+              {item.gpa.trim().length > 0 ? (
+                <p className="mt-4 font-editorial text-lg italic text-mutedFg">
+                  GPA {item.gpa}
+                </p>
+              ) : null}
+              {item.courseTags.length > 0 ? (
+                <p className="mt-3 font-editorial text-lg italic text-mutedFg">
+                  {item.courseTags.join(" · ")}
+                </p>
+              ) : null}
+              {item.points.length > 0 ? (
+                <ul className="mt-6 space-y-2 font-editorial text-lg leading-relaxed text-mutedFg sm:text-xl">
+                  {item.points.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
+          ))}
         </div>
+        {siteContent.educationResearch.credentials.trim().length > 0 ? (
+          <p className="mt-10 font-editorial text-lg italic text-mutedFg">
+            {siteContent.educationResearch.credentials}
+          </p>
+        ) : null}
       </Section>
 
-      <Section id="contact" className="chapter-rule" containerSize="reading" spacing="leaf">
+      <Section id="contact" className="chapter-rule" containerSize="reading" spacing="chapter">
         <ChapterOpening
           roman={chapters.contact.roman}
           title={chapters.contact.title}
           opener={siteContent.contact.microcopy}
         />
         {siteContent.contact.availability.trim().length > 0 ? (
-          <p className="mt-3 font-editorial text-lg italic text-mutedFg">
+          <p className="mt-3 font-editorial text-xl italic text-mutedFg">
             {siteContent.contact.availability}
           </p>
         ) : null}
@@ -106,7 +136,7 @@ export default function HomePage() {
           />
           <Link
             href="/about"
-            className="group inline-flex items-center gap-1.5 text-left font-editorial text-base italic text-mutedFg transition hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+            className="group inline-flex items-center gap-1.5 text-left font-editorial text-lg italic text-mutedFg transition hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
           >
             <span>
               There&apos;s more to me than the résumé — books, paintings, and one

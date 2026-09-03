@@ -13,6 +13,7 @@ import { renderText } from "@/lib/renderText";
 type ProjectListProps = {
   projects: Project[];
   className?: string;
+  figureStart?: number;
 };
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -25,30 +26,34 @@ function ProjectFigure({
   figure: number;
 }) {
   return (
-    <span className="novel-figure block">
-      <span className="novel-figure-frame block">
-        {project.diagram ? (
-          <span className="absolute inset-0 flex items-center justify-center p-4">
+    <span className="novel-figure">
+      <span className="novel-figure-frame">
+        <span className="novel-figure-media">
+          {project.diagram ? (
             <ChatbotArchitecture />
-          </span>
-        ) : (
-          <Image
-            src={project.thumbnail}
-            alt=""
-            fill
-            sizes="560px"
-            className="object-cover"
-          />
-        )}
+          ) : (
+            <Image
+              src={project.thumbnail}
+              alt=""
+              fill
+              sizes="(max-width: 767px) 90vw, 384px"
+              className="novel-figure-image"
+            />
+          )}
+        </span>
       </span>
-      <span className="mt-2 block text-center font-editorial text-sm italic text-mutedFg">
+      <span className="novel-figure-caption">
         Figure {figure}. {project.title}
       </span>
     </span>
   );
 }
 
-export function ProjectList({ projects, className }: ProjectListProps) {
+export function ProjectList({
+  projects,
+  className,
+  figureStart = 1
+}: ProjectListProps) {
   const prefersReducedMotion = useReducedMotion();
   const [isMounted, setIsMounted] = useState(false);
   const [activeProject, setActiveProject] = useState<Project | null>(null);
@@ -62,37 +67,43 @@ export function ProjectList({ projects, className }: ProjectListProps) {
   const reveal = (index: number) =>
     animate
       ? {
-          initial: { opacity: 0, y: 8 },
+          initial: { opacity: 0, y: 14 },
           whileInView: { opacity: 1, y: 0 },
           viewport: {
             once: true,
             amount: 0.2,
             margin: "0px 0px -80px 0px"
           },
-          transition: { duration: 0.5, delay: index * 0.08, ease: EASE }
+          transition: { duration: 0.6, delay: index * 0.1, ease: EASE }
         }
       : {};
 
   return (
     <>
-      <ol className={cn("w-full", className)}>
+      <ol className={cn("project-grid list-none p-0", className)}>
         {projects.map((project, index) => {
           const summary = renderText(project.summary);
 
           return (
-            <motion.li key={project.slug} {...reveal(index)}>
+            <motion.li key={project.slug} className="min-w-0" {...reveal(index)}>
               <button
                 type="button"
                 onClick={() => setActiveProject(project)}
-                className="group w-full py-6 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+                className="group flex h-full w-full flex-col text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
               >
-                <span className="block font-novel text-xl font-normal tracking-[-0.02em] text-fg transition-colors group-hover:text-accent sm:text-2xl">
-                  {index + 1}. {project.title}
+                <span className="block font-novel text-[1.1rem] font-normal tracking-[-0.02em] text-fg transition-colors group-hover:text-accent">
+                  {project.title}
                 </span>
-                <span className="mt-2 block font-editorial text-sm leading-relaxed text-mutedFg sm:text-base">
+                <span className="mt-2 line-clamp-2 block font-editorial text-sm leading-relaxed text-mutedFg">
                   {summary.length > 0 ? summary : "Project summary coming soon."}
                 </span>
-                <ProjectFigure project={project} figure={index + 1} />
+                <ProjectFigure
+                  project={project}
+                  figure={figureStart + index}
+                />
+                <span className="mt-3 block font-editorial text-sm italic text-mutedFg transition-colors group-hover:text-accent">
+                  Read →
+                </span>
               </button>
             </motion.li>
           );
@@ -123,10 +134,10 @@ export function ProjectIndex({ projects }: ProjectIndexProps) {
               href={`/projects/${project.slug}`}
               className="group block py-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
             >
-              <h3 className="font-novel text-xl font-normal tracking-[-0.02em] text-fg transition-colors group-hover:text-accent sm:text-2xl">
+              <h3 className="font-novel text-2xl font-normal tracking-[-0.02em] text-fg transition-colors group-hover:text-accent sm:text-3xl">
                 {index + 1}. {project.title}
               </h3>
-              <p className="mt-2 font-editorial text-sm leading-relaxed text-mutedFg sm:text-base">
+              <p className="mt-2 font-editorial text-base leading-relaxed text-mutedFg sm:text-lg">
                 {summary.length > 0 ? summary : "Project summary coming soon."}
               </p>
               <ProjectFigure project={project} figure={index + 1} />

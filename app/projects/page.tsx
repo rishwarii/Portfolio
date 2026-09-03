@@ -1,10 +1,10 @@
 import { ProjectIndex } from "@/components/ProjectList";
 import { Section } from "@/components/Section";
 import { SectionHeading } from "@/components/SectionHeading";
-import { getProjects } from "@/lib/projects";
+import { getFeaturedProjects } from "@/lib/projects";
 
 export default function ProjectsPage() {
-  const projects = getProjects();
+  const projects = getFeaturedProjects();
 
   return (
     <>

@@ -5,7 +5,13 @@ import { notFound } from "next/navigation";
 import { ChatbotArchitecture } from "@/components/ChatbotArchitecture";
 import { Section } from "@/components/Section";
 import { SectionHeading } from "@/components/SectionHeading";
-import { getProjectBySlug, getProjects } from "@/lib/projects";
+import {
+  CASE_STUDY_SECTIONS,
+  filledSectionParagraphs,
+  getProjectBySlug,
+  getProjects,
+  hasCaseStudy
+} from "@/lib/projects";
 
 type ProjectDetailPageProps = {
   params: {
@@ -39,13 +45,17 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
     return notFound();
   }
 
-  const architecture = project.sections.architecture.filter(Boolean);
+  const caseStudySections = CASE_STUDY_SECTIONS.map(({ key, label }) => ({
+    key,
+    label,
+    paragraphs: filledSectionParagraphs(project.sections[key])
+  })).filter((section) => section.paragraphs.length > 0);
 
   return (
     <>
       <Section reveal={false} spacing="compact" containerSize="reading">
         <SectionHeading
-          eyebrow="Project"
+          eyebrow={hasCaseStudy(project) ? "Case study" : "Project"}
           title={project.title}
           description={project.summary}
         />
@@ -75,7 +85,29 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
           </p>
         ) : null}
 
-        {project.highlights.length > 0 ? (
+        {caseStudySections.map((section) => (
+          <div key={section.key} className="mt-12">
+            <h2 className="font-editorial text-lg italic text-fg">{section.label}</h2>
+            {section.key === "architecture" ? (
+              <p className="mt-5 font-editorial text-base leading-relaxed text-mutedFg sm:text-lg">
+                {section.paragraphs.join(" → ")}
+              </p>
+            ) : (
+              <div className="mt-5 space-y-3">
+                {section.paragraphs.map((paragraph) => (
+                  <p
+                    key={paragraph}
+                    className="font-editorial text-base leading-relaxed text-mutedFg sm:text-lg"
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+
+        {project.highlights.length > 0 && caseStudySections.length === 0 ? (
           <div className="mt-12">
             <h2 className="font-editorial text-lg italic text-fg">Highlights</h2>
             <ul className="mt-5 space-y-3">
@@ -101,15 +133,6 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
           </div>
         ) : null}
 
-        {architecture.length > 0 ? (
-          <div className="mt-12">
-            <h2 className="font-editorial text-lg italic text-fg">Architecture</h2>
-            <p className="mt-5 font-editorial text-sm leading-relaxed text-mutedFg sm:text-base">
-              {architecture.join(" → ")}
-            </p>
-          </div>
-        ) : null}
-
         <div className="mt-14 flex flex-wrap items-center gap-8 border-t border-border pt-8">
           {project.liveUrl ? (
             <a
@@ -122,8 +145,8 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
             </a>
           ) : null}
 
-          <Link href="/projects" className={linkClassName}>
-            Back to Projects
+          <Link href="/#projects" className={linkClassName}>
+            Back to Selected Work
           </Link>
         </div>
       </Section>

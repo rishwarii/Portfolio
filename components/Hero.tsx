@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
+import { BrandEmblem } from "@/components/BrandEmblem";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { siteContent } from "@/lib/siteContent";
 
@@ -32,30 +33,31 @@ export function Hero() {
   const { hero } = siteContent;
 
   return (
-    <section id="home" className="chapter-rule pb-2">
+    <section id="home" className="chapter-rule pb-20 sm:pb-28 lg:pb-36">
       <motion.div
         variants={container}
         initial={animate ? "hidden" : false}
         animate="show"
-        className="flex flex-col items-start text-left"
+        className="flex flex-col"
       >
-        <motion.h1
-          variants={item}
-          className="w-full font-display text-[clamp(2.35rem,8vw,3.4rem)] font-normal leading-[0.96] tracking-[-0.035em] text-[#2a1b2e]"
-        >
-          {hero.headline}
-        </motion.h1>
+        <motion.div variants={item} className="flex flex-col items-center text-center">
+          <BrandEmblem />
+          <h1 className="w-full font-display text-[clamp(3.25rem,7vw,5.5rem)] font-normal leading-[0.96] tracking-[-0.035em] text-fg">
+            {hero.headline}
+          </h1>
+        </motion.div>
 
-        <motion.p
-          variants={item}
-          className="mt-5 font-editorial text-xl italic leading-snug text-[#6e6270]"
-        >
-          {hero.subheadline}
+        <motion.p variants={item} className="front-matter">
+          <span>{hero.location}</span>
+          <span aria-hidden="true"> · </span>
+          <span>{hero.roles}</span>
+          <span aria-hidden="true"> · </span>
+          <span>{hero.status}</span>
         </motion.p>
 
         <motion.p
           variants={item}
-          className="drop-cap mt-8 font-editorial text-base leading-relaxed text-fg sm:text-lg"
+          className="drop-cap max-w-[46rem] font-editorial text-xl leading-[1.65] text-fg sm:text-2xl sm:leading-[1.6]"
         >
           {hero.intro}
         </motion.p>

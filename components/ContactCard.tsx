@@ -1,7 +1,8 @@
+import Link from "next/link";
 import { siteContent } from "@/lib/siteContent";
 
 const linkClassName =
-  "font-body text-base font-medium text-fg underline decoration-border decoration-1 underline-offset-4 transition-colors hover:decoration-accent";
+  "font-body text-lg font-medium text-fg underline decoration-border decoration-1 underline-offset-4 transition-colors hover:decoration-accent";
 
 export function ContactCard() {
   const { contact } = siteContent;
@@ -28,6 +29,9 @@ export function ContactCard() {
         >
           GitHub
         </a>
+        <Link href={contact.resume} className={linkClassName}>
+          Resume
+        </Link>
       </div>
     </div>
   );

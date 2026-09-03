@@ -14,12 +14,12 @@ export function ChapterOpening({
   className
 }: ChapterOpeningProps) {
   return (
-    <header className={cn("text-left", className)}>
-      <h2 className="caps-heading font-novel text-xs font-medium tracking-[0.28em] text-[#bd476e] sm:text-sm">
+    <header className={cn("text-center", className)}>
+      <h2 className="chapter-label">
         Chapter {roman} — {title}
       </h2>
       {opener ? (
-        <p className="mt-4 font-editorial text-base leading-relaxed text-mutedFg sm:text-lg">
+        <p className="text-left font-editorial text-lg leading-relaxed text-mutedFg sm:text-xl">
           {opener}
         </p>
       ) : null}

@@ -13,7 +13,7 @@ type SectionProps = {
   reveal?: boolean;
   withContainer?: boolean;
   containerSize?: ContainerSize;
-  spacing?: "compact" | "default" | "hero" | "leaf";
+  spacing?: "compact" | "default" | "hero" | "leaf" | "chapter";
   aura?: "none" | "left" | "right";
 };
 
@@ -21,7 +21,8 @@ const spacingClassMap: Record<NonNullable<SectionProps["spacing"]>, string> = {
   compact: "py-8 sm:py-10",
   default: "py-12 sm:py-14",
   hero: "pb-12 pt-14 sm:pb-16 sm:pt-16",
-  leaf: "py-10 sm:py-12"
+  leaf: "py-10 sm:py-12",
+  chapter: "py-20 sm:py-28 lg:py-36"
 };
 
 export function Section({

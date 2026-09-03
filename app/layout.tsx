@@ -57,7 +57,7 @@ const newsreader = Newsreader({
 export const metadata: Metadata = {
   title: "Rishwari Ranjan | Portfolio",
   description:
-    "Profile website for Rishwari Ranjan, full-stack engineer building reliable AI-enabled products.",
+    "Software engineer at a psychiatry practice, building the AI patients talk to and the record systems underneath it.",
   icons: {
     icon: "/images/projects/placeholder-1.svg"
   }
@@ -67,11 +67,11 @@ export const viewport: Viewport = {
   themeColor: [
     {
       media: "(prefers-color-scheme: light)",
-      color: "#FDF9FA"
+      color: "#F9F6F0"
     },
     {
       media: "(prefers-color-scheme: dark)",
-      color: "#17101b"
+      color: "#14181C"
     }
   ]
 };
@@ -85,7 +85,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-theme="light"
-      data-preset="lavender"
+      data-preset="gilt"
       className={`${body.variable} ${display.variable} ${editorial.variable} ${newsreader.variable}`}
     >
       <body className="bg-bg text-fg antialiased">
@@ -101,8 +101,17 @@ export default function RootLayout({
           ? "dark"
           : "light";
     document.documentElement.setAttribute("data-theme", resolvedTheme);
+
+    const presetKey = "portfolio-color-preset";
+    const storedPreset = window.localStorage.getItem(presetKey);
+    const resolvedPreset =
+      storedPreset === "gilt" || storedPreset === "lavender" || storedPreset === "blush"
+        ? storedPreset
+        : "gilt";
+    document.documentElement.setAttribute("data-preset", resolvedPreset);
   } catch {
     document.documentElement.setAttribute("data-theme", "light");
+    document.documentElement.setAttribute("data-preset", "gilt");
   }
 })();`}</Script>
         <div className="grain-overlay" />

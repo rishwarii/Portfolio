@@ -7,9 +7,11 @@ export const siteContent = {
     halfTitle: "A Portfolio",
     eyebrow: "Software Engineer — Applied AI",
     headline: "Rishwari Ranjan",
-    subheadline: "The system underneath, and the AI on top.",
+    location: "North Carolina, USA",
+    roles: "Software Engineer, Applied AI",
+    status: "Open to work",
     intro:
-      "Software engineer at a psychiatry practice, building both the AI patients talk to and the record systems underneath it.",
+      "Software engineer at a psychiatry practice — I build the AI patients talk to, and the record systems underneath it.",
     primaryCta: {
       label: "View Work",
       href: "#projects"
@@ -32,7 +34,7 @@ export const siteContent = {
     },
     education: {
       roman: "III",
-      title: "Education"
+      title: "Education + Research"
     },
     contact: {
       roman: "IV",
@@ -55,7 +57,7 @@ export const siteContent = {
   ],
   featuredCaseStudy: {
     title: "Featured Case Study",
-    project: "Production Healthcare AI Chatbot",
+    project: "Patient-facing AI for a psychiatry clinic",
     context: "Healthcare | Patient-facing assistant",
     contextNarrative: [
       "Built for a psychiatry practice to support prospective and existing patients with booking guidance and common care questions.",
@@ -100,6 +102,11 @@ export const siteContent = {
     futureImprovements: [
       "Global rate limiting across upstream services",
       "Automated evaluation pipeline for LLM quality"
+    ],
+    proofPoints: [
+      "About 60% of submitted ratings are 4–5 stars.",
+      "Lower-rated conversations drive routing, FAQ, and call-to-action fixes.",
+      "Booking details pass from the chat into the live clinic site."
     ]
   },
   experience: [
@@ -107,11 +114,11 @@ export const siteContent = {
       id: "animo-sano",
       company: "Animo Sano Psychiatry",
       title: "Software Engineer",
-      date: "Jul 2025–Present",
+      date: "Jul 2025 – Present",
       location: "North Carolina, USA",
       isCurrent: true,
       overview:
-        "Built the patient-facing AI chatbot from scratch, and co-architected the practice's multi-tenant EHR.",
+        "Built the patient-facing AI from scratch, and co-architected the multi-tenant EHR it sits on.",
       highlights: [
         "Designed and built a production RAG chatbot end-to-end, combining TF-IDF keyword retrieval with Gemini embedding search behind deterministic-first routing. Crisis messages and simple shortcuts are handled before generation; grounded, low-temperature prompts constrain answers to retrieved clinic facts.",
         "Built redaction for PHI entered accidentally in free-text conversations, not only structured fields, and secured deep-link parameter passing from the chatbot into the main booking site.",
@@ -126,11 +133,11 @@ export const siteContent = {
       id: "nagarro",
       company: "Nagarro",
       title: "SDE / Front-End Engineer",
-      date: "Jan 2022–Aug 2023",
+      date: "Jan 2022 – Aug 2023",
       location: "Gurgaon, India",
       isCurrent: false,
       overview:
-        "Front-end SDE on two live-tracking products for Austria-based clients.",
+        "Front-end on two live-tracking products for Austrian clients — vehicle sharing on a 10-second map, and a 55-vehicle logistics dashboard.",
       highlights: [
         "Worked directly with business analysts to translate operational requirements into tracking and analytics interfaces."
       ],
@@ -156,29 +163,42 @@ export const siteContent = {
   ],
   educationResearch: {
     title: "Education + Research",
+    credentials: "AWS Certified (2024)",
     items: [
       {
         title: "Purdue University",
-        subtitle: "M.S. Computer Science (2023-2025)",
-        date: "Purdue University",
+        subtitle: "M.S. Computer Science (2023–2025)",
+        date: "2023–2025",
         gpa: "4.0/4.0",
         courseTags: [
           "Distributed Systems",
           "Machine Learning",
           "Cloud Computing"
         ],
+        href: "",
+        points: []
+      },
+      {
+        title: "NDVI Vegetation Health Automation",
+        subtitle:
+          "Landsat-8 workflow, published as a Springer chapter, with a U.S. copyright registration.",
+        date: "",
+        gpa: "",
+        courseTags: [],
+        href: "https://link.springer.com/chapter/10.1007/978-981-16-8403-6_32",
         points: []
       }
     ]
   },
   contact: {
     title: "Let's Connect",
-    microcopy: "If you're hiring or collaborating, I'm happy to connect.",
-    availability: "Open to AI Engineer, Software Engineer, and Full-Stack roles.",
+    microcopy:
+      "If you are hiring for AI engineering or full-stack work — especially product that has to be safe in production — I would like to hear from you.",
+    availability: "",
     email: "rishwari.connect@gmail.com",
     linkedin: "https://www.linkedin.com/in/rishwari/",
     github: "https://github.com/rishwarii",
-    resume: ""
+    resume: "/resume"
   },
   blog: {
     title: "Blog",

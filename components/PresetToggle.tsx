@@ -3,17 +3,18 @@
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/cn";
 
-type Preset = "lavender" | "blush";
+type Preset = "gilt" | "lavender" | "blush";
 
 const PRESET_STORAGE_KEY = "portfolio-color-preset";
+const PRESETS: Preset[] = ["gilt", "lavender", "blush"];
 
 function isPreset(value: string | null | undefined): value is Preset {
-  return value === "lavender" || value === "blush";
+  return value === "gilt" || value === "lavender" || value === "blush";
 }
 
 export function PresetToggle() {
   const [mounted, setMounted] = useState(false);
-  const [preset, setPreset] = useState<Preset>("lavender");
+  const [preset, setPreset] = useState<Preset>("gilt");
 
   useEffect(() => {
     setMounted(true);
@@ -25,7 +26,7 @@ export function PresetToggle() {
       ? storedPreset
       : isPreset(domPreset)
         ? domPreset
-        : "lavender";
+        : "gilt";
 
     root.dataset.preset = resolvedPreset;
     setPreset(resolvedPreset);
@@ -46,7 +47,7 @@ export function PresetToggle() {
       <span className="px-2 text-[0.62rem] uppercase tracking-[0.12em] text-mutedFg">
         Preset
       </span>
-      {(["lavender", "blush"] as const).map((item) => (
+      {PRESETS.map((item) => (
         <button
           key={item}
           type="button"
