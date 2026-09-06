@@ -51,9 +51,8 @@ export default function AboutPage() {
 
         <p className="mx-auto max-w-xl text-left font-editorial text-lg leading-[1.7] text-fg sm:text-xl sm:leading-[1.65]">
           I&apos;m an engineer, but I don&apos;t think like one all the time. Away
-          from the keyboard it&apos;s usually a 19th-century novel, or a
-          half-finished painting — both of which have taught me more about my
-          craft than any framework has. Usually with something loud playing.
+          from the keyboard it&apos;s usually a 19th-century novel or a
+          half-finished painting. Usually with something loud playing.
         </p>
 
         <div className="mt-8 text-center">

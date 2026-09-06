@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { CompanyLogo } from "@/components/CompanyLogo";
 import { Section } from "@/components/Section";
 import { getExperienceById, getExperienceRoles } from "@/lib/experience";
 
@@ -38,6 +39,23 @@ export default function ExperienceDetailPage({ params }: ExperiencePageProps) {
       <p className="caps-heading font-novel text-[0.7rem] font-medium tracking-[0.32em] text-accent sm:text-xs">
         Experience
       </p>
+      {role.logo ? (
+        role.companyUrl.trim().length > 0 ? (
+          <a
+            href={role.companyUrl}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`${role.company} website`}
+            className="mt-6 inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+          >
+            <CompanyLogo src={role.logo} />
+          </a>
+        ) : (
+          <div className="mt-6">
+            <CompanyLogo src={role.logo} />
+          </div>
+        )
+      ) : null}
       <h1 className="mt-4 font-novel text-[clamp(2rem,4vw,3.25rem)] font-normal tracking-[-0.03em] text-fg">
         {role.company}
       </h1>
@@ -76,7 +94,18 @@ export default function ExperienceDetailPage({ params }: ExperiencePageProps) {
                     {project.context}
                   </p>
                   <h2 className="mt-2 font-novel text-2xl font-normal tracking-[-0.02em] text-fg sm:text-3xl">
-                    {project.title}
+                    {project.href.trim().length > 0 ? (
+                      <a
+                        href={project.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+                      >
+                        {project.title}
+                      </a>
+                    ) : (
+                      project.title
+                    )}
                   </h2>
                   <ul className="mt-4 space-y-3 font-editorial text-base leading-relaxed text-mutedFg sm:text-lg">
                     {project.highlights.map((point) => (

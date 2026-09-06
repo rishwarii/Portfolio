@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { BrandEmblem } from "@/components/BrandEmblem";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { siteContent } from "@/lib/siteContent";
 
@@ -27,13 +26,32 @@ const item: Variants = {
   }
 };
 
+function HeroIntro({ text }: { text: string }) {
+  const separators = [" — ", ", "] as const;
+  const match = separators
+    .map((separator) => ({ separator, index: text.indexOf(separator) }))
+    .find((candidate) => candidate.index !== -1);
+
+  if (!match) {
+    return <>{text}</>;
+  }
+
+  return (
+    <>
+      {text.slice(0, match.index + match.separator.length)}
+      <br className="lg:hidden" />
+      {text.slice(match.index + match.separator.length)}
+    </>
+  );
+}
+
 export function Hero() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const animate = !prefersReducedMotion;
   const { hero } = siteContent;
 
   return (
-    <section id="home" className="chapter-rule pb-20 sm:pb-28 lg:pb-36">
+    <section id="home" className="chapter-rule">
       <motion.div
         variants={container}
         initial={animate ? "hidden" : false}
@@ -41,7 +59,6 @@ export function Hero() {
         className="flex flex-col"
       >
         <motion.div variants={item} className="flex flex-col items-center text-center">
-          <BrandEmblem />
           <h1 className="w-full font-display text-[clamp(3.25rem,7vw,5.5rem)] font-normal leading-[0.96] tracking-[-0.035em] text-fg">
             {hero.headline}
           </h1>
@@ -51,15 +68,16 @@ export function Hero() {
           <span>{hero.location}</span>
           <span aria-hidden="true"> · </span>
           <span>{hero.roles}</span>
-          <span aria-hidden="true"> · </span>
-          <span>{hero.status}</span>
+          {hero.status.trim().length > 0 ? (
+            <>
+              <span aria-hidden="true"> · </span>
+              <span>{hero.status}</span>
+            </>
+          ) : null}
         </motion.p>
 
-        <motion.p
-          variants={item}
-          className="drop-cap max-w-[46rem] font-editorial text-xl leading-[1.65] text-fg sm:text-2xl sm:leading-[1.6]"
-        >
-          {hero.intro}
+        <motion.p variants={item} className="hero-lede lg:whitespace-nowrap">
+          <HeroIntro text={hero.intro} />
         </motion.p>
       </motion.div>
     </section>

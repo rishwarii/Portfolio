@@ -1,5 +1,6 @@
 node_modules
 .next
+rr_draft-main/
 out
 dist
 coverage
@@ -9,6 +10,8 @@ yarn-error.log*
 pnpm-debug.log*
 .DS_Store
 .env
+.env.local
+.env*.local
 *.env
 __pycache__/
 *.pyc

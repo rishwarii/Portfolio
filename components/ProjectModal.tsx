@@ -4,9 +4,8 @@ import { useEffect, useId, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChatbotArchitecture } from "@/components/ChatbotArchitecture";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
-import { hasCaseStudy, type Project } from "@/lib/projects";
+import { hasCaseStudy, projectLiveLabel, type Project } from "@/lib/projects";
 
 type ProjectModalProps = {
   project: Project | null;
@@ -135,23 +134,19 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
               Close
             </button>
 
+            {project.showFigure === false ? null : (
             <div className="relative h-[28vh] max-h-56 w-full flex-none overflow-hidden border-b border-border bg-muted/30">
               <div className="absolute inset-4">
-                {project.diagram ? (
-                  <div className="flex h-full w-full items-center justify-center">
-                    <ChatbotArchitecture />
-                  </div>
-                ) : (
-                  <Image
-                    src={project.thumbnail}
-                    alt={project.title}
-                    fill
-                    sizes="(max-width: 700px) 100vw, 42rem"
-                    className="object-contain"
-                  />
-                )}
+                <Image
+                  src={project.thumbnail}
+                  alt={project.title}
+                  fill
+                  sizes="(max-width: 700px) 100vw, 42rem"
+                  className="object-contain"
+                />
               </div>
             </div>
+            )}
 
             <div className="flex-1 overflow-y-auto overscroll-contain">
               <div className="px-7 py-8 sm:px-9">
@@ -207,7 +202,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                       rel="noreferrer"
                       className={linkClassName}
                     >
-                      Live site
+                      {projectLiveLabel(project)}
                     </a>
                   ) : null}
 

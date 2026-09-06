@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CompanyLogo } from "@/components/CompanyLogo";
 import { siteContent } from "@/lib/siteContent";
 
 export function Timeline() {
@@ -16,6 +17,7 @@ export function Timeline() {
               href={`/experience/${item.id}`}
               className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
             >
+              {item.logo ? <CompanyLogo src={item.logo} className="mb-3" /> : null}
               <div className="flex items-baseline gap-2">
                 <h3 className="min-w-0 font-novel text-2xl font-normal tracking-[-0.02em] text-fg transition-colors group-hover:text-accent sm:text-3xl">
                   {item.title} — {item.company}

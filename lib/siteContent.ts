@@ -1,17 +1,17 @@
 export const siteContent = {
   brand: {
     name: "Rishwari Ranjan",
-    role: "Full-Stack Engineer building AI-enabled systems with reliability and product thinking."
+    role: "I build production software, currently in healthcare."
   },
   hero: {
     halfTitle: "A Portfolio",
-    eyebrow: "Software Engineer — Applied AI",
+    eyebrow: "Software Engineer",
     headline: "Rishwari Ranjan",
-    location: "North Carolina, USA",
-    roles: "Software Engineer, Applied AI",
-    status: "Open to work",
+    location: "Chicago, IL",
+    roles: "Software Engineer",
+    status: "",
     intro:
-      "Software engineer at a psychiatry practice — I build the AI patients talk to, and the record systems underneath it.",
+      "I build production software, currently in healthcare.",
     primaryCta: {
       label: "View Work",
       href: "#projects"
@@ -25,8 +25,7 @@ export const siteContent = {
     projects: {
       roman: "I",
       title: "Selected Work",
-      opener:
-        "End-to-end systems: the interface people touch, the record underneath, and the AI in between."
+      opener: "",
     },
     experience: {
       roman: "II",
@@ -34,11 +33,11 @@ export const siteContent = {
     },
     education: {
       roman: "III",
-      title: "Education + Research"
+      title: "Education"
     },
     contact: {
       roman: "IV",
-      title: "Let's Connect"
+      title: "Contact"
     }
   },
   proofStrip: [
@@ -57,28 +56,32 @@ export const siteContent = {
   ],
   featuredCaseStudy: {
     title: "Featured Case Study",
-    project: "Patient-facing AI for a psychiatry clinic",
-    context: "Healthcare | Patient-facing assistant",
+    project: "Hope — patient assistant at Animo Sano Psychiatry",
+    context: "Animo Sano Psychiatry",
+    homepageLead:
+      "At Animo Sano I built Hope, the clinic’s patient assistant, and most of a multi-tenant EHR: eligibility, claims, and e-prescribing.",
+    homepageProof:
+      "Crisis messages are handled by rules before any model runs. Booking details pass into the clinic site through a signed deep link.",
     contextNarrative: [
-      "Built for a psychiatry practice to support prospective and existing patients with booking guidance and common care questions.",
-      "The goal was reducing front-desk workload while maintaining reliable responses and safe escalation behavior in a sensitive domain."
+      "Built Hope for Animo Sano Psychiatry so patients can book appointments and find clinic information from the website.",
+      "When a message indicates crisis, rules handle it before any model runs, then the conversation goes to a person."
     ],
     constraints: [
-      "Crisis messages required deterministic handling before any generative model could run.",
-      "Answers had to stay grounded in clinic information while protecting PHI entered in free text."
+      "Crisis messages must be handled by rules before generation.",
+      "Answers must stay grounded in clinic information. PHI entered in free text must be redacted."
     ],
     liveUrl: "https://animosanopsychiatry.com/",
     engineeringDecisions: [
-      "Combined TF-IDF keyword retrieval with Gemini embedding search behind deterministic-first routing.",
-      "Handled crisis messages and simple shortcuts before generation.",
-      "Constrained low-temperature generation to retrieved clinic facts.",
-      "Redacted PHI entered accidentally in free-text conversations.",
-      "Secured deep-link parameter passing from the chatbot into the main booking site."
+      "Crisis messages and simple shortcuts are handled before any generation runs.",
+      "Crisis detection uses both pattern matching and a classifier over PHI-redacted text.",
+      "Retrieval combines keyword search with Gemini embeddings, then a low-temperature prompt constrained to retrieved clinic facts.",
+      "The chatbot redacts PHI entered in free text, not only structured fields.",
+      "Booking details pass into the clinic site through a signed deep link."
     ],
     impact: [
-      "60% of submitted ratings are 4–5 stars",
-      "Lower-rated conversations feed targeted routing, FAQ, and call-to-action fixes",
-      "Production booking integration"
+      "Crisis messages are handled by rules before any model runs",
+      "PHI entered in free text is redacted, not only structured fields",
+      "Booking details pass into the clinic site through a signed deep link"
     ],
     architectureFlow: [
       "Frontend",
@@ -96,105 +99,103 @@ export const siteContent = {
       "Model: Gemini 2.5 Flash"
     ],
     tradeoffs: [
-      "Deterministic routing prioritizes safety and consistency over open-ended flexibility.",
-      "Grounded generation limits unsupported answers, while requiring continued retrieval-content maintenance."
+      "Handling crisis messages with rules before generation reduces flexibility and improves consistency where it is required.",
+      "Grounding answers in clinic facts reduces unsupported replies and requires the retrieved content to stay current."
     ],
     futureImprovements: [
       "Global rate limiting across upstream services",
       "Automated evaluation pipeline for LLM quality"
     ],
     proofPoints: [
-      "About 60% of submitted ratings are 4–5 stars.",
-      "Lower-rated conversations drive routing, FAQ, and call-to-action fixes.",
-      "Booking details pass from the chat into the live clinic site."
+      "Crisis messages are handled by rules before any model runs.",
+      "PHI entered in free text is redacted, not only structured fields.",
+      "Booking details pass into the clinic site through a signed deep link."
     ]
   },
   experience: [
     {
       id: "animo-sano",
       company: "Animo Sano Psychiatry",
+      logo: "/logos/animo-sano-psychiatry.png",
+      companyUrl: "https://animosanopsychiatry.com/",
       title: "Software Engineer",
       date: "Jul 2025 – Present",
-      location: "North Carolina, USA",
+      location: "Remote — Raleigh, NC",
       isCurrent: true,
       overview:
-        "Built the patient-facing AI from scratch, and co-architected the multi-tenant EHR it sits on.",
+        "Built Hope from scratch and most of a multi-tenant EHR, including eligibility, claims, and e-prescribing.",
       highlights: [
-        "Designed and built a production RAG chatbot end-to-end, combining TF-IDF keyword retrieval with Gemini embedding search behind deterministic-first routing. Crisis messages and simple shortcuts are handled before generation; grounded, low-temperature prompts constrain answers to retrieved clinic facts.",
-        "Built redaction for PHI entered accidentally in free-text conversations, not only structured fields, and secured deep-link parameter passing from the chatbot into the main booking site.",
+        "Designed and built Hope end to end. Crisis messages and simple shortcuts are handled before generation. Retrieval uses keyword search and Gemini embeddings, then a low-temperature prompt constrained to retrieved clinic facts.",
+        "Redacts PHI entered in free text, not only structured fields, and passes booking details into the clinic site through a signed deep link.",
         "Diagnosed and fixed a race condition spanning the chatbot and the internal booking website.",
-        "Co-architected the EHR's microservice, multi-tenant architecture and delivered the majority of its implementation.",
-        "Managed integrations with Stedi for claims and eligibility and DoseSpot for e-prescribing.",
-        "Introduced structured feedback collection to guide iteration. About 60% of submitted ratings are 4–5 stars; lower-rated interactions drive targeted routing, FAQ, and call-to-action fixes."
+        "Designed a multi-tenant EHR and wrote most of the implementation: payer eligibility (270/271) into appointment-clearance, Stedi claims and remittance, and DoseSpot e-prescribing.",
+        "Introduced structured feedback collection. Lower-rated conversations inform changes to routing, FAQ content, and booking prompts."
       ],
       projects: []
     },
     {
       id: "nagarro",
       company: "Nagarro",
-      title: "SDE / Front-End Engineer",
+      logo: "/logos/nagarro.svg",
+      companyUrl: "https://www.nagarro.com/",
+      title: "Associate Software Engineer",
       date: "Jan 2022 – Aug 2023",
       location: "Gurgaon, India",
       isCurrent: false,
       overview:
-        "Front-end on two live-tracking products for Austrian clients — vehicle sharing on a 10-second map, and a 55-vehicle logistics dashboard.",
+        "Front-end engineer on two live-tracking products for Austrian clients: a shared-mobility Leaflet map refreshed every ten seconds over WebSockets, and a fleet dashboard covering 55 vehicles.",
       highlights: [
-        "Worked directly with business analysts to translate operational requirements into tracking and analytics interfaces."
+        "Worked with business analysts to turn operational requirements into tracking and analytics interfaces."
       ],
       projects: [
         {
-          title: "Shared mobility platform",
+          title: "Shared Mobility Accelerator",
+          href: "https://www.nagarro.com/en/industries/automotive/shared-mobility-accelerator",
           context: "Automotive client · EU",
           highlights: [
-            "Built the front end for a shared-mobility vehicle tracking platform, rendering live IoT location and status data on an interactive Leaflet map refreshed every 10 seconds via WebSockets.",
-            "Delivered the interface with React, Redux Thunk, Node.js, and Leaflet."
+            "Built the front end for a shared-mobility tracking platform: live IoT location and status on a Leaflet map, refreshed every 10 seconds over WebSockets.",
+            "Implemented in React, Redux Thunk, Node.js, and Leaflet."
           ]
         },
         {
           title: "Shipment tracking dashboard",
+          href: "",
           context: "Private logistics client",
           highlights: [
-            "Built the front end, with supporting backend work, for a live fleet dashboard covering 55 vehicles and filtering by region, vehicle number, and origin/destination.",
-            "Implemented ETA calculation and live location tracking from streamed IoT data across intercity and intra-city delivery routes."
+            "Built the front end, with supporting backend work, for a live fleet dashboard covering 55 vehicles, with filters by region, vehicle number, and origin or destination.",
+            "Implemented ETA calculation and live location from streamed IoT data on intercity and intra-city routes."
           ]
         }
       ]
     }
   ],
   educationResearch: {
-    title: "Education + Research",
-    credentials: "AWS Certified (2024)",
+    title: "Education",
+    credentials: "",
     items: [
       {
         title: "Purdue University",
-        subtitle: "M.S. Computer Science (2023–2025)",
-        date: "2023–2025",
+        subtitle: "M.S. Computer Science (Aug 2023 – May 2025)",
+        date: "Aug 2023 – May 2025",
         gpa: "4.0/4.0",
         courseTags: [
           "Distributed Systems",
           "Machine Learning",
           "Cloud Computing"
         ],
+        credential: "AWS Certified Cloud Practitioner (2024)",
         href: "",
-        points: []
-      },
-      {
-        title: "NDVI Vegetation Health Automation",
-        subtitle:
-          "Landsat-8 workflow, published as a Springer chapter, with a U.S. copyright registration.",
-        date: "",
-        gpa: "",
-        courseTags: [],
-        href: "https://link.springer.com/chapter/10.1007/978-981-16-8403-6_32",
-        points: []
+        points: [
+          "Graduate teaching assistant: Java and data structures, 40+ students."
+        ]
       }
     ]
   },
   contact: {
-    title: "Let's Connect",
-    microcopy:
-      "If you are hiring for AI engineering or full-stack work — especially product that has to be safe in production — I would like to hear from you.",
+    title: "Contact",
+    microcopy: "I build production software, currently in healthcare.",
     availability: "",
+    emailNote: "Email is the fastest way to reach me.",
     email: "rishwari.connect@gmail.com",
     linkedin: "https://www.linkedin.com/in/rishwari/",
     github: "https://github.com/rishwarii",

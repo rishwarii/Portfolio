@@ -26,8 +26,19 @@ export type Project = {
   highlights: ProjectHighlight[];
   // Optional live product URL. Only projects with a real deployment set this.
   liveUrl?: string;
+  liveLabel?: string;
+  figureCaption?: string;
+  showFigure?: boolean;
+  repoLinks?: {
+    label: string;
+    href: string;
+  }[];
   sections: Record<ProjectSectionKey, string[]>;
 };
+
+export function projectLiveLabel(project: Project): string {
+  return project.liveLabel ?? "Live site";
+}
 
 export const CASE_STUDY_SECTIONS: {
   key: ProjectSectionKey;
@@ -51,62 +62,71 @@ export function hasCaseStudy(project: Project): boolean {
   );
 }
 
+export function projectReadHref(project: Project): string | undefined {
+  if (hasCaseStudy(project)) {
+    return `/projects/${project.slug}`;
+  }
+
+  return project.highlights.find((highlight) => highlight.href)?.href;
+}
+
 const projects: Project[] = [
   {
     slug: "healthcare-ai-chatbot",
-    title: "Patient-facing AI for a psychiatry clinic",
+    title: "Hope — patient assistant at Animo Sano Psychiatry",
     summary:
-      "Clinic assistant with crisis-first routing, PHI redaction, and booking into the live site.",
+      "Clinic assistant for booking and common questions. Crisis routing before the model, PHI redaction, and booking into the clinic site.",
     tags: [
       "React",
       "FastAPI",
-      "LLM Safety"
+      "Cloud Run"
     ],
     thumbnail: "/images/projects/placeholder-1.svg",
-    diagram: true,
     featured: true,
+    showFigure: false,
     liveUrl: "https://animosanopsychiatry.com/",
+    liveLabel: "Clinic site",
+    figureCaption: "Hope",
     highlights: [
       {
-        text: "Combines TF-IDF keyword retrieval with Gemini embedding search behind a deterministic-first routing pipeline."
+        text: "Crisis messages are handled by rules before any model runs."
       },
       {
-        text: "Handles crisis messages before generation runs, while grounded, low-temperature prompting limits answers to retrieved clinic facts."
+        text: "PHI entered in free text is redacted, not only structured fields."
       },
       {
-        text: "Redacts PHI entered accidentally in free-text conversations and securely carries booking details into the main booking site."
+        text: "Booking details pass into the clinic site through a signed deep link."
       },
       {
-        text: "About 60% of submitted ratings are 4–5 stars; structured feedback drives targeted fixes to lower-rated interactions."
+        text: "Retrieval combines keyword search with Gemini embeddings, then a low-temperature prompt constrained to retrieved clinic facts."
       }
     ],
     sections: {
       overview: [
-        "Built for a psychiatry practice to support prospective and existing patients with booking guidance and common care questions.",
-        "The goal was reducing front-desk workload while maintaining reliable responses and safe escalation behavior in a sensitive domain."
+        "Built Hope for Animo Sano Psychiatry so patients can book appointments and find clinic information from the website.",
+        "When a message indicates crisis, rules handle it before any model runs, then the conversation goes to a person."
       ],
       problem: [
-        "Crisis messages required deterministic handling before any generative model could run.",
-        "Answers had to stay grounded in clinic information while protecting PHI entered in free text."
+        "Crisis messages must be handled by rules before generation.",
+        "Answers must stay grounded in clinic information. PHI entered in free text must be redacted."
       ],
       approach: [
-        "Combined TF-IDF keyword retrieval with Gemini embedding search behind deterministic-first routing.",
-        "Handled crisis messages and simple shortcuts before generation.",
-        "Constrained low-temperature generation to retrieved clinic facts.",
-        "Redacted PHI entered accidentally in free-text conversations.",
-        "Secured deep-link parameter passing from the chatbot into the main booking site."
+        "Crisis messages and simple shortcuts are handled before any generation runs.",
+        "Crisis detection uses both pattern matching and a classifier over PHI-redacted text.",
+        "Retrieval combines keyword search with Gemini embeddings, then a low-temperature prompt constrained to retrieved clinic facts.",
+        "The chatbot redacts PHI entered in free text, not only structured fields.",
+        "Booking details pass into the clinic site through a signed deep link."
       ],
       architecture: [
-        "Crisis/shortcut routing → TF-IDF + embedding retrieval → grounded generation → PHI-safe operations"
+        "Crisis and shortcut routing → keyword plus embedding retrieval → grounded generation → PHI-safe logging and booking"
       ],
       outcomes: [
-        "About 60% of submitted ratings are 4–5 stars.",
-        "Lower-rated conversations feed targeted routing, FAQ, and call-to-action fixes.",
-        "Integrated with the clinic's live booking site."
+        "Completed bookings pass from the chat into the clinic site.",
+        "Lower-rated conversations inform changes to routing, FAQ content, and booking prompts."
       ],
       tradeoffs: [
-        "Deterministic routing prioritizes safety and consistency over open-ended flexibility.",
-        "Grounded generation limits unsupported answers, while requiring continued retrieval-content maintenance."
+        "Handling crisis messages with rules before generation reduces flexibility and improves consistency where it is required.",
+        "Grounding answers in clinic facts reduces unsupported replies and requires the retrieved content to stay current."
       ]
     }
   },
@@ -114,20 +134,30 @@ const projects: Project[] = [
     slug: "campuscrew",
     title: "CampusCrew",
     summary:
-      "Student community with role-based forums and moderation workflows, so collaboration stays permissioned as it scales.",
+      "Student community with role-based forums and moderation. I contributed on the React front end and Supabase back end.",
     tags: [
       "React",
-      "Supabase",
-      "Moderation"
+      "Supabase"
     ],
     thumbnail: "/images/projects/campuscrew.png",
     featured: true,
-    highlights: [
+    figureCaption: "CampusCrew",
+    repoLinks: [
       {
-        text: "Role-based forums so students collaborate with the right permissions as the community grows."
+        label: "Front end",
+        href: "https://github.com/roh-it/campuscrew-fe"
       },
       {
-        text: "Moderation workflows for keeping discussion usable, not just open."
+        label: "Back end",
+        href: "https://github.com/roh-it/campuscrew-be"
+      }
+    ],
+    highlights: [
+      {
+        text: "Role-based forums so students collaborate with the appropriate permissions."
+      },
+      {
+        text: "Moderation workflows for threads that need review."
       },
       {
         text: "Built with React and Supabase."
@@ -169,17 +199,17 @@ const projects: Project[] = [
     slug: "ndvi-vegetation-health-automation",
     title: "NDVI Vegetation Health Automation",
     summary:
-      "Landsat-8 NDVI workflow, published in Springer, with a U.S. copyright registration.",
+      "Landsat-8 NDVI analysis. Springer chapter, with a U.S. copyright.",
     tags: [
       "Python",
-      "Remote Sensing",
-      "Research"
+      "Landsat-8"
     ],
     thumbnail: "/images/projects/ndvi.jpg",
     featured: true,
+    figureCaption: "NDVI",
     highlights: [
       {
-        text: "Automated Landsat-8 NDVI processing for vegetation-health analysis."
+        text: "Python pipeline for vegetation-health scoring from Landsat-8 NDVI."
       },
       {
         text: "Published as a Springer book chapter.",

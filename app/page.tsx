@@ -29,19 +29,23 @@ export default function HomePage() {
     <>
       <Hero />
 
-      <Section id="projects" className="chapter-rule" containerSize="reading" spacing="chapter">
+      <Section id="projects" className="chapter-rule projects-chapter" containerSize="reading" spacing="compact">
         <ChapterOpening
           roman={chapters.projects.roman}
           title={chapters.projects.title}
-          opener={chapters.projects.opener}
+          opener={
+            chapters.projects.opener.trim().length > 0
+              ? chapters.projects.opener
+              : undefined
+          }
         />
         {featuredProject ? (
-          <div className="mt-8">
-            <FeaturedWork project={featuredProject} figure={1} />
+          <div className="mt-6">
+            <FeaturedWork project={featuredProject} />
           </div>
         ) : null}
-        <div className="mt-14 border-t border-border pt-10">
-          <ProjectList projects={listedProjects} figureStart={2} />
+        <div className="mt-5 border-t border-border pt-5">
+          <ProjectList projects={listedProjects} figureStart={2} quiet />
         </div>
       </Section>
 
@@ -92,6 +96,11 @@ export default function HomePage() {
                   {item.courseTags.join(" · ")}
                 </p>
               ) : null}
+              {item.credential.trim().length > 0 ? (
+                <p className="mt-3 font-editorial text-lg italic text-mutedFg">
+                  {item.credential}
+                </p>
+              ) : null}
               {item.points.length > 0 ? (
                 <ul className="mt-6 space-y-2 font-editorial text-lg leading-relaxed text-mutedFg sm:text-xl">
                   {item.points.map((point) => (
@@ -113,7 +122,6 @@ export default function HomePage() {
         <ChapterOpening
           roman={chapters.contact.roman}
           title={chapters.contact.title}
-          opener={siteContent.contact.microcopy}
         />
         {siteContent.contact.availability.trim().length > 0 ? (
           <p className="mt-3 font-editorial text-xl italic text-mutedFg">
@@ -132,7 +140,7 @@ export default function HomePage() {
             alt=""
             width={220}
             height={420}
-            className="mb-8 h-auto w-28 origin-bottom-left sm:w-36"
+            className="mb-8 h-auto w-28 origin-bottom-left bg-transparent sm:w-36"
           />
           <Link
             href="/about"
@@ -142,7 +150,10 @@ export default function HomePage() {
               There&apos;s more to me than the résumé — books, paintings, and one
               very opinionated cat.
             </span>
-            <span aria-hidden="true" className="text-mutedFg">
+            <span
+              aria-hidden="true"
+              className="text-mutedFg transition-transform duration-300 ease-out group-hover:translate-x-1"
+            >
               →
             </span>
           </Link>

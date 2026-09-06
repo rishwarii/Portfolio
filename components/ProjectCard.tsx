@@ -3,7 +3,6 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Badge } from "@/components/Badge";
 import { Card } from "@/components/Card";
-import { ChatbotArchitecture } from "@/components/ChatbotArchitecture";
 import type { Project } from "@/lib/projects";
 import { cn } from "@/lib/cn";
 import { renderText } from "@/lib/renderText";
@@ -59,19 +58,13 @@ export function ProjectCard({
           aria-hidden="true"
           className="absolute inset-0 z-[1] bg-gradient-to-b from-white/28 via-transparent to-transparent opacity-75 dark:from-white/12"
         />
-        {project.diagram ? (
-          <div className="flex h-full w-full items-center justify-center p-5">
-            <ChatbotArchitecture />
-          </div>
-        ) : (
-          <Image
-            src={project.thumbnail}
-            alt={project.title}
-            fill
-            sizes={imageSizes}
-            className="object-cover transition duration-300 group-hover:scale-[1.03]"
-          />
-        )}
+        <Image
+          src={project.thumbnail}
+          alt={project.title}
+          fill
+          sizes={imageSizes}
+          className="object-cover transition duration-300 group-hover:scale-[1.03]"
+        />
         <div
           aria-hidden="true"
           className="absolute inset-0 z-[2] rounded-xl border border-white/26 dark:border-white/10"

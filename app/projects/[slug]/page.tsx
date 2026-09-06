@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ChatbotArchitecture } from "@/components/ChatbotArchitecture";
 import { Section } from "@/components/Section";
 import { SectionHeading } from "@/components/SectionHeading";
 import {
@@ -10,8 +9,10 @@ import {
   filledSectionParagraphs,
   getProjectBySlug,
   getProjects,
-  hasCaseStudy
+  hasCaseStudy,
+  projectLiveLabel
 } from "@/lib/projects";
+import { ChatbotArchitecture } from "@/components/ChatbotArchitecture";
 
 type ProjectDetailPageProps = {
   params: {
@@ -62,22 +63,18 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
       </Section>
 
       <Section className="pt-2" containerSize="reading">
+        {project.showFigure === false ? null : (
         <div className="relative aspect-[16/10] w-full overflow-hidden border border-border bg-muted/30">
-          {project.diagram ? (
-            <div className="flex h-full w-full items-center justify-center p-6">
-              <ChatbotArchitecture />
-            </div>
-          ) : (
-            <Image
-              src={project.thumbnail}
-              alt={project.title}
-              fill
-              sizes="(max-width: 1024px) 100vw, 42rem"
-              className="object-contain p-6"
-              priority
-            />
-          )}
+          <Image
+            src={project.thumbnail}
+            alt={project.title}
+            fill
+            sizes="(max-width: 1024px) 100vw, 42rem"
+            className="object-contain p-6"
+            priority
+          />
         </div>
+        )}
 
         {project.tags.length > 0 ? (
           <p className="mt-8 font-editorial text-sm italic text-mutedFg">
@@ -89,9 +86,19 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
           <div key={section.key} className="mt-12">
             <h2 className="font-editorial text-lg italic text-fg">{section.label}</h2>
             {section.key === "architecture" ? (
-              <p className="mt-5 font-editorial text-base leading-relaxed text-mutedFg sm:text-lg">
-                {section.paragraphs.join(" → ")}
-              </p>
+              <>
+                <p className="mt-5 font-editorial text-base leading-relaxed text-mutedFg sm:text-lg">
+                  {section.paragraphs.join(" → ")}
+                </p>
+                {project.slug === "healthcare-ai-chatbot" ? (
+                  <figure className="hope-architecture-figure mt-8">
+                    <ChatbotArchitecture />
+                    <figcaption className="novel-figure-caption">
+                      Figure. Hope
+                    </figcaption>
+                  </figure>
+                ) : null}
+              </>
             ) : (
               <div className="mt-5 space-y-3">
                 {section.paragraphs.map((paragraph) => (
@@ -141,9 +148,20 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               rel="noreferrer"
               className={linkClassName}
             >
-              Live site
+              {projectLiveLabel(project)}
             </a>
           ) : null}
+          {project.repoLinks?.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              target="_blank"
+              rel="noreferrer"
+              className={linkClassName}
+            >
+              {link.label}
+            </a>
+          ))}
 
           <Link href="/#projects" className={linkClassName}>
             Back to Selected Work

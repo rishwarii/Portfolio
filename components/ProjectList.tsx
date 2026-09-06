@@ -4,9 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import { ChatbotArchitecture } from "@/components/ChatbotArchitecture";
-import { ProjectModal } from "@/components/ProjectModal";
-import type { Project } from "@/lib/projects";
+import { projectReadHref, type Project } from "@/lib/projects";
 import { cn } from "@/lib/cn";
 import { renderText } from "@/lib/renderText";
 
@@ -14,6 +12,7 @@ type ProjectListProps = {
   projects: Project[];
   className?: string;
   figureStart?: number;
+  quiet?: boolean;
 };
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -29,21 +28,17 @@ function ProjectFigure({
     <span className="novel-figure">
       <span className="novel-figure-frame">
         <span className="novel-figure-media">
-          {project.diagram ? (
-            <ChatbotArchitecture />
-          ) : (
-            <Image
-              src={project.thumbnail}
-              alt=""
-              fill
-              sizes="(max-width: 767px) 90vw, 384px"
-              className="novel-figure-image"
-            />
-          )}
+          <Image
+            src={project.thumbnail}
+            alt=""
+            fill
+            sizes="(max-width: 767px) 90vw, (max-width: 1023px) 42vw, 28rem"
+            className="novel-figure-image"
+          />
         </span>
       </span>
       <span className="novel-figure-caption">
-        Figure {figure}. {project.title}
+        Figure {figure}. {project.figureCaption ?? project.title}
       </span>
     </span>
   );
@@ -52,11 +47,11 @@ function ProjectFigure({
 export function ProjectList({
   projects,
   className,
-  figureStart = 1
+  figureStart = 1,
+  quiet = false
 }: ProjectListProps) {
   const prefersReducedMotion = useReducedMotion();
   const [isMounted, setIsMounted] = useState(false);
-  const [activeProject, setActiveProject] = useState<Project | null>(null);
 
   useEffect(() => {
     setIsMounted(true);
@@ -78,42 +73,87 @@ export function ProjectList({
         }
       : {};
 
+  const figureBySlug = new Map<string, number>();
+  let nextFigure = figureStart;
+  for (const project of projects) {
+    if (project.showFigure !== false) {
+      figureBySlug.set(project.slug, nextFigure);
+      nextFigure += 1;
+    }
+  }
+
   return (
     <>
-      <ol className={cn("project-grid list-none p-0", className)}>
+      <ol className={cn("project-grid list-none p-0", quiet && "project-grid-quiet", className)}>
         {projects.map((project, index) => {
           const summary = renderText(project.summary);
-
-          return (
-            <motion.li key={project.slug} className="min-w-0" {...reveal(index)}>
-              <button
-                type="button"
-                onClick={() => setActiveProject(project)}
-                className="group flex h-full w-full flex-col text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
-              >
-                <span className="block font-novel text-[1.1rem] font-normal tracking-[-0.02em] text-fg transition-colors group-hover:text-accent">
-                  {project.title}
-                </span>
-                <span className="mt-2 line-clamp-2 block font-editorial text-sm leading-relaxed text-mutedFg">
-                  {summary.length > 0 ? summary : "Project summary coming soon."}
-                </span>
+          const readHref = projectReadHref(project);
+          const isExternal = Boolean(readHref && !readHref.startsWith("/"));
+          const body = (
+            <>
+              <span className="block font-novel text-[1.1rem] font-normal tracking-[-0.02em] text-fg transition-colors group-hover:text-accent">
+                {project.figureCaption ?? project.title}
+              </span>
+              {project.showFigure === false ? null : (
                 <ProjectFigure
                   project={project}
-                  figure={figureStart + index}
+                  figure={figureBySlug.get(project.slug) ?? figureStart}
                 />
+              )}
+              <span className="mt-2 line-clamp-2 block font-editorial text-sm leading-relaxed text-mutedFg">
+                {summary.length > 0 ? summary : "Project summary coming soon."}
+              </span>
+              {project.tags.length > 0 ? (
+                <span className="mt-2 block font-editorial text-sm italic text-mutedFg">
+                  {project.tags.join(" · ")}
+                </span>
+              ) : null}
+              {project.repoLinks && project.repoLinks.length > 0 ? (
+                <span className="mt-3 flex flex-wrap items-baseline gap-x-5 gap-y-1">
+                  {project.repoLinks.map((link) => (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="font-editorial text-sm italic text-mutedFg underline decoration-border decoration-1 underline-offset-4 transition-colors hover:text-fg hover:decoration-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </span>
+              ) : null}
+              {readHref ? (
                 <span className="mt-3 block font-editorial text-sm italic text-mutedFg transition-colors group-hover:text-accent">
                   Read →
                 </span>
-              </button>
+              ) : null}
+            </>
+          );
+          const rowClassName =
+            "group flex h-full w-full flex-col text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg";
+
+          return (
+            <motion.li key={project.slug} className="min-w-0" {...reveal(index)}>
+              {readHref ? (
+                <a
+                  href={readHref}
+                  className={rowClassName}
+                  {...(isExternal
+                    ? { target: "_blank", rel: "noreferrer" }
+                    : {})}
+                >
+                  {body}
+                </a>
+              ) : (
+                <div className="flex h-full w-full flex-col text-left">
+                  {body}
+                </div>
+              )}
             </motion.li>
           );
         })}
       </ol>
-
-      <ProjectModal
-        project={activeProject}
-        onClose={() => setActiveProject(null)}
-      />
     </>
   );
 }
@@ -140,7 +180,9 @@ export function ProjectIndex({ projects }: ProjectIndexProps) {
               <p className="mt-2 font-editorial text-base leading-relaxed text-mutedFg sm:text-lg">
                 {summary.length > 0 ? summary : "Project summary coming soon."}
               </p>
-              <ProjectFigure project={project} figure={index + 1} />
+              {project.showFigure === false ? null : (
+                <ProjectFigure project={project} figure={index + 1} />
+              )}
             </Link>
           </li>
         );

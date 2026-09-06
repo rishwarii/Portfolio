@@ -22,7 +22,7 @@ const spacingClassMap: Record<NonNullable<SectionProps["spacing"]>, string> = {
   default: "py-12 sm:py-14",
   hero: "pb-12 pt-14 sm:pb-16 sm:pt-16",
   leaf: "py-10 sm:py-12",
-  chapter: "py-20 sm:py-28 lg:py-36"
+  chapter: "py-12 sm:py-16 lg:py-20"
 };
 
 export function Section({
@@ -69,8 +69,8 @@ export function Section({
     <motion.section
       id={id}
       className={sectionClassName}
-      initial={{ y: 8 }}
-      whileInView={{ y: 0 }}
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.16, margin: "0px 0px -80px 0px" }}
       transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
     >

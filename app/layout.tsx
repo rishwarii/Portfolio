@@ -4,6 +4,7 @@ import { Fraunces, Inter, Libre_Baskerville, Newsreader } from "next/font/google
 import Script from "next/script";
 import { NavBar } from "@/components/NavBar";
 import { SiteFooter } from "@/components/SiteFooter";
+import { siteContent } from "@/lib/siteContent";
 import "./globals.css";
 
 // Body: Inter (stands in for Geist, unavailable via next/font/google here).
@@ -51,13 +52,13 @@ const newsreader = Newsreader({
   subsets: ["latin"],
   variable: "--font-newsreader",
   style: ["normal", "italic"],
-  weight: ["400", "500", "600"]
+  weight: ["400", "500", "600"],
+  adjustFontFallback: false
 });
 
 export const metadata: Metadata = {
   title: "Rishwari Ranjan | Portfolio",
-  description:
-    "Software engineer at a psychiatry practice, building the AI patients talk to and the record systems underneath it.",
+  description: siteContent.brand.role,
   icons: {
     icon: "/images/projects/placeholder-1.svg"
   }
@@ -115,11 +116,8 @@ export default function RootLayout({
   }
 })();`}</Script>
         <div className="grain-overlay" />
-        <div className="min-h-screen bg-bg">
-          <a
-            href="#main"
-            className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[80] focus:bg-bg focus:px-3 focus:py-2 focus:font-editorial focus:text-sm"
-          >
+        <div className="paper-ground min-h-screen bg-bg">
+          <a href="#main" className="skip-to-content">
             Skip to content
           </a>
           <div className="page-sheet">
